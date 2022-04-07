@@ -1,0 +1,97 @@
+{% extends 'base_template.html.twig' %}
+	
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('style/platform/homepage.css') }}" type="text/css" rel="stylesheet" media="all">
+{% endblock %}	
+	
+{% block main_content %}
+	
+	<div id="main_content">
+    	<section id="presentation_section"  style="background-image: url( {{ asset ('img/platform/homepage/presentation.jpg') }});
+    									min-height:900px;background-repeat:repeat;background-size:cover;height:100%; "  >
+    								
+    		
+    							
+    		
+    		<div id="description">					
+        		<p>Univertuel vous permet de créer, de gérer et d'organiser vos campagnes de jeux de rôles de A à Z.</p>
+        		<p>Il vous permet aussi de créer vos personnages sur les campagnes de vos amis.</p>
+        		<strong><p>Vous ne connaissez pas?<p></strong>
+        		
+        	</div>
+    	
+        	<span id="registration">
+        		<a href={{ path ('registration') }}><button>Créez vôtre compte</button></a>
+        	</span>
+    	
+    	</section>
+    	
+    	<section id="news_section">
+    		
+    		<span id="section_title">
+    			<h2>actualités
+    			</h2>
+    		</span>
+    		
+    		<span id="news_section_layout">
+    		{#
+    		{% for news in list_news %}
+    		//inser here below code
+    		{% endfor %}
+    		#}
+    		{% include 'platform/homepage/news.html.twig' %}
+    		{% include 'platform/homepage/news.html.twig' %}
+    		{% include 'platform/homepage/news.html.twig' %}
+    		
+    		
+    		</span>
+    		
+    	</section>
+    	
+    	<section id="features_section">
+    	
+    		<div id="layout_blocs">
+    			<article class="bloc" style="background-image: url( {{ asset ('img/platform/homepage/features1.jpg') }});  
+    								min-height:600px;background-repeat:no-repeat;background-size:cover; " id="bloc_player"> 
+    								
+    				<ul class="features_list" ><h3>fonctionnalités pour les joueurs</h3>
+    					<li>rejoindre une campagne et y créer un ou plusieurs personnages</li>
+    					<li>une création de personnage automatisée </li>
+    					<li>modifier le personnage selon les autorisations du maître de jeu dans et en dehors d'une partie</li>
+    					<li>faire participer leur personnage au scenario préparé par le maître de jeu</li>
+    					<li>lors des parties, effectuer les lancés de dès requis sur sa feuille de personnage</li>
+    					<li>accéder aux diverses informations de la campagne</li>
+    					<li>prendre des notes sur le scénarios en cours et les sauvegarder dans la campagne</li>
+    					<li><a href="">et bien plus encore...</a></li>
+    				</ul>
+    			</article>
+    			<article class="bloc" id="master" style="background-image: url( {{ asset ('img/platform/homepage/features2.jpg') }});  
+    								min-height:600px;background-repeat:no-repeat;background-size:cover; " id="bloc_master">
+    				
+    				<ul class="features_list" ><h3>fonctionnalités pour les maîtres de jeu</h3>
+    					<li>créér une campagne de jeu</li>
+    					<li>gérer le suivi des personnages joueurs tout au long de la campagne</li>
+    					<li>personnaliser des éléments de la fiche de personnage </li>
+    					<li>créer plus facilement des scénarios grace au système d'aide</li>
+    					<li>partagez avec vos joueurs des éléments de jeu de votre campagne</li>
+    					<li>créer vos pnj de manière automatique et rapide</li>
+    					<li><a href="">et bien plus encore...</a></li>
+    				</ul>
+    			</article>
+    		</div>
+    	
+    		<div id="features_community_zone">
+    			<p>rejoignez la communuté des rôlistes</p><a href={{ path ('registration') }}><button>creéz vôtre compte</button></a>
+    		</div>
+    	</section>
+    	
+    	<section>
+    	
+    	</section>
+
+</div>
+
+{% endblock %}
+
+

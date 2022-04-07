@@ -1,0 +1,82 @@
+{################################################################################################################## 
+    name      : login.html.twig
+    Role      : form template for authentication 
+    author    : tristesire
+    date      : 25/02/2021  
+###################################################################################################################}
+
+{% extends 'base_template.html.twig' %}
+
+{% block title %}
+
+	Log in!
+
+{% endblock %}
+
+
+{% block stylesheets %}
+
+	{{ parent () }}
+	<link rel="stylesheet" type="text/css" href="{{ asset('style/platform/form_login.css') }}" media="all">
+
+{% endblock %}
+
+
+{% block main_content %}
+
+    <div class="form_layout">
+
+    
+    
+        <form method="post">
+        
+        <h1 class="page_label">authentication</h1>
+           
+            {% if app.user %}
+            
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+                </div>
+                
+            {% endif %}
+        
+            <div>
+            	<label for="inputEmail">Email</label><input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+            </div>
+            <div>
+            	<label for="inputPassword">Password</label><input type="password" name="password" id="inputPassword" class="form-control" required>
+            </div>
+        
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+        
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+            #}
+        
+            <button  type="submit">
+                se connecter
+            </button>
+            
+            
+             {% if error %}
+                
+                    <div class="form_alert">
+                        <p>les identifiants ne correspondent pas à un compte valide</p>
+                    </div>
+                    <div id="login_other_options"><a href={{ path('registration') }}>creer un compte</a><a href="">mot de passe oublié</a></div>
+                    
+        	{% endif %}            
+            
+    	</form>
+ 
+    	
+	</div>
+
+{% endblock %}

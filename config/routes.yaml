@@ -1,3 +1,147 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+########## PLATFORM ##########
+
+index:
+    path: /
+    controller: App\Controller\Platform\PlatformController::homepage
+
+homepage:
+    path: /homepage
+    controller: App\Controller\Platform\PlatformController::homepage
+    
+member_homepage:
+    path: /member/homepage
+    controller: App\Controller\Platform\PlatformController::memberHomepage    
+
+
+########## USER ##########
+
+login:
+    path: /login
+    controller: App\Controller\User\SecurityController::login
+
+registration:
+    path: /registration
+    controller: App\Controller\User\RegistrationController::registration
+
+logout:
+    path: /logout
+    
+    
+profile:
+    path: /member/profile
+    controller: App\Controller\User\ProfileController::profile
+    
+########## ADMIN ##########
+
+admin:
+    path: /admin/homepage
+    controller: App\Controller\Platform\PlatformController::adminHomepage
+
+setup_prophecy:
+    path: /admin/setup-prophecy
+    controller: App\Controller\Platform\PlatformController::setupProphecy
+    
+    
+new_game:
+    path: /admin/new-game
+    controller: App\Controller\Game\GameController::new  
+    
+########## GAME ##########
+####### PROPHECY #######      
+## CASTE ##
+create_caste:
+    path: /admin/new-caste
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newCaste
+
+create_benefit:
+    path: /admin/new-benefit
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newBenefit
+
+create_status:
+    path: /admin/new-status
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newStatus
+
+create_prohibited:
+    path: /admin/new-prohibited
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newProhibited
+
+create_favour:
+    path: /admin/new-favour
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newFavour
+
+create_technic:
+    path: /admin/new-technic
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newTechnic
+
+## CHARACTERISTIC ##
+create_advantage_category:
+    path: /admin/new-advantage-category
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAdvantageCategory
+
+create_advantage:
+    path: /admin/new-advantage
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAdvantage
+
+create_caracteristic:
+    path: /admin/new-caracteristic
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newCaracteristic
+
+create_age:
+    path: /admin/new-age
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAge
+
+create_disadvantage:
+    path: /admin/new-disadvantage
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newDisadvantage
+
+create_omen:
+    path: /admin/new-omen
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newOmen
+    
+create_major_attribute:
+    path: /admin/new-major-attribute
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newMajorAttribute
+    
+create_minor_attribute:
+    path: /admin/new-minor-attribute
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newMinorAttribute        
+    
+create_skill_category:
+    path: /admin/new-skill-category
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newSkillCategory    
+    
+create_tendency:
+    path: /admin/new-tendency
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newTendency    
+        
+create_skill:
+    path: /admin/new-skill
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newSkill   
+    
+## WORLD ##    
+create_currency:
+    path: /admin/new-currency
+    controller: App\Controller\Game\Prophecy\Game\World\WorldController::newCurrency       
+    
+create_nation:
+    path: /admin/new-nation
+    controller: App\Controller\Game\Prophecy\Game\World\WorldController::newNation 
+    
+## ITEM ##
+create_weapon_category:
+    path: /admin/new-weapon-category
+    controller: App\Controller\Game\Prophecy\Game\Item\ItemController::newWeaponCategory
+    
+create_armor_category:
+    path: /admin/new-armor-category
+    controller: App\Controller\Game\Prophecy\Game\Item\ItemController::newArmorCategory
+    
+create_shield:
+    path: /admin/new-shield
+    controller: App\Controller\Game\Prophecy\Game\Item\ItemController::newShield
+    
+    
+    
+    
+    
+    

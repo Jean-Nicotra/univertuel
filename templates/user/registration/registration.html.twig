@@ -1,0 +1,44 @@
+{################################################################################################################## 
+    name      : register.html.twig
+    Role      : form template for creating new user account 
+    author    : tristesire
+    date      : 21/03/2022  
+###################################################################################################################}
+
+{% extends 'base_template.html.twig' %}
+
+{% block title %}Register page{% endblock %}
+
+{% block stylesheets %}
+
+    {{ parent () }}
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/form.css') }}">
+
+{% endblock %}
+
+{% block main_content %}
+
+	<div class="form_layout">
+	
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1 class="page_label">Register</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.username, {'label' : 'nom d\'utilisateur'}) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'mot de passe'
+        }) }}
+       {{ form_row(registrationForm.agreeTerms, {'label': 'accepter les conditions d\'utilisation'}) }} 
+       <a href="{{ asset('cgu/cgu.html') }}" target="_blank">voir conditions</a>
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+    
+    </div>
+    
+{% endblock %}

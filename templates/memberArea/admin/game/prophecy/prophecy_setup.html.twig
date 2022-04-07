@@ -1,0 +1,58 @@
+{% extends 'memberArea/admin/homepage.html.twig' %}
+
+{% block component_game %}
+
+{% endblock %}
+	
+{% block game_setup %}
+	 
+	<ul>Castes:
+		<li><a href="{{ path('create_caste') }}">castes</a></li>
+		<li><a href="{{ path('create_status') }}">status</a></li>
+		<li><a href="{{ path('create_benefit') }}">bénéfices</a></li>
+		<li><a href="{{ path('create_prohibited') }}">interdits</a></li>
+		<li><a href="{{ path('create_favour') }}">privilèges</a></li>
+		<li><a href="{{ path('create_technic') }}">techniques</a></li>
+	</ul>
+	
+	<ul>Caractéristiques du personnage
+		<li><a href="{{ path('create_advantage_category') }}">catégorie d'avantage</a></li>
+		<li><a href="{{ path('create_age') }}">age</a></li>
+		<li><a href="{{ path('create_advantage') }}">avantages</a></li>
+		<li><a href="{{ path('create_caracteristic') }}">caractéristiques</a></li>
+		<li><a href="{{ path('create_disadvantage') }}">désavantages</a></li>
+		<li><a href="{{ path('create_omen') }}">Augures</a></li>
+		<li><a href="{{ path('create_major_attribute') }}">Attributs majeurs</a></li>
+		<li><a href="{{ path('create_minor_attribute') }}">Attributs mineurs</a></li>
+		<li><a href="{{ path('create_skill_category') }}">Categorie de competence</a></li>
+		<li><a href="{{ path('create_skill') }}">Compétences</a></li>
+		<li><a href="{{ path('create_tendency') }}">Tendances</a></li>
+		<li><a href="">blessures</a></li>
+	</ul>
+	
+	<ul>Inventaire 
+		<li><a href="{{ path('create_weapon_category') }}">catégorie d'arme</a></li>
+		<li><a href="{{ path('create_armor_category') }}">catégorie d'armure</a></li>
+		<li><a href="{{ path('create_shield') }}">bouclier</a></li>	
+		<li><a href="">armures</a></li>
+		<li><a href="">armes</a>
+	</ul>
+	
+	<ul>Magie
+		<li><a href="">Disciplines</a></li>
+		<li><a href="">Spheres</a></li>
+		<li><a href="">Sorts</a></li>
+	</ul>
+	
+	<ul>Monde
+		<li><a href="{{ path('create_nation') }}">pays</a></li>
+		<li><a href="{{ path('create_currency') }}">monnaie</a></li>
+	</ul>
+{% endblock %}
+
+
+	
+	
+
+	
+	
