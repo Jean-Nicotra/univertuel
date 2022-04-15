@@ -1,10 +1,16 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : StatsInitController.php
+ Role      : Controller for figure initialisation objects and views for Prophecy game
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Controller\Game\Prophecy\Game;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Game\Prophecy\Game\ProphecyXPIncrease;
 use App\Form\Game\Prophecy\Game\ProphecyXPIncreaseFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +19,12 @@ use App\Form\Game\Prophecy\Game\ProphecyStartCaracteristicsFormType;
 
 class StatsInitController extends AbstractController
 {
+    /**
+     * role: display the form to setup player's xp progession in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newXPIncrease(Request $request)
     {
         $xpincrease = new ProphecyXPIncrease();
@@ -27,17 +39,22 @@ class StatsInitController extends AbstractController
                 $xpincrease->setCampaign(null);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($xpincrease);
-            
+            $entityManager->persist($xpincrease);            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to setup caracter starting caracteristics in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newStartCaracteristics(Request $request)
     {
         $caracteristics = new ProphecyStartCaracteristic();
@@ -51,12 +68,12 @@ class StatsInitController extends AbstractController
             {
                 $caracteristics->setCampaign(null);
             }
+            
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($caracteristics);
-            
+            $entityManager->persist($caracteristics); 
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         

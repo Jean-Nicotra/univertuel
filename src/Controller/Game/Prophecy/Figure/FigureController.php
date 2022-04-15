@@ -1,10 +1,16 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : FigureController.php
+ Role      : Controller for all figure routes in Prophecy game only. Please, create one FigureController by game
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Controller\Game\Prophecy\Figure;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Game\Prophecy\Figure\ProphecyFigureRepository;
 use App\Entity\User\User;
@@ -14,9 +20,7 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureMinorAttribute;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureTendency;
-use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill;
-use Doctrine\ORM\Query\Expr\OrderBy;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureWound;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureDiscipline;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere;

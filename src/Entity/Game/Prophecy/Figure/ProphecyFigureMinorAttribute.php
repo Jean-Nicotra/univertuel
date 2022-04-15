@@ -1,5 +1,12 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : ProphecyFigureMinorAttribute.php
+ Role      : Entity describe relation between a figure and MinorAttribute in Prophecy game
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Entity\Game\Prophecy\Figure;
 
 use App\Repository\Game\Prophecy\Figure\ProphecyFigureMinorAttributeRepository;

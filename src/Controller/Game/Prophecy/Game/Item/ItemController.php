@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Controller\Game\Prophecy\Game\Item;
+/*******************************************************************************************************************
+ name      : ItelController.php
+ Role      : Controller for all items objects and views for Prophecy game
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
 
+namespace App\Controller\Game\Prophecy\Game\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\Item\ProphecyWeaponCategory;
 use App\Form\Game\Prophecy\Game\Item\ProphecyWeaponCategoryFormType;
@@ -19,6 +24,12 @@ use App\Form\Game\Prophecy\Game\Item\ProphecyWeaponFormType;
 
 class ItemController extends AbstractController
 {
+    /**
+     * role: display the form to create new weapon category type in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newWeaponCategory(Request $request)
     {
         $title = "Nouvelle catégorie d'arme";
@@ -35,16 +46,21 @@ class ItemController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+      
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new armor category type in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newArmorCategory(Request $request)
     {
         $title = "Nouvelle catégorie d'armure";
@@ -61,16 +77,21 @@ class ItemController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new shield in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newShield(Request $request)
     {
         $title = "Nouveau bouclier";
@@ -87,16 +108,21 @@ class ItemController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($shield);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new armor in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newArmor(Request $request)
     {
         $title = "Nouvelle Armure";
@@ -112,17 +138,22 @@ class ItemController extends AbstractController
                 $armor->setCampaign(null);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($armor);
-            
+            $entityManager->persist($armor);     
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+     
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new weapon in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newWeapon(Request $request)
     {
         $title = "Nouvelle Arme";
@@ -138,11 +169,10 @@ class ItemController extends AbstractController
                 $weapon->setCampaign(null);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($weapon);
-            
+            $entityManager->persist($weapon);     
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+         
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         

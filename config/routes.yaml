@@ -1,3 +1,28 @@
+############################################################   
+#    name      : routes.yaml
+#    Role      : routes list of the app.
+#    author    : tristesire
+#    date      : 18/03/2022
+#
+#     platform
+#     user
+#     member 
+#       messages
+#       figure
+#       campaign
+#     admin
+#     game
+#     prophecy
+#       caste
+#       characteristic
+#       world
+#       item
+#       magic
+#       start stats
+#
+############################################################
+        
+    
 ########## PLATFORM ##########
 
 index:

@@ -12,7 +12,6 @@ use App\Repository\Campaign\CampaignRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Game;
 use App\Entity\User\User;
-use phpDocumentor\Reflection\Types\Integer;
 
 
 /**
@@ -29,30 +28,35 @@ class Campaign
     private $id;
     
     /**
+     * identify a campaign by name
      * @ORM\Column(type="string", length=120)
      * 
      */
     private $name;
     
     /**
+     * user who own the campaign and created it
      * @ORM\ManyToOne(targetEntity="App\Entity\User\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
     
     /**
+     * game which is link to. Can't create a campaign out of a game
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Game")
      * @ORM\JoinColumn(nullable=false)
      */
     private $game;
     
     /**
+     * some words to describe the campaign
      * @ORM\Column(type="text", length=5000)
      *
      */
     private $description;
     
     /**
+     * for future use to secure figure creation
      * @ORM\Column(type="integer")
      */
     private $secretCode;
@@ -142,6 +146,7 @@ class Campaign
     
     /**
      * @param mixed $secretCode
+     * range 100000-999999
      */
     public function setSecretCode(): self
     {

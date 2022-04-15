@@ -111,6 +111,10 @@ class ProphecyBenefit
         $this->description = $description;
     }
 
+    /**
+     * 
+     * @return int|NULL
+     */
     public function getId(): ?int
     {
         return $this->id;

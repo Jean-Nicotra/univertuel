@@ -6,7 +6,7 @@ use App\Repository\Game\Prophecy\Game\StartCaracteristicRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Campaign\Campaign;
   
-/**
+/** 
  * @ORM\Entity(repositoryClass=StartCaracteristicRepository::class)
  */
 class ProphecyStartCaracteristic

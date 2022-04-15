@@ -1,5 +1,12 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : RegistrationController.php
+ Role      : Controller for user registration
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Controller\User;
 
 use App\Entity\User\User;
@@ -8,28 +15,32 @@ use App\Security\TokenAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
-
-
 class RegistrationController extends AbstractController
 {
-
+    /**
+     * role: display form registration and register user
+     * 
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler $guardHandler
+     * @param SluggerInterface $slugger
+     * @param TokenAuthenticator $authenticator
+     * @return Response
+     */
     public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, 
         SluggerInterface $slugger, TokenAuthenticator $authenticator): Response
     {
         $user = new User();
-        $user->setRoles(['ROLE_MEMBER']);
         $form = $this->createForm(\App\Form\User\RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -41,7 +52,6 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

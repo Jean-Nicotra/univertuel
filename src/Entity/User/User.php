@@ -57,27 +57,46 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->setRoles('ROLE_MEMBER');
         $this->setIsActive(true);
         //$this->setCreaDate(new \DateTime());
     }
     
+    /**
+     * 
+     * @return int|NULL
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * 
+     * @return string|NULL
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * 
+     * @param string $email
+     * @return self
+     */
     public function setEmail(string $email): self
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
 
         return $this;
     }
     
+    /**
+     * role: used to identify the user and turn object user into string.
+     * 
+     * @return string|NULL
+     */
     public function __toString(): ?string
     {
         return $this->username;
@@ -85,6 +104,8 @@ class User implements UserInterface
 
     /**
      * 
+     * {@inheritDoc}
+     * @see \Symfony\Component\Security\Core\User\UserInterface::getRoles()
      */
     public function getRoles(): ?array
     {
@@ -104,7 +125,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string) $this->username;
+        return (string) ucfirst($this->username);
     }
 
     /**
@@ -123,9 +144,8 @@ class User implements UserInterface
 
     /**
      * 
-     *
-     *
-     * 
+     * {@inheritDoc}
+     * @see \Symfony\Component\Security\Core\User\UserInterface::getPassword()
      */
     public function getPassword(): string
     {
@@ -181,11 +201,22 @@ class User implements UserInterface
     }
     */
 
+    /**
+     * role: if user is active or not
+     * 
+     * @return bool|NULL
+     */
     public function getIsActive(): ?bool
     {
         return $this->isActive;
     }
 
+    /**
+     * role: to active or inactive a user. Admin can turn off or turn on
+     * 
+     * @param bool $isActive
+     * @return self
+     */
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
@@ -193,9 +224,15 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * role: username to identify user on platform univertuel. Must be unique
+     * 
+     * @param string $username
+     * @return self
+     */
     public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->username = strtolower($username);
 
         return $this;
     }

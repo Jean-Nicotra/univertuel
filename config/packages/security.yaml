@@ -1,4 +1,14 @@
+###########################################################################   
+#    name      : security.yaml
+#    Role      : describe all security components of univertuel app
+#    author    : tristesire
+#    date      : 18/03/2022
+#
+###########################################################################     
+
 security:
+
+    # custom user class, algorith is used for password hash, option: auto for auto select  
     encoders:
         App\Entity\User\User:
             algorithm: auto
@@ -6,6 +16,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
+        # user is defined by property email
         app_user_provider:
             entity:
                 class: App\Entity\User\User
@@ -37,10 +48,17 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/member, roles: ROLE_MEMBER }
-         - { path: ^/writer, roles: ROLE_WRITER  }
+         - { path: ^/staff, roles: ROLE_STAFF  }
+         - { path: ^/sadmin, roles: ROLE_SADMIN }
+    
+    # univertuel get 4 users : 
+    # - member for a simple user
+    # - staff to manage games and various content
+    # - admin to manage the whole app
+    # - sadmin whose are the app dev
         
     role_hierarchy:
-        ROLE_WRITER : ROLE_MEMBER
+        ROLE_STAFF : ROLE_MEMBER
         ROLE_ADMIN  : ROLE_WRITER
         ROLE_SADMIN : ROLE_ADMIN    
         

@@ -1,18 +1,29 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : CampaignController.php
+ Role      : Controller for all campaign routes
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Controller\Campaign;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\Campaign\CampaignRepository;
 use App\Entity\Campaign\Campaign;
 use App\Form\Campaign\CampaignFormType;
 
 class CampaignController extends AbstractController
 {
-    public function campaigns(Request $request)
+    
+    /**
+     * role : display list of all your own campaigns  
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function campaigns()
     {
         $user = $this->getUser();
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');
@@ -21,6 +32,12 @@ class CampaignController extends AbstractController
         return $this->render('memberArea/campaign/campaigns.html.twig', ['campaigns' => $campaigns]);
     }
     
+    /**
+     * role : form to create a new campaign
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newCampaign(Request $request)
     {
         $user = $this->getUser();
@@ -34,9 +51,7 @@ class CampaignController extends AbstractController
         {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($campaign);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
             return $this->redirectToRoute('member_homepage');
         }
@@ -44,6 +59,12 @@ class CampaignController extends AbstractController
         return $this->render('memberArea/campaign/form_campaign.html.twig', ['form' => $form->createView(),]);
     }
     
+    /**
+     * role : display content of your own campaign
+     * 
+     * @param Campaign $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function viewCampaign($id)
     {
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');
@@ -52,7 +73,12 @@ class CampaignController extends AbstractController
         return $this->render('memberArea/campaign/campaign.html.twig', ['campaign' => $campaign]);
     }
     
-    public function findCampaigns(Request $request)
+    /**
+     * role : display a list of all available campaigns
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function findCampaigns()
     {
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');
         $campaigns = $campaignRepository->findAll();
@@ -60,6 +86,12 @@ class CampaignController extends AbstractController
         return $this->render('memberArea/campaign/all_campaigns.html.twig', ['campaigns' => $campaigns]);
     }
     
+    /**
+     * role : display description of a campaign, access to the asking invitation to join campaign
+     * 
+     * @param Campaign $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function seeOtherCampaign($id)
     {
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');

@@ -1,10 +1,16 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : CharacteristicController.php
+ Role      : Controller for all caracteristic objects and views for Prophecy game
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Controller\Game\Prophecy\Game\Characteristic;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategoryFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
@@ -33,7 +39,12 @@ use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundFormType;
 
 class CharacteristicController extends AbstractController
 {
-       
+    /**
+     * role: display the for to create new advantage category in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */   
     public function newAdvantageCategory(Request $request)
     {
         $title = "Nouvelle catégorie d'avantage et inconvénient";
@@ -46,16 +57,21 @@ class CharacteristicController extends AbstractController
         {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new advantage in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newAdvantage(Request $request)
     {
         $title = "Nouvel avantage";
@@ -68,16 +84,21 @@ class CharacteristicController extends AbstractController
         {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($advantage);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+           
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * display the form to create new caracteristic in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newCaracteristic(Request $request)
     {
         $title = "Nouvelle caractéristique";
@@ -94,16 +115,21 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($caracteristic);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+          
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new age in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newAge(Request $request)
     {
         $title = "Nouvel âge";
@@ -120,16 +146,21 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($age);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+         
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new disadvantage in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newDisadvantage(Request $request)
     {
         $title = "Nouvel inconvénient";
@@ -144,18 +175,24 @@ class CharacteristicController extends AbstractController
             {
                 $disadvantage->setCampaign(null);
             }
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($disadvantage);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
-    
+
+    /**
+     * display the form to create new omen in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newOmen(Request $request)
     {
         $title = "Nouvel augure";
@@ -168,17 +205,21 @@ class CharacteristicController extends AbstractController
         {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($omen);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
-    
+    /**
+     * role: display the form to create new major attribute in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */    
     public function newMajorAttribute(Request $request)
     {
         $title = "Nouvel attribut majeur";
@@ -195,16 +236,21 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($majorAttribute);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new minor attribute in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newMinorAttribute(Request $request)
     {
         $title = "Nouvel attribut mineur";
@@ -221,16 +267,21 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($minorAttribute);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
-    
+
+    /**
+     * role: display the form to create new skill category in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newSkillCategory(Request $request)
     {
         $title = "Nouvelle catégorie de compétence";
@@ -243,16 +294,21 @@ class CharacteristicController extends AbstractController
         {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
-    
+
+    /**
+     * role: display the form to create new tendency in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newTendency(Request $request)
     {
         $title = "Nouvelle tendence";
@@ -269,16 +325,21 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tendency);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+ 
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new skill in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newSkill(Request $request)
     {
         $title = "Nouvelle compétence";
@@ -295,16 +356,21 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($skill);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new wound type in Prophecy game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newWound(Request $request)
     {
         $title = "Nouveau type de blessure";
@@ -321,10 +387,9 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($wound);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
-            
+
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         

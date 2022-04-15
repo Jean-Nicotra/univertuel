@@ -1,10 +1,16 @@
 <?php
 
+/*******************************************************************************************************************
+ name      : MagicController.php
+ Role      : Controller for all caste objects and views for Prophecy game
+ author    : tristesire
+ date      : 18/03/2022
+ *******************************************************************************************************************/
+
 namespace App\Controller\Game\Prophecy\Game\Magic;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline;
 use App\Form\Game\Prophecy\Game\Magic\ProphecyDisciplineFormType;
@@ -15,6 +21,12 @@ use App\Form\Game\Prophecy\Game\Magic\ProphecySpellFormType;
 
 class MagicController extends AbstractController
 {
+    /**
+     * role: display the form to create new magic discipline in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newDiscipline(Request $request)
     {
         $title = "Nouvelle Discipline";
@@ -31,16 +43,21 @@ class MagicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($discipline);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new magic sphere in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newSphere(Request $request)
     {
         $title = "Nouvelle Sphere";
@@ -56,17 +73,22 @@ class MagicController extends AbstractController
                 $sphere->setCampaign(null);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($sphere);
-            
+            $entityManager->persist($sphere);          
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
     }
     
+    /**
+     * role: display the form to create new magic spell in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newSpell(Request $request)
     {
         $title = "Nouveau sort";
@@ -83,10 +105,9 @@ class MagicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($spell);
-            
             $entityManager->flush();
-            // do anything else you need here, like send an email
             
+            //return to create content Prophecy if ok
             return $this->redirectToRoute('setup_prophecy');
         }
         

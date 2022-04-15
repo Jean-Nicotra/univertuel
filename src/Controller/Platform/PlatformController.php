@@ -12,13 +12,11 @@ namespace App\Controller\Platform;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-
-
 class PlatformController extends AbstractController
 {
 
     /**
-     * Role : display homepage of application 
+     * Role : display homepage view of application 
      * 
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -27,24 +25,41 @@ class PlatformController extends AbstractController
         return $this->render('platform/homepage/homepage.html.twig', []);
     }
     
-    //afficher des liens pour des demandes/invitations e attente, ...
+    /**
+     * role: display homepage member view
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function memberHomepage()
     {
         return $this->render('memberArea/homepage.html.twig', ['page_label' => 'panneau de controle']);
     }
     
-    
-    //afficher des liens pour des demandes/invitations e attente, ...
+    /**
+     * role: display admin homepage view
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function adminHomepage()
     {
         return $this->render('memberArea/admin/homepage.html.twig', []);
     }
     
+    /**
+     * role: display homepage view to create content for Prophecy game 
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function setupProphecy ()
     {
         return $this->render('memberArea/admin/game/prophecy\prophecy_setup.html.twig');
     }
     
+    /**
+     * display features platform univertuel template 
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function features()
     {
         return $this->render('platform/features/features.html.twig');

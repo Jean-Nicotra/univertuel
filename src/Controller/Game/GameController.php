@@ -1,8 +1,9 @@
 <?php
 
 /*******************************************************************************************************************
-    name      : PlatformController.php
-    Role      : Controller for all platform objects and views
+    name      : GameController.php
+    Role      : Controller for all game objects and views : by game, it is intended generic games, not a 
+                specific game
     author    : tristesire
     date      : 18/03/2022
 *******************************************************************************************************************/
@@ -20,22 +21,24 @@ use App\Form\Game\GameFormType;
 class GameController extends AbstractController
 {
 
+    /**
+     * role: this is entend to create a new game
+     * 
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
    public function new(Request $request)
    {
        $game = new Game();
-       $game->setName("jean");
        $form = $this->createForm(GameFormType::class, $game);
        
        $form->handleRequest($request);
        
        if ($form->isSubmitted() && $form->isValid())
        {
-           //$game = $form->getData();
            $entityManager = $this->getDoctrine()->getManager();
            $entityManager->persist($game);
-           
            $entityManager->flush();
-           // do anything else you need here, like send an email
            
            return $this->redirectToRoute('member_homepage');
        }
@@ -43,6 +46,11 @@ class GameController extends AbstractController
        return $this->render('memberArea/admin/game/form_game.html.twig', ['form' => $form->createView(),]);
    }
    
+   /**
+    * role: display the complete list of available games
+    * 
+    * @return \Symfony\Component\HttpFoundation\Response
+    */
    public function games()
    {
        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');

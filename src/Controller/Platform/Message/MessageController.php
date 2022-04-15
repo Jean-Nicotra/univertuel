@@ -16,7 +16,11 @@ use App\Form\Platform\Message\SendCampaignInvitationFormType;
 
 class MessageController extends AbstractController
 {
-
+    /**
+     * role: display all member private messages
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function messages()
     {
         $user = $this->getUser();
@@ -25,7 +29,13 @@ class MessageController extends AbstractController
 
         return $this->render('memberArea/message/messages.html.twig', ['messages' => $messages]);
     }
-    
+
+    /**
+     * role: create a new message
+     * 
+     * @param Request $request
+     * @return Response
+     */
     public function newMessage(Request $request): Response
     {
         $thread = new Thread();
@@ -57,7 +67,13 @@ class MessageController extends AbstractController
         
         return $this->render('memberArea/message/form_message_new.html.twig', ['form' => $form->createView()]);    
     }
-    
+
+    /**
+     * role: delete a message by id Thread
+     * 
+     * @param \Thread $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function deleteMessage ($id)
     {
         $threadRepository = $this->getDoctrine()->getRepository('App\Entity\Platform\Message\Thread');
@@ -78,7 +94,14 @@ class MessageController extends AbstractController
         
         return $this->render('memberArea/message/messages.html.twig', ['messages' => $messages]);
     }
-    
+
+    /**
+     * role: send a new message in a thread messages
+     * 
+     * @param \Thread $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function messageResponse($id, Request $request)
     {
         $threadRepository = $this->getDoctrine()->getRepository('App\Entity\Platform\Message\Thread');
@@ -120,6 +143,13 @@ class MessageController extends AbstractController
         return $this->render('memberArea/message/form_message_response.html.twig', ['messages' => $messages, 'form' => $form->createView()]);
     }
     
+    /**
+     * role: send a message to a campaign user onwer for asking to join in 
+     * 
+     * @param Request $request
+     * @param Campaign $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function askCampaignInvitation(Request $request, $id)
     {
         $thread = new Thread();
@@ -156,7 +186,13 @@ class MessageController extends AbstractController
     }
     
 
-    
+    /**
+     * role: send a message to someone by a campaign owner user. It generate a link to create a figure
+     * 
+     * @param Request $request
+     * @param Campaign $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function sendCampaignInvitation(Request $request, $id)
     {
         $thread = new Thread();
@@ -180,7 +216,8 @@ class MessageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $message->setReceiver($thread->getReceiver());
-            //$link = $this->generateUrl('new_figure', ['id' => $id, 'user'=> $thread->getReceiver()->getId()]);
+            
+            //id is used in route to identifie campaign
             $link = $this->generateUrl('new_figure', ['id' => $id]);
             $message->setMessage
             (
