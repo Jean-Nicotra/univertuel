@@ -1,0 +1,39 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+	
+{% block content_member %}
+
+<a href="{{ path('figure', {'id': figure.id}) }}">caractéristiques</a>
+<a href="">caste</a>
+<a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
+<a href="">équipement</a>
+<a href="">historique</a>
+
+	{% if figure.isFinish == false %}
+		<p>la création du personnage n'est pas encore terminée</p>
+	{% endif %}
+
+	page de magie
+	<ul>reserve de magie
+		<li>{{ figure.mana }}</li>
+		<li>{{ figure.currentMana }}</li>
+	</ul>
+	
+	<ul>
+	{% for discipline in disciplines %}
+		<li><label>{{ discipline.discipline.name }}</label>  {{ discipline.value }} </li>
+	{% endfor %}
+	</ul>
+	
+	<u>
+	{% for sphere in spheres %}
+		<li><label>{{ sphere.sphere.name }}</label>{{ sphere.value }}<label>reserve de magie</label>{{ sphere.mana }}</li>
+	{% endfor %}
+	</u>
+		
+		
+sortileges		
+		
+		
+{% endblock %}
+	

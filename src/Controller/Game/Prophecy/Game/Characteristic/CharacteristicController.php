@@ -28,6 +28,8 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyTendencyFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillFormType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundFormType;
 
 class CharacteristicController extends AbstractController
 {
@@ -293,6 +295,32 @@ class CharacteristicController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($skill);
+            
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+            
+            return $this->redirectToRoute('setup_prophecy');
+        }
+        
+        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+    }
+    
+    public function newWound(Request $request)
+    {
+        $title = "Nouveau type de blessure";
+        $wound = new ProphecyWound();
+        $form = $this->createForm(ProphecyWoundFormType::class, $wound);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if ($request->getPathInfo() == '/admin/new-wound')
+            {
+                $wound->setCampaign(null);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($wound);
             
             $entityManager->flush();
             // do anything else you need here, like send an email

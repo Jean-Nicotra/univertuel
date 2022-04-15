@@ -1,0 +1,18 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+
+{% block content_member %}
+	<div>
+		{{ campaign.game.name }}
+		{{ campaign.name }}
+		{{ campaign.owner }}
+		{{ campaign.description }}
+		<a href="{{ path('ask_campaign_invitation', {'id': campaign.id}) }}"><button>demander une invitation</button></a>		
+	</div>
+	
+
+		
+			
+{% endblock %}
+
+	

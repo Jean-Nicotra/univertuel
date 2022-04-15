@@ -6,8 +6,16 @@
 	
 {% block main_content %}
 	ceci est la page d accueil pour un membre
-	<a href=""><a href="">personnages</a><a href="">campagnes</a><a href="{{ path('admin') }}">administration</a>
-		{% block content_member %}
-		{% endblock %}
+	<ul>
+		<li><a href="{{ path('figures') }}">mes personnages</a></li>
+		<li><a href="{{ path('campaigns') }}">mes campagnes</a></li>
+		<li><a href="{{ path('admin') }}">administration</a></li>
+		<li><a href="{{ path('find_campaigns') }}">rechercher une campagne</a></li>
+		<li><a href="{{ path('messages') }}">messages</a></li>
+	</ul>
+	
+	{% block content_member %}
+	{% endblock %}
+	
 {% endblock %}
 	

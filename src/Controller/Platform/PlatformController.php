@@ -44,4 +44,9 @@ class PlatformController extends AbstractController
     {
         return $this->render('memberArea/admin/game/prophecy\prophecy_setup.html.twig');
     }
+    
+    public function features()
+    {
+        return $this->render('platform/features/features.html.twig');
+    }
 }

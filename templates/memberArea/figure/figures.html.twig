@@ -1,0 +1,15 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+
+
+
+	
+{% block content_member %}
+			
+	liste de mes personnages :
+	{% for figure in figures %}
+		<a href="{{ path('figure', {'id': figure.id}) }}">{{ figure.name }}</a>
+	{% endfor %}
+		
+{% endblock %}
+	

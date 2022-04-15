@@ -11,6 +11,8 @@ namespace App\Entity\Campaign;
 use App\Repository\Campaign\CampaignRepository; 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Game;
+use App\Entity\User\User;
+use phpDocumentor\Reflection\Types\Integer;
 
 
 /**
@@ -49,11 +51,19 @@ class Campaign
      *
      */
     private $description;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $secretCode;
 
     
+    
+    
+
     public function __construct()
     {
-        
+        $this->setSecretCode();
     }
     
     public function getId(): ?int
@@ -107,6 +117,37 @@ class Campaign
     {
         $this->game = $game;
         
+        return $this;
+    }
+    
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+    
+    public function setDescription($description): self
+    {
+        $this->description = $description;
+        
+        return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getSecretCode(): ?int
+    {
+        return $this->secretCode;
+    }
+    
+    /**
+     * @param mixed $secretCode
+     */
+    public function setSecretCode(): self
+    {
+        $random = random_int(100000, 999999);
+        $this->secretCode = $random;
+
         return $this;
     }
     

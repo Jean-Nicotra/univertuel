@@ -11,7 +11,10 @@ homepage:
 member_homepage:
     path: /member/homepage
     controller: App\Controller\Platform\PlatformController::memberHomepage    
-
+    
+features:
+    path: /features
+    controller: App\Controller\Platform\PlatformController:features    
 
 ########## USER ##########
 
@@ -31,6 +34,76 @@ profile:
     path: /member/profile
     controller: App\Controller\User\ProfileController::profile
     
+##########  MEMBER ##########
+## MESSAGES ##
+messages:
+    path: /member/messages
+    controller: App\Controller\Platform\Message\MessageController:messages 
+
+new_message:
+    path: /member/new-message
+    controller: App\Controller\Platform\Message\MessageController:newMessage
+    
+delete_message:
+    path: /member/delete-message{id}
+    controller: App\Controller\Platform\Message\MessageController:deleteMessage   
+
+message_response:
+    path: /member/message{id}
+    controller: App\Controller\Platform\Message\MessageController:messageResponse   
+    
+ask_campaign_invitation:
+    path: /member/message/ask-invitation/campaign{id}
+    controller: App\Controller\Platform\Message\MessageController:askCampaignInvitation
+    
+send_campaign_invitation:   
+    path: /member/message/send-invitation/campaign{id}
+    controller: App\Controller\Platform\Message\MessageController:sendCampaignInvitation
+
+## FIGURE ##
+figures:
+    path: /member/figures
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figures
+
+new_figure:
+    path: /member/figure/new-figure{id}
+    controller:  App\Controller\Game\Prophecy\Figure\FigureController:newFigure
+    
+figure:
+    path: /member/figure/figure/{id}
+    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figure    
+    
+figure_magic:
+    path: /member/figure/figure_magic/{id}
+    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureMagic      
+    
+figure_equipment:
+    path: /member/figure/figure_equipment/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEquipment    
+    
+#delete_figure:    
+    
+## CAMPAIGN ##    
+campaigns:
+    path: /member/campaign/campaigns
+    controller: App\Controller\Campaign\CampaignController:campaigns
+    
+create_campaign:
+    path: /member/campaign/create
+    controller: App\Controller\Campaign\CampaignController:newCampaign   
+    
+campaign:
+    path: /member/campaign/campaign{id}
+    controller: App\Controller\Campaign\CampaignController:viewCampaign
+                 
+find_campaigns:
+    path: /member/campaign/list
+    controller: App\Controller\Campaign\CampaignController:findCampaigns
+
+see_other_campaign:
+    path: /member/campaign/other/campaign{id}
+    controller: App\Controller\Campaign\CampaignController:seeOtherCampaign    
+       
 ########## ADMIN ##########
 
 admin:
@@ -47,6 +120,10 @@ new_game:
     controller: App\Controller\Game\GameController::new  
     
 ########## GAME ##########
+available_games:
+    path: /games
+    controller: App\Controller\Game\GameController:games
+
 ####### PROPHECY #######      
 ## CASTE ##
 create_caste:
@@ -118,6 +195,10 @@ create_skill:
     path: /admin/new-skill
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newSkill   
     
+create_wound:
+    path: /admin/new-wound
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newWound      
+    
 ## WORLD ##    
 create_currency:
     path: /admin/new-currency
@@ -140,8 +221,35 @@ create_shield:
     path: /admin/new-shield
     controller: App\Controller\Game\Prophecy\Game\Item\ItemController::newShield
     
+create_armor:
+    path: /admin/new-armor
+    controller: App\Controller\Game\Prophecy\Game\Item\ItemController::newArmor    
     
-    
-    
+create_weapon:
+    path: /admin/new-weapon
+    controller: App\Controller\Game\Prophecy\Game\Item\ItemController::newWeapon
+
+## MAGIC ##
+create_discipline:
+    path: /admin/new-discipline
+    controller: App\Controller\Game\Prophecy\Game\Magic\MagicController::newDiscipline
+
+create_sphere:
+    path: /admin/new-sphere
+    controller: App\Controller\Game\Prophecy\Game\Magic\MagicController::newSphere
+
+create_spell:
+    path: /admin/new-spell
+    controller: App\Controller\Game\Prophecy\Game\Magic\MagicController::newSpell
+
+## START STATS ##
+create_xp_increase:
+    path: /admin/new-xp-increase
+    controller: App\Controller\Game\Prophecy\Game\StatsInitController::newXPIncrease
+
+create_start_caracteristics:
+    path: /admin/new-start-caracteristics
+    controller: App\Controller\Game\Prophecy\Game\StatsInitController::newStartCaracteristics
+          
     
     

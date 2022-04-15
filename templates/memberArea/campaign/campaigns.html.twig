@@ -1,0 +1,22 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+
+
+
+	
+
+
+		{% block content_member %}
+			<a href="{{ path('create_campaign') }}">nouvelle campagne</a>
+			
+			liste de mes campagnes :
+			{% for campaign in campaigns %}
+				<a href="{{ path('campaign', {'id': campaign.id}) }}">{{ campaign.name }}</a>
+			{% endfor %}
+		
+			{% block form_campaign %}
+			{% endblock %}
+			
+		{% endblock %}
+
+	

@@ -54,6 +54,11 @@ class ProphecyCaracteristic
      */
     private $description;
 
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
+    
     /**
      * @return mixed
      */
@@ -75,7 +80,7 @@ class ProphecyCaracteristic
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName()
     {
         return ucfirst($this->name);
     }

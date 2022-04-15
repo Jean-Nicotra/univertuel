@@ -2,7 +2,7 @@
 	<nav>
 		<ul>
     		<li><a href="{{ path('homepage') }}">accueil</a></li>
-    		<li><a href="">jeux disponibles</a></li>
+    		<li><a href="{{ path('available_games') }}">jeux disponibles</a></li>
     		<li><a href="">aide en ligne</a>
     		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
     			<li><a href="{{ path('member_homepage') }}">espace membre</a></li>

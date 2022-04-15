@@ -1,0 +1,33 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+	
+{% block content_member %}
+
+<a href="{{ path('figure', {'id': figure.id}) }}">caractéristiques</a>
+<a href="">caste</a>
+<a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
+<a href="{{ path('figure_equipment', {'id': figure.id}) }}">équipement</a>
+<a href="">historique</a>
+
+
+	{% if figure.isFinish == false %}
+		<p>la création du personnage n'est pas encore terminée</p>
+	{% endif %}
+
+page de caste
+<ul>
+	<li><label>caste</label>  {{ figure.caste }}</li>
+	<li><label>statut</label></li>
+</ul>	
+
+<ul>benefices
+</ul>
+
+<u>techniques
+</u>
+
+<ul>privilèges
+</ul>
+		
+{% endblock %}
+	

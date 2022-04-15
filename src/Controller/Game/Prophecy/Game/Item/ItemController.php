@@ -12,6 +12,10 @@ use App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory;
 use App\Form\Game\Prophecy\Game\Item\ProphecyArmorCategoryFormType;
 use App\Entity\Game\Prophecy\Game\Item\ProphecyShield;
 use App\Form\Game\Prophecy\Game\Item\ProphecyShieldFormType;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyArmor;
+use App\Form\Game\Prophecy\Game\Item\ProphecyArmorFormType;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyWeapon;
+use App\Form\Game\Prophecy\Game\Item\ProphecyWeaponFormType;
 
 class ItemController extends AbstractController
 {
@@ -83,6 +87,58 @@ class ItemController extends AbstractController
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($shield);
+            
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+            
+            return $this->redirectToRoute('setup_prophecy');
+        }
+        
+        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+    }
+    
+    public function newArmor(Request $request)
+    {
+        $title = "Nouvelle Armure";
+        $armor = new ProphecyArmor();
+        $form = $this->createForm(ProphecyArmorFormType::class, $armor);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if ($request->getPathInfo() == '/admin/new-armor')
+            {
+                $armor->setCampaign(null);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($armor);
+            
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+            
+            return $this->redirectToRoute('setup_prophecy');
+        }
+        
+        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+    }
+    
+    public function newWeapon(Request $request)
+    {
+        $title = "Nouvelle Arme";
+        $weapon = new ProphecyWeapon();
+        $form = $this->createForm(ProphecyWeaponFormType::class, $weapon);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if ($request->getPathInfo() == '/admin/new-weapon')
+            {
+                $weapon->setCampaign(null);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($weapon);
             
             $entityManager->flush();
             // do anything else you need here, like send an email

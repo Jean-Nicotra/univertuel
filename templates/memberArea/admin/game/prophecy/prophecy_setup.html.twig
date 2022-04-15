@@ -27,26 +27,32 @@
 		<li><a href="{{ path('create_skill_category') }}">Categorie de competence</a></li>
 		<li><a href="{{ path('create_skill') }}">Compétences</a></li>
 		<li><a href="{{ path('create_tendency') }}">Tendances</a></li>
-		<li><a href="">blessures</a></li>
+		<li><a href="{{ path('create_wound') }}">blessures</a></li>
 	</ul>
-	
+	 
 	<ul>Inventaire 
 		<li><a href="{{ path('create_weapon_category') }}">catégorie d'arme</a></li>
 		<li><a href="{{ path('create_armor_category') }}">catégorie d'armure</a></li>
 		<li><a href="{{ path('create_shield') }}">bouclier</a></li>	
-		<li><a href="">armures</a></li>
-		<li><a href="">armes</a>
+		<li><a href="{{ path('create_armor') }}">armures</a></li>
+		<li><a href="{{ path('create_weapon') }}">armes</a>
 	</ul>
 	
 	<ul>Magie
-		<li><a href="">Disciplines</a></li>
-		<li><a href="">Spheres</a></li>
-		<li><a href="">Sorts</a></li>
+		<li><a href="{{ path('create_discipline') }}">Disciplines</a></li>
+		<li><a href="{{ path('create_sphere') }}">Spheres</a></li>
+		<li><a href="{{ path('create_spell') }}">Sorts</a></li>
 	</ul>
 	
 	<ul>Monde
 		<li><a href="{{ path('create_nation') }}">pays</a></li>
 		<li><a href="{{ path('create_currency') }}">monnaie</a></li>
+	</ul>
+	
+	<ul>
+		<li><a href="{{ path('create_start_caracteristics') }}">caracteristiques de départ</a></li>
+		<li><a href="">attributs majeurs de départ</a></li>
+		<li><a href="{{ path('create_xp_increase') }}">progression</a></li>
 	</ul>
 {% endblock %}
 

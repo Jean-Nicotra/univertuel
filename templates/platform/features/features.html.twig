@@ -1,0 +1,22 @@
+{% extends 'base_template.html.twig' %}
+	
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('style/platform/homepage.css') }}" type="text/css" rel="stylesheet" media="all">
+{% endblock %}	
+	
+{% block main_content %}
+	
+	<div id="main_content">
+    	liste des fonctionnalités
+		<a href="">boîte à idées /sous forme de boite + commentaires</a>
+		<a>prochaines évolutions</a>
+			<ul>
+				<li>suppression de la possibilités d'envoyer des messages envoyés à soi-meme<li>
+				<li>ajout du jeu Dark Earth</li>
+			</ul>
+	</div>
+
+{% endblock %}
+
+

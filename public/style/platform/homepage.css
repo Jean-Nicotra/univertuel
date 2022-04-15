@@ -95,6 +95,11 @@
 	justify-content:space-around;
 }
 
+.features_list li a:visited,.features_list li a
+{
+	color:blue;
+}
+
 .features_list h3
 {
 	font-weight:900;

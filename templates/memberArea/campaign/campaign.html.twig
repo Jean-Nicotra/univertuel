@@ -1,0 +1,23 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+
+{% block content_member %}
+	<div>
+		<ul>
+			<li>generer un nouveau code</li>
+			<li><a href="">personnaliser la campagne</a></li>
+			<li><a href="{{ path('send_campaign_invitation', {'id': campaign.id}) }}">envoyer une invitation</a></li>
+			<li>personnages</li>
+			<li>pnj</li>
+			<li>demarrer un scenario</li>
+		</ul>
+</div>
+{{ campaign.name }} {{ campaign.secretCode }}	
+	
+	{% block content_campaign %}
+	{% endblock %}
+		
+			
+{% endblock %}
+
+	

@@ -3,7 +3,7 @@
 namespace App\Repository\Game\Prophecy\Figure;
 
 
-use App\Entity\Prophecy\Figure\ProphecyFigure;
+use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

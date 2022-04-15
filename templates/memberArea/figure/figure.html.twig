@@ -1,0 +1,100 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+	
+{% block content_member %}
+
+<a href="{{ path('figure', {'id': figure.id}) }}">caractéristiques</a>
+<a href="">caste</a>
+<a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
+<a href="{{ path('figure_equipment', {'id': figure.id}) }}">équipement</a>
+<a href="">historique</a>
+
+	{% if figure.isFinish == false %}
+		<p>la création du personnage n'est pas encore terminée</p>
+	{% endif %}
+		
+	<ul>
+		<li><label>nom: </label>{{ figure.name }}</li>
+		<li><label>caste: </label>{{ figure.caste.name }}</li>
+		<li><label>age: </label>{{ figure.age.name }}</li>
+		<li><label>augure de naissance: </label>{{ figure.omen.name }}</li>
+		<li><label>taille</label>{{ figure.size }}</li>
+		<li><label>poids</label>{{ figure.weight }}</li>
+		<li><label>pays d'origine</label>{{ figure.nation }}</li>
+	</ul>	
+	
+	<ul>renommée
+		<li>{{ figure.reputation }}</li>
+	</ul>
+	{% if caracteristics[0].value == null %}
+		cliquer ici pour initialiser vos caracteristiques
+	{% endif %}
+	<ul>
+	{% for caracteristic in caracteristics %}
+		<li><label>{{ caracteristic.caracteristic.name }}</label>  {{ caracteristic.value }}</li>
+	{% endfor %}
+	</ul>
+	
+	{% if majorAttributes[0].value == null %}
+		cliquer ici pour initialiser vos attributs majeurs
+	{% endif %}
+	<ul>
+	{% for majorAttribute in majorAttributes %}
+		<li><label>{{ majorAttribute.attribute.name }}</label>  {{ majorAttribute.value }}</li>
+	{% endfor %}
+	</ul>
+		
+	{% if minorAttributes[0].value == null %}
+		cliquer ici pour initialiser vos attributs mineurs
+	{% endif %}
+	<ul>
+	{% for minorAttribute in minorAttributes %}
+		<li><label>{{ minorAttribute.minorAttribute.name }}</label>  {{ minorAttribute.value }}</li>
+	{% endfor %}
+	</ul>	
+	
+			{# PB Si certaines tendances sont a 0. il faut aborder differemment pour la creation
+	{% if tendencies[0].circles == null %}
+		cliquer ici pour initialiser vos attributs mineurs
+	{% endif %}
+	#}
+	<ul>
+	{% for tendency in tendencies %}
+		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
+		<li><label>cercles de tendance</label>{{ tendency.circles}}</li>
+	{% endfor %}
+	</ul>
+	
+				{# PB Si certaines tendances sont a 0. il faut aborder differemment pour la creation
+	{% if tendencies[0].circles == null %}
+		cliquer ici pour initialiser vos attributs mineurs
+	{% endif %}
+	#}
+	
+	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
+	<ul>
+	{% for wound in wounds %}
+		<li><label>{{ wound.wound.name }}</label><label>{{ wound.wound.damages }}</label><label>{{ wound.wound.maxWounds }}</label><label>{{ wound.wound.malus }}</label>{{ wound.value }}</li>
+	{% endfor %}
+	</ul>
+	
+	
+	
+	<ul>	
+	{% for majorAttribute in majorAttributes %}
+		{{ majorAttribute.attribute.name }} 
+		{% for skillCategory in skillCategories %}
+			{% if skillCategory.majorAttribute.name is same as (majorAttribute.attribute.name) %} 
+				{{ skillCategory.name }}
+			{% for skill in skills %}
+		    	{% if skill.skill.skillCategory.name is same as (skillCategory.name) %}
+					<li><label> {{ skill.skill.name }}</label>{{ skill.value }}<label></li>
+		    	{% endif %}
+	    	{% endfor %}
+	    	{% endif %}
+		{% endfor %}
+	{% endfor %}
+	</ul>
+		
+{% endblock %}
+	

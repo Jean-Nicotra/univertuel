@@ -1,0 +1,20 @@
+{% extends 'memberArea/campaign/campaign.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset ('style/platform/member/base.css') }}"> 
+{% endblock %}
+
+
+{% block content_campaign %}
+	<div id=layout_messages>	
+	
+		{{ form(form) }}
+		
+	</div>
+{% endblock %}
+
+
+
+
+        

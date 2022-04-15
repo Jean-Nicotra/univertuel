@@ -1,0 +1,44 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="{{ asset ('style/platform/member/message/form_message_response.css') }}"> 
+{% endblock %}
+
+
+{% block content_member %}
+	<div id=layout_message>	
+	
+		<div id="message_header">
+	     	<div ><h1   id="form-title">message privé</h1></div>
+	    	<div>titre du message : {{ messages[0].thread.purpose }}</div>
+	    	<div>participants : {{ messages[0].thread.sender }} et {{ messages[0].thread.receiver }}</div>
+    	</div>
+    	
+    	{% for message in messages %}
+    		<div {% if(message.number %2 == 1 ) %} class="widget_message_grey"> 
+            {% else %}class="widget_message_white">
+            {% endif %}
+    			<div><div>{{ message.sender }}</div><div>{{ message.date }}  </div></div>
+    			<div><p>{{ message.message|raw }}</p></div>
+    		</div>
+    		
+    		
+    		
+    		
+    		
+    	{% endfor %}
+    
+    
+    	{{ form_start(form) }}	
+    	{{ form_row(form.message) }}
+    	{{ form_row(form.submit, {'label': 'repondre'}) }}
+    	{{ form_end(form) }}
+		
+	</div>
+{% endblock %}
+
+
+
+
+        

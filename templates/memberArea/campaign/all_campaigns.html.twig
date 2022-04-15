@@ -1,0 +1,15 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+
+
+
+	
+{% block main_content %}
+
+		{% block content_member %}
+		{% for campaign in campaigns %}
+		    <a href="{{ path('see_other_campaign', {'id': campaign.id} ) }}">{{ campaign.name }}</a>{{ campaign.owner.username }}
+	{% endfor %}
+		{% endblock %}
+{% endblock %}
+	
