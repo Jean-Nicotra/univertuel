@@ -3,11 +3,11 @@
 		<ul>
     		<li><a href="{{ path('homepage') }}">accueil</a></li>
     		<li><a href="{{ path('available_games') }}">jeux disponibles</a></li>
-    		<li><a href="">aide en ligne</a>
+    		<li><a href="{{ path('help') }}">aide en ligne</a>
     		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
     			<li><a href="{{ path('member_homepage') }}">espace membre</a></li>
     		{% endif %}
-    		<li><a href="">contact</a></li>
+    		<li><a href="{{ path('contact') }}">contact</a></li>
 		</ul>
 	</nav>
 	<span id="log_zone">

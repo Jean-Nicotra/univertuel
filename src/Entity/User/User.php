@@ -57,7 +57,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->setRoles('ROLE_MEMBER');
+        $this->setRoles(['ROLE_MEMBER']);
         $this->setIsActive(true);
         //$this->setCreaDate(new \DateTime());
     }

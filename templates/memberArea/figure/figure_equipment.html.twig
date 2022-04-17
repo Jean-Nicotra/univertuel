@@ -1,17 +1,7 @@
-{% extends 'memberArea/homepage.html.twig' %}
+{% extends 'memberArea/figure/figure.html.twig' %}
 
 	
-{% block content_member %}
-
-<a href="{{ path('figure', {'id': figure.id}) }}">caractéristiques</a>
-<a href="">caste</a>
-<a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
-<a href="{{ path('figure_equipment', {'id': figure.id}) }}">équipement</a>
-<a href="">historique</a>
-
-	{% if figure.isFinish == false %}
-		<p>la création du personnage n'est pas encore terminée</p>
-	{% endif %}
+{% block figure_page %}
 
 	page d'équipement
 
@@ -29,7 +19,11 @@ bouclier
 matériels divers
 
 
-richesses:
+<ul>richesses:
+	{% for currency in currencies %}
+		<li><label>{{ currency.currency.name }}</label>{{ currency.value }}</li>
+	{% endfor %}
+</ul>
 
 		
 {% endblock %}

@@ -15,12 +15,14 @@ class ThreadFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('purpose', TextType::class)
+            ->add('purpose', TextType::class, ['label' => 'Objet'])
             ->add('receiver', EntityType::class, [
             		'class' => 'App\Entity\User\User',
             		'choice_label' => "username",
             		'expanded' => false,
-            		'multiple' => false
+            		'multiple' => false,
+                    'label' => 'Destinataire'
+                    
             		
             ])
         ;

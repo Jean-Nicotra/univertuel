@@ -1,17 +1,8 @@
-{% extends 'memberArea/homepage.html.twig' %}
+{% extends 'memberArea/figure/figure.html.twig' %}
 
 	
-{% block content_member %}
+{% block figure_page %}
 
-<a href="{{ path('figure', {'id': figure.id}) }}">caractéristiques</a>
-<a href="">caste</a>
-<a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
-<a href="">équipement</a>
-<a href="">historique</a>
-
-	{% if figure.isFinish == false %}
-		<p>la création du personnage n'est pas encore terminée</p>
-	{% endif %}
 
 	page de magie
 	<ul>reserve de magie

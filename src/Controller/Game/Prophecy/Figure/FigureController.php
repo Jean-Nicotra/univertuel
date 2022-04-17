@@ -24,6 +24,7 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureWound;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureDiscipline;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere;
+use App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency;
 
 class FigureController extends AbstractController
 {
@@ -77,6 +78,10 @@ class FigureController extends AbstractController
         //figureSphere
         $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
         $spheres = $sphereRepository->findAll();
+        
+        //figureCurrency
+        $currencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyCurrency');
+        $currencies = $currencyRepository->findAll();
         
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');
@@ -173,6 +178,16 @@ class FigureController extends AbstractController
                 $em->flush($figureSphere);
             }
             
+            //setup currency
+            foreach($currencies as $currency)
+            {
+                $figureCurrency = new ProphecyFigureCurrency();
+                $figureCurrency->setFigure($figure);
+                $figureCurrency->setCurrency($currency);
+                $em->persist($figureCurrency);
+                $em->flush($figureCurrency);
+            }
+            
             $em->flush();
         
             $figures = $figureRepository->findBy(['owner' => $user]);
@@ -190,10 +205,8 @@ class FigureController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * role: display caracteristics figure page
      */
-    public function figure($id)
+    public function figureCaracteristics($id)
     {
-        $user = $this->getUser();
-        
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
@@ -224,7 +237,7 @@ class FigureController extends AbstractController
         $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
         $wounds = $figureWoundRepository->findBy(['figure' => $figure], []);
         
-        return $this->render('memberArea/figure/figure.html.twig', 
+        return $this->render('memberArea/figure/figure_caracteristics.html.twig', 
             [
                 'figure' => $figure, 
                 'caracteristics' => $caracteristics, 
@@ -239,9 +252,6 @@ class FigureController extends AbstractController
     
     public function figureMagic($id)
     {
-        
-        $user = $this->getUser();
-        
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
                                                                                              
@@ -261,6 +271,49 @@ class FigureController extends AbstractController
     
     public function figureEquipment($id)
     {
-        return $this->render('memberArea/figure/figure_equipment.html.twig');
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        //add currencies to figure's view
+        $figureCurrencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency');
+        $currencies = $figureCurrencyRepository->findBy(['figure' => $figure], []);
+        
+        return $this->render('memberArea/figure/figure_equipment.html.twig', [
+            'figure' => $figure,
+            'currencies' => $currencies,
+        ]);
+    }
+    
+
+    /**
+     * 
+     * @param ProphecyFigure $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function figureCaste($id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        return $this->render('memberArea/figure/figure_caste.html.twig', [
+            'figure' => $figure,
+            
+        ]);
+    }
+
+    /**
+     * 
+     * @param ProphecyFigure $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function figureBackground($id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        return $this->render('memberArea/figure/figure_background.html.twig', [
+            'figure' => $figure,
+            
+        ]);
     }
 }

@@ -64,4 +64,13 @@ class PlatformController extends AbstractController
     {
         return $this->render('platform/features/features.html.twig');
     }
+    
+    /**
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function help()
+    {
+        return $this->render('platform/help_in_line.html.twig');
+    }
 }

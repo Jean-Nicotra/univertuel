@@ -40,6 +40,10 @@ member_homepage:
 features:
     path: /features
     controller: App\Controller\Platform\PlatformController:features    
+    
+help:
+    path: /help
+    controller: App\Controller\Platform\PlatformController:help    
 
 ########## USER ##########
 
@@ -84,6 +88,10 @@ ask_campaign_invitation:
 send_campaign_invitation:   
     path: /member/message/send-invitation/campaign{id}
     controller: App\Controller\Platform\Message\MessageController:sendCampaignInvitation
+    
+contact:
+    path: /member/message/contact
+    controller: App\Controller\Platform\Message\MessageController:contact
 
 ## FIGURE ##
 figures:
@@ -94,17 +102,25 @@ new_figure:
     path: /member/figure/new-figure{id}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:newFigure
     
-figure:
-    path: /member/figure/figure/{id}
-    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figure    
+figure_caracteristics:
+    path: /member/figure/figure-caracteristics/{id}
+    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureCaracteristics   
     
 figure_magic:
-    path: /member/figure/figure_magic/{id}
-    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureMagic      
+    path: /member/figure/figure-magic/{id}
+    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureMagic 
+
+figure_caste:
+    path: /member/figure/figure-caste/{id}
+    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureCaste      
     
 figure_equipment:
-    path: /member/figure/figure_equipment/{id}
-    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEquipment    
+    path: /member/figure/figure-equipment/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEquipment 
+    
+figure_background:
+    path: /member/figure/figure-background/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureBackground    
     
 #delete_figure:    
     

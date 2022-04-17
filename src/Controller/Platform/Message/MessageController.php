@@ -11,6 +11,7 @@ use App\Form\Message\MessageFormType;
 use App\Form\Message\MessageAddFormType;
 use App\Entity\Campaign\Campaign;
 use App\Form\Platform\Message\SendCampaignInvitationFormType;
+use App\Form\Message\MessageContactFormType;
 
 
 
@@ -234,5 +235,41 @@ class MessageController extends AbstractController
             ['campaign' => $campaign, 'form' => $form->createView() ]);
     }
     
+    
+    public function contact(Request $request)
+    {
+        $thread = new Thread();
+        $userRepository = $this->getDoctrine()->getRepository('App\Entity\User\User');
+        $receiver = $userRepository->findOneBy(['username' => 'phoenix']);
+        $sender = $this->getUser();              //sender = current user
+        
+        //create a thread first
+        $thread->setSender($sender);
+        $thread->setReceiver($receiver);
+        
+        //create message in second
+        $message = new Message();
+        $message->setSender($sender);
+        $message->setReceiver($receiver);
+        $message->setNumber(1);
+        $message->setThread($thread);           //assign thread created in first
+        
+        $form = $this->createForm(MessageContactFormType::class, $message);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            //assign thread
+            $message->setReceiver($thread->getReceiver());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+            
+            return $this->redirectToRoute('homepage');
+        }
+        
+        return $this->render('platform/contact/form_contact_new.html.twig', ['form' => $form->createView()]);    
+    }
+    
+
 }
 
