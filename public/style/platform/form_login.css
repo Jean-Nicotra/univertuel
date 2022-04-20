@@ -1,22 +1,115 @@
 @charset "UTF-8";
 
-.form_layout
+*/*******************************************************************************************************************
+    name      : form_login.css
+    Role      : design style for login.html template
+    author    : tristesire
+    date      : 18/03/2022
+*******************************************************************************************************************/
+
+#layout
 {
 	display:flex;
 	flex-direction:row;
-	width:80%;
-	border:solid;
-	margin:0% 10% 0% 10%;
-	height:600px;
+	width:100%;
+	min-height:800px;
+	align-items:center;
 	justify-content:center;
+	background-color:#eeeeec;
+	font-size:1em;
+}
+
+#bloc
+{
+	display:flex;
+	flex-direction:row;
+	width:70%;
+	height:80%;
+	border:solid;
+}
+
+/* title */
+h1
+{
+	color:white;
+	text-align:center;
+}
+
+/* image */
+#image
+{
+	flex:10;
+	border:solid;
+}
+
+/* form */
+#form
+{
+	padding: 0% 1% 0% 1%;
+	display:flex;
+	flex-direction:column;
+	flex:3;
+	border:solid;
+	background-color:#724922;
+	color:black;
+	border:solid;
+	color:white;
 }
 
 form
 {
-	min-width:30%;
 	display:flex;
 	flex-direction:column;
+	height:60%;
+	border:solid black;
+	margin:1% 1% 1% 1%;
+	background-color:#9e6732;
+}
+
+form label
+{
+	flex:1;
+	margin:2% 0% 2% 10%;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+
+form input
+{
+	flex:1;
+	font-size:1em;
+	margin:2% 0% 4% 10%;
+	width:80%;
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
 	border:solid;
-	background-color:red;
+}
+
+#form p
+{
+	font-size:0.8em;
+	margin-left:1%;
+}
+
+#form p a, #form p a:visited
+{
+	color:#fce94f;
+	font-size:1.4em;
+}
+
+/* submit button */
+#submit
+{
+	margin:20% 0% 5% 10%;
+	background-color:#fcf35a;
+	text-decoration:none;
+	border-color:#41deef;
+	border-width:2px;
+	color:#0b75f5;
+	font-size:1em;
+	flex:1.2;
+	width:80%;
 }
 

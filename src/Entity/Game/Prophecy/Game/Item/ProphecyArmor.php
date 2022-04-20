@@ -24,6 +24,12 @@ class ProphecyArmor
     private $name;
     
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+    
+    /**
      * @ORM\Column(type="integer")
      */
     private $weight;
@@ -84,6 +90,24 @@ class ProphecyArmor
      */
     private $description;
     
+    /**
+     * @return \App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory
+     */
+    public function getCategory(): ?ProphecyArmorCategory
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param \App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory $category
+     */
+    public function setCategory(ProphecyArmorCategory $category): self
+    {
+        $this->category = $category;
+        
+        return $this;
+    }
+
     /**
      * @return mixed
      */

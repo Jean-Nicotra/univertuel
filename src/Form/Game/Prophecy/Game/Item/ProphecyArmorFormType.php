@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory;
 
 class ProphecyArmorFormType extends AbstractType
 {
@@ -19,6 +20,13 @@ class ProphecyArmorFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('category',EntityType::class, [
+                'class' => ProphecyArmorCategory::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                
+            ])
             ->add('weight', IntegerType::class)
             ->add('createDifficulty', IntegerType::class)
             ->add('constructionTime', IntegerType::class)

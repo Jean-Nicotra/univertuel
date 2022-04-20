@@ -24,59 +24,68 @@
 
 {% block main_content %}
 
-    <div class="form_layout">
+<div id="layout">
+	<div id="bloc">
+		<div id="image" style="background-image: url( {{ asset ('img/platform/authentication/form_login.jpg') }});
+									min-height:700px;background-repeat:repeat;background-size:cover;height:100%; ">
+		</div>
+		<div id="form">
+			<h1>authentification</h1>
+			<form method="post">
+	    {% if error %}
+	        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+	    {% endif %}
 
-    
-    
-        <form method="post">
-        
-        <h1 class="page_label">identification</h1>
-           
-            {% if app.user %}
-            
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
-                </div>
-                
-            {% endif %}
-        
-            <div>
-            	<label for="inputEmail">Email</label><input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-            </div>
-            <div>
-            	<label for="inputPassword">Password</label><input type="password" name="password" id="inputPassword" class="form-control" required>
-            </div>
-        
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        
-            {#
-                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                See https://symfony.com/doc/current/security/remember_me.html
-        
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
-                    </label>
-                </div>
-            #}
-        
-            <button  type="submit">
-                se connecter
-            </button>
-            
-            
-             {% if error %}
-                
-                    <div class="form_alert">
-                        <p>les identifiants ne correspondent pas à un compte valide</p>
-                    </div>
-                    <div id="login_other_options"><a href={{ path('registration') }}>creer un compte</a><a href="">mot de passe oublié</a></div>
-                    
-        	{% endif %}            
-            
-    	</form>
- 
-    	
+
+			    <label for="inputEmail">Email</label>
+			    <input type="email" value="" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+			    <label for="inputPassword">Password</label>
+			    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			
+			    <input type="hidden" name="_csrf_token"  value="{{ csrf_token('authenticate') }}">
+		
+		    {#
+		        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+		        See https://symfony.com/doc/current/security/remember_me.html
+		
+		        <div class="checkbox mb-3">
+		            <label>
+		                <input type="checkbox" name="_remember_me"> Remember me
+		            </label>
+		        </div>
+		    #}
+		
+		    	<button  type="submit" id="submit">connexion</button>
+			</form>
+    		
+    		<p>Pas encore membre?Créez votre compte <a href={{ path ('registration') }}>ici</a></p>
+		</div>
 	</div>
+</div>
+
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

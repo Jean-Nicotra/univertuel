@@ -5,19 +5,21 @@
 
 	page d'équipement
 
-armes
+<ul>armes
+</ul>
+
+<ul>armures
+	{% for armor in figure.armors %}
+		{{ armor.name }}
+	{% endfor %}
+</ul>
 
 
+<ul>bouclier
+</ul>
 
-armures
-
-
-
-bouclier
-
-
-matériels divers
-
+<ul>matériels divers
+</ul>
 
 <ul>richesses:
 	{% for currency in currencies %}
