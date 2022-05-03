@@ -1,20 +1,33 @@
 {% extends 'memberArea/homepage.html.twig' %}
 
 	
-{% block content_member %}
-
-<a href="{{ path('figure_caracteristics', {'id': figure.id}) }}">caractéristiques</a>
-<a href="{{ path('figure_caste', {'id': figure.id}) }}">caste</a>
-<a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
-<a href="{{ path('figure_equipment', {'id': figure.id}) }}">équipement</a>
-<a href="{{ path('figure_background', {'id': figure.id}) }}">historique</a>
-
-	{% if figure.isFinish == false %}
-		<p>la création du personnage n'est pas encore terminée</p>
-	{% endif %}
-		
-{% block figure_page %}
-{% endblock %}
+    {% block content_member %}
+    
+    <a href="{{ path('figure_caracteristics', {'id': figure.id}) }}">caractéristiques</a>
+    <a href="{{ path('figure_caste', {'id': figure.id}) }}">caste</a>
+    <a href="{{ path('figure_magic', {'id': figure.id}) }}">magie</a>
+    <a href="{{ path('figure_equipment', {'id': figure.id}) }}">équipement</a>
+    <a href="{{ path('figure_background', {'id': figure.id}) }}">historique</a>
+    
+    	{% if figure.isFinish == false %}
+    		<p>la création du personnage n'est pas encore terminée</p>
+    		{#
+    			augure
+    			age de depart
+    			caste + interdits
+    			caracteristiques
+    			attributs majeurs
+    			attributs mineurs
+    			tendances
+    			désavantages
+    			avantages
+    			competences+magie+privileges+ renommée 
+    		#}
+    	{% endif %}
+    		
+        {% block figure_page %}
+        
+        {% endblock %}
 		
 {% endblock %}
 	

@@ -38,6 +38,11 @@ class ProphecyCaste
         $this->setCampaign(null);
     }
     
+    public function __toString(): ?string
+    {
+        return (string) $this->name;
+    }
+    
     /**
      * @return \App\Entity\Campaign\Campaign
      */

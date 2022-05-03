@@ -24,6 +24,7 @@ class ProphecyStatus
 
     /**
      * @ORM\Column(type="integer")
+     * 
      */
     private $level;
 

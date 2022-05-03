@@ -23,7 +23,11 @@
 	</u>
 		
 		
-sortileges		
+	<ul>sortileges
+	    {% for spell in figure.spells %}
+		    <li><p>nom : {{ spell.name }}</p><p>sphere: {{ spell.sphere }}</p><p>cout :{{ spell.manaCost }}</p></li>
+	    {% endfor %}
+	</ul>		
 		
 		
 {% endblock %}

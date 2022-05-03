@@ -53,6 +53,11 @@ class ProphecySphere
     {
         return $this->id;
     }
+    
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
 
     public function getName(): ?string
     {

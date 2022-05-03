@@ -73,4 +73,15 @@ class ProphecyFigureCaracteristicRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findByFigure($figure)
+    {
+            return $this->createQueryBuilder('c')
+            ->andWhere('c.figure = :figure')
+            ->setParameter('figure', $figure)
+            ->getQuery()
+            ->getResult()
+
+        ;
+    }
 }

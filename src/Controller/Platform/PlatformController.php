@@ -42,7 +42,21 @@ class PlatformController extends AbstractController
      */
     public function adminHomepage()
     {
-        return $this->render('memberArea/admin/homepage.html.twig', []);
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        return $this->render('memberArea/admin/homepage.html.twig', ['games' => $games]);
+    }
+    
+    public function setup($id)
+    {
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $game = $gameRepository->find($id);
+        $route = "setup_".$game->getCode();
+        
+        return $this->redirectToRoute($route);
     }
     
     /**
@@ -52,7 +66,10 @@ class PlatformController extends AbstractController
      */
     public function setupProphecy ()
     {
-        return $this->render('memberArea/admin/game/prophecy\prophecy_setup.html.twig');
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        return $this->render('memberArea/admin/game/prophecy\prophecy_setup.html.twig', ['games' => $games]);
     }
     
     /**

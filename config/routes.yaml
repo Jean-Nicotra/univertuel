@@ -120,7 +120,19 @@ figure_equipment:
     
 figure_background:
     path: /member/figure/figure-background/{id}
-    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureBackground    
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureBackground 
+
+figure_edit_initial_caracteristic:  
+    path: /member/figure/figure-edit-initial-caracteristic/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristic
+    
+formulaire:
+    path: /form/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristicTest
+    
+figure_edit_initial_major_attribute:
+    path: /member/figure/figure-edit-initial-major-attribute/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialMajorAttribute
     
 #delete_figure:    
     
@@ -146,6 +158,9 @@ see_other_campaign:
     controller: App\Controller\Campaign\CampaignController:seeOtherCampaign    
        
 ########## ADMIN ##########
+new_game:
+    path: /admin/new-game
+    controller: App\Controller\Game\GameController::new 
 
 admin:
     path: /admin/homepage
@@ -155,10 +170,13 @@ setup_prophecy:
     path: /admin/setup-prophecy
     controller: App\Controller\Platform\PlatformController::setupProphecy
     
+setup:
+    path: /admin/setup/{id}
+    controller: App\Controller\Platform\PlatformController::setup   
     
-new_game:
-    path: /admin/new-game
-    controller: App\Controller\Game\GameController::new  
+setup_PROPHECY:     
+    path: /admin/setup-prophecy
+    controller: App\Controller\Platform\PlatformController::setupProphecy 
     
 ########## GAME ##########
 available_games:

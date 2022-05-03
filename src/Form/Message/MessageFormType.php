@@ -21,7 +21,7 @@ class MessageFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('thread', ThreadFormType::class, ['label' => " "] )
+        ->add('thread', ThreadFormType::class, ['label' => false] )
         ->add('message', TextareaType::class)
         ->add('submit', SubmitType::class)
         ;

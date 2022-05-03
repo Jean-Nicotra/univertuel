@@ -4,9 +4,26 @@
 {% block figure_page %}
 
 
-	page de background
-historique + avantages + inconvénients
-		
+	page de l'historique
+
+
+<ul>inconvénients
+	{% for disadvantage in figure.disadvantages %}
+		<li><p>nom : {{ disadvantage.name }}</p></li>
+	{% endfor %}
+</ul>
+
+
+<ul>avantages
+	{% for advantage in figure.advantages %}
+		<li><p>nom : {{ advantage.name }}</p></li>
+	{% endfor %}
+</ul>
+
+<ul>historique
+	<li>{{ figure.background }}</li>
+</ul>
+
 		
 {% endblock %}
 	

@@ -5,11 +5,13 @@
 
 	
 {% block content_member %}
-	cfeci est la page  d accueil des administrateurs
+	ceci est la page  d accueil des administrateurs
 	<ul>
 		<li><a href="{{ path('new_game') }}">creer un jeu</a></li>
-		<li><a href="{{ path('setup_prophecy') }}">Prophecy</a></li>
-		<li><a href="">Dark Earth</a></li>
+		{% for game in games %}
+			<li><a href="{{ path('setup', {'id': game.id}) }}">{{ game.code }}</a></li>
+	
+		{% endfor %}
 		<li><a href="">utilisateurs</a></li>
 	</ul>
 	 

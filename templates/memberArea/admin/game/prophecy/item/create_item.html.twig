@@ -3,6 +3,13 @@
 
 {% block component_game %}
 	{{ title }}
+	
+	<ul>liste éléments existents
+	{% for item in items %}
+		<li>{{ item.name }}</li>
+	{% endfor %}
+	</ul>
+	
 {{ form(form) }}
 {% endblock %}
 

@@ -4,20 +4,40 @@
 {% block figure_page %}
 
 
-page de caste
-<ul>
-	<li><label>caste</label>  {{ figure.caste }}</li>
-	<li><label>statut</label></li>
-</ul>	
-
-<ul>benefices
-</ul>
-
-<u>techniques
-</u>
-
-<ul>privilèges
-</ul>
+    page de caste
+    ----------------- caste du personnage ----------------
+    <ul>
+    	<li><label>caste</label>  {{ figure.caste }}</li>
+    	<li><label>statut</label></li>
+    </ul>	
+    
+    ----------------- interdits du personnage ----------------
+    <ul>interdits
+        {% for prohibited in figure.prohibiteds %}
+    		<li><p>nom : {{ prohibited.name }}</p><p>description : {{ prohibited.description }}</p></li>
+    	{% endfor %}
+    </ul>
+    
+    ----------------- bénéfices du personnage ----------------
+    <ul>benefices
+        {% for benefit in figure.benefits %}
+    		<li><p>nom : {{ benefit.name }}</p><p>description : {{ benefit.description }}</p></li>
+    	{% endfor %}
+    </ul>
+    
+    ----------------- techniques du personnage ----------------
+    <ul>techniques
+    	{% for technic in figure.technics %}
+    		<li><p>nom : {{ technic.name }}</p><p>description : {{ technic.description }}</p></li>
+    	{% endfor %}
+    </ul>
+    
+    ----------------- privilèges du personnage ----------------
+    <ul>privilèges
+    	{% for favour in figure.favours %}
+    		<li><p>nom : {{ favour.name }}</p><p>description : {{ favour.description }}</p></li>
+    	{% endfor %}
+    </ul>
 		
 {% endblock %}
 	

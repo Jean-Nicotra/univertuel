@@ -4,7 +4,7 @@
 {% block figure_page %}
 
 
-		
+	----------------- informations de base sur le personnage ----------------
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
 		<li><label>caste: </label>{{ figure.caste.name }}</li>
@@ -15,11 +15,14 @@
 		<li><label>pays d'origine</label>{{ figure.nation }}</li>
 	</ul>	
 	
+	----------------- renommée du personnage ----------------
 	<ul>renommée
 		<li>{{ figure.reputation }}</li>
 	</ul>
+	
+	----------------- caracteristiques du personnage ----------------
 	{% if caracteristics[0].value == null %}
-		cliquer ici pour initialiser vos caracteristiques
+		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
 	{% endif %}
 	<ul>
 	{% for caracteristic in caracteristics %}
@@ -27,17 +30,19 @@
 	{% endfor %}
 	</ul>
 	
+	----------------- attributs majeurs du personnage ----------------
 	{% if majorAttributes[0].value == null %}
-		cliquer ici pour initialiser vos attributs majeurs
+		cliquer ici pour initialiser vos attributs majeurs<a href="{{ path('figure_edit_initial_major_attribute', {'id': figure.id }) }}">editer</a>
 	{% endif %}
 	<ul>
 	{% for majorAttribute in majorAttributes %}
-		<li><label>{{ majorAttribute.attribute.name }}</label>  {{ majorAttribute.value }}</li>
+		<li><label>{{ majorAttribute.majorAttribute.name }}</label>  {{ majorAttribute.value }}</li>
 	{% endfor %}
 	</ul>
 		
+	----------------- attributs mineurs du personnage ----------------	
 	{% if minorAttributes[0].value == null %}
-		cliquer ici pour initialiser vos attributs mineurs
+		cliquer ici pour initialiser vos attributs mineurs<a href="">editer</a>
 	{% endif %}
 	<ul>
 	{% for minorAttribute in minorAttributes %}
@@ -50,6 +55,8 @@
 		cliquer ici pour initialiser vos attributs mineurs
 	{% endif %}
 	#}
+	
+	----------------- tendances du personnage ----------------
 	<ul>
 	{% for tendency in tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
@@ -58,12 +65,14 @@
 	</ul>
 	
 				{# PB Si certaines tendances sont a 0. il faut aborder differemment pour la creation
-	{% if tendencies[0].circles == null %}
+	{% if tendencies[0].circles == null %}technic
 		cliquer ici pour initialiser vos attributs mineurs
 	{% endif %}
 	#}
 	
 	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
+	
+	----------------- blessures du personnage ----------------
 	<ul>
 	{% for wound in wounds %}
 		<li><label>{{ wound.wound.name }}</label><label>{{ wound.wound.damages }}</label><label>{{ wound.wound.maxWounds }}</label><label>{{ wound.wound.malus }}</label>{{ wound.value }}</li>
@@ -71,12 +80,12 @@
 	</ul>
 	
 	
-	
+	----------------- compétences du personnage ----------------
 	<ul>	
 	{% for majorAttribute in majorAttributes %}
-		{{ majorAttribute.attribute.name }} 
+		{{ majorAttribute.majorAttribute.name }} 
 		{% for skillCategory in skillCategories %}
-			{% if skillCategory.majorAttribute.name is same as (majorAttribute.attribute.name) %} 
+			{% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %} 
 				{{ skillCategory.name }}
 			{% for skill in skills %}
 		    	{% if skill.skill.skillCategory.name is same as (skillCategory.name) %}
@@ -87,6 +96,12 @@
 		{% endfor %}
 	{% endfor %}
 	</ul>
+	
+	----------------- expérience du personnage ----------------
+	<ul>experience
+		<li>{{ figure.xperience }}</li>
+	</ul>
+	
 		
 {% endblock %}
 	

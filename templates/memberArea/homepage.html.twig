@@ -11,7 +11,6 @@
 	<ul>
 		{% if (is_granted('ROLE_ADMIN')) %}
 		<li><a href="{{ path('admin') }}">administration</a></li>
-		<li><a href="">administration des jeux</a></li>
 		{% endif %}
 		<li><a href="{{ path('figures') }}">mes personnages</a></li>
 		<li><a href="{{ path('campaigns') }}">mes campagnes</a></li>

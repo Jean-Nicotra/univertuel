@@ -6,16 +6,22 @@
 	page d'équipement
 
 <ul>armes
+	{% for weapon in figure.weapons %}
+		<li><p>nom : {{ weapon.name }}</p>degats : <p>{{ weapon.damages }}</p></li>
+	{% endfor %}
 </ul>
 
 <ul>armures
 	{% for armor in figure.armors %}
-		{{ armor.name }}
+		<li><p>nom : {{ armor.name }}</p><p>protection : {{ armor.protection }}</p></li>
 	{% endfor %}
 </ul>
 
 
 <ul>bouclier
+	{% for shield in figure.shields %}
+		<li><p>nom : {{ shield.name }}</p><p>protection : {{ shield.protection }}</p></li>
+	{% endfor %}
 </ul>
 
 <ul>matériels divers

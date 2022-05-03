@@ -29,6 +29,9 @@ class GameController extends AbstractController
      */
    public function new(Request $request)
    {
+       $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+       $games = $gameRepository->findAll();
+       
        $game = new Game();
        $form = $this->createForm(GameFormType::class, $game);
        
@@ -43,7 +46,7 @@ class GameController extends AbstractController
            return $this->redirectToRoute('member_homepage');
        }
        
-       return $this->render('memberArea/admin/game/form_game.html.twig', ['form' => $form->createView(),]);
+       return $this->render('memberArea/admin/game/form_game.html.twig', ['form' => $form->createView(),'games' => $games]);
    }
    
    /**
@@ -58,4 +61,6 @@ class GameController extends AbstractController
        
        return $this->render('platform/game/available_games.html.twig', ['games' => $games]);
    }
+   
+   
 }

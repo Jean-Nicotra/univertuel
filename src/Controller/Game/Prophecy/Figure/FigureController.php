@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Game\Prophecy\Figure\ProphecyFigureRepository;
 use App\Entity\User\User;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
-use App\Form\Game\Prophecy\Figure\ProphecyFigureStepOneFormType;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureMinorAttribute;
@@ -25,6 +24,10 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigureWound;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureDiscipline;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency;
+use App\Form\Game\Prophecy\Figure\EditProphecyCaracteristicFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCaracteristicsFormType;
+use App\Form\Game\Prophecy\Figure\ProphecyCreateFigureFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMajorAttributesFormType;
 
 class FigureController extends AbstractController
 {
@@ -91,7 +94,7 @@ class FigureController extends AbstractController
         $figure->setCampaign($campaign);
         $figure->setIsFinish(false);
         
-        $form = $this->createForm(ProphecyFigureStepOneFormType::class, $figure);
+        $form = $this->createForm(ProphecyCreateFigureFormType::class, $figure);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -316,4 +319,65 @@ class FigureController extends AbstractController
             
         ]);
     }
+
+   
+    
+    /**
+     * Role: to the figure creation, edit initial caracteristic
+     * @param Request $request
+     * @param ProphecyFigure $id
+     *
+     *ca marche : ca affiche les caracteristiques et une valeur à choisir -   reste a faire : la liste doit pouvoir etre customisée
+     */
+    public function figureEditInitialCaracteristic(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
+        $figure = $figureRepository->find($id);
+        $figureCaracteristics = $figureCaracteristicRepository->findByFigure(['figure' => $figure]);
+        //$caracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic');
+        //$figureCaracteristic = new ProphecyFigureCaracteristic();
+        
+        $form =  $this->createForm(InitialiseProphecyFigureCaracteristicsFormType::class, $figure );
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+        }
+        
+        return $this->render('memberArea/figure/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure, 'figureCaracteristics' => $figureCaracteristics]);
+        
+        
+    }
+    
+    public function figureEditInitialMajorAttribute(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
+        $figure = $figureRepository->find($id);
+        $figureMajorAttributes = $figureMajorAttributeRepository->findByFigure(['figure' => $figure]);
+        //$majorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
+        //$figureCaracteristic = new ProphecyFigureCaracteristic();
+        
+        $form = $this->createForm(InitialiseProphecyFigureMajorAttributesFormType::class, $figure );
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+        }
+        
+        return $this->render('memberArea/figure/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
+    }
+    
+    
+    
+    
 }

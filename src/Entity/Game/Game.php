@@ -44,7 +44,7 @@ class Game
 
     public function setCode(string $code): self
     {
-        $this->code = $code;
+        $this->code = ucfirst($code);
 
         return $this;
     }
@@ -71,5 +71,10 @@ class Game
         $this->description = $description;
 
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->name;
     }
 }

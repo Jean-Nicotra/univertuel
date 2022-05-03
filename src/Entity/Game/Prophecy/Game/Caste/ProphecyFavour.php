@@ -2,14 +2,14 @@
 
 namespace App\Entity\Game\Prophecy\Game\Caste;
 
-use App\Repository\Game\Prophecy\Game\Caste\prophecyFavourRepository;
+use App\Repository\Game\Prophecy\Game\Caste\ProphecyFavourRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Campaign\Campaign;
  
 /**
  * @ORM\Entity(repositoryClass=prophecyFavourRepository::class)
  */
-class prophecyFavour
+class ProphecyFavour
 {
     /**
      * @ORM\Id

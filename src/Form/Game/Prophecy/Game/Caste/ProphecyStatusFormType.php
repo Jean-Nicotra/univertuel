@@ -19,8 +19,13 @@ class ProphecyStatusFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('level', IntegerType::class)
+            ->add('name', TextType::class, [
+            		'label' => 'nom du statut',		
+            		])
+            ->add('level', IntegerType::class, [
+            		'label' => 'niveau',
+            		'attr' => ['min' => 1,'max' => 5],
+            ])
             ->add('caste', EntityType::class, [
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',

@@ -2,19 +2,19 @@
 
 namespace App\Repository\Game\Prophecy\Game\Caste;
 
-use App\Entity\Game\Prophecy\Game\Caste\prophecyFavour;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method prophecyFavour|null find($id, $lockMode = null, $lockVersion = null)
- * @method prophecyFavour|null findOneBy(array $criteria, array $orderBy = null)
- * @method prophecyFavour[]    findAll()
- * @method prophecyFavour[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ProphecyFavour|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProphecyFavour|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProphecyFavour[]    findAll()
+ * @method ProphecyFavour[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class prophecyFavourRepository extends ServiceEntityRepository
+class ProphecyFavourRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -25,7 +25,7 @@ class prophecyFavourRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(prophecyFavour $entity, bool $flush = true): void
+    public function add(ProphecyFavour $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class prophecyFavourRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(prophecyFavour $entity, bool $flush = true): void
+    public function remove(ProphecyFavour $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class prophecyFavourRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return prophecyFavour[] Returns an array of prophecyFavour objects
+    //  * @return ProphecyFavour[] Returns an array of prophecyFavour objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class prophecyFavourRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?prophecyFavour
+    public function findOneBySomeField($value): ?ProphecyFavour
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

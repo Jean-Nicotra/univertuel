@@ -28,7 +28,7 @@ class ProphecyFigureMajorAttribute
     
     /**
      * the figure object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="majorAttributes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
@@ -39,7 +39,7 @@ class ProphecyFigureMajorAttribute
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $attribute;
+    private $majorAttribute;
 
     /**
      * attribute value for figure
@@ -77,14 +77,14 @@ class ProphecyFigureMajorAttribute
         return $this;
     }
 
-    public function getAttribute(): ?ProphecyMajorAttribute
+    public function getMajorAttribute(): ?ProphecyMajorAttribute
     {
-        return $this->attribute;
+        return $this->majorAttribute;
     }
 
-    public function setAttribute(ProphecyMajorAttribute $attribute): self
+    public function setMajorAttribute(ProphecyMajorAttribute $attribute): self
     {
-        $this->attribute = $attribute;
+        $this->majorAttribute = $attribute;
 
         return $this;
     }

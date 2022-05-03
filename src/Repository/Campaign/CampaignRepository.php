@@ -6,6 +6,8 @@ use App\Entity\Campaign\Campaign;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Driver\ResultStatement;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 
 /**
  * @method Campaign|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,7 +21,7 @@ class CampaignRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Campaign::class);
     }
-
+ 
     /**
      * @throws ORMException
      * @throws OptimisticLockException

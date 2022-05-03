@@ -26,14 +26,14 @@ class ProphecyFigureCaracteristic
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="caracteristics")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $caracteristic;
 
@@ -48,24 +48,24 @@ class ProphecyFigureCaracteristic
         return $this->id;
     }
 
-    public function getFigure(): ?ProphecyFigure
+    public function getFigure()//: ?ProphecyFigure
     {
         return $this->figure;
     }
 
-    public function setFigure(ProphecyFigure $figure): self
+    public function setFigure($figure): self
     {
         $this->figure = $figure;
 
         return $this;
     }
 
-    public function getCaracteristic(): ?ProphecyCaracteristic
+    public function getCaracteristic()//: ?ProphecyCaracteristic
     {
         return $this->caracteristic;
     }
 
-    public function setCaracteristic(ProphecyCaracteristic $caracteristic): self
+    public function setCaracteristic($caracteristic): self
     {
         $this->caracteristic = $caracteristic;
 
@@ -77,10 +77,16 @@ class ProphecyFigureCaracteristic
         return $this->value;
     }
 
-    public function setValue(int $value): self
+    public function setValue($value): self
     {
         $this->value = $value;
 
         return $this;
     }
+    
+    public function __toString(): ?string
+    {
+        return $this->getCaracteristic()->getName();
+    }
+    
 }
