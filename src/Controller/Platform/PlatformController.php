@@ -11,6 +11,7 @@ namespace App\Controller\Platform;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PlatformController extends AbstractController
 {
@@ -19,6 +20,8 @@ class PlatformController extends AbstractController
      * Role : display homepage view of application 
      * 
      * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * 
      */
     public function homepage (): Response
     {
@@ -29,6 +32,7 @@ class PlatformController extends AbstractController
      * role: display homepage member view
      * 
      * @return \Symfony\Component\HttpFoundation\Response
+     * 
      */
     public function memberHomepage()
     {

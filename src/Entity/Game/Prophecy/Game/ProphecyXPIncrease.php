@@ -2,9 +2,9 @@
 
 namespace App\Entity\Game\Prophecy\Game;
 
-use App\Repository\Game\Prophecy\Game\XPIncreaseRepository;
+use App\Repository\Game\Prophecy\Game\ProphecyXPIncreaseRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=XPIncreaseRepository::class)
@@ -19,7 +19,7 @@ class ProphecyXPIncrease
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;

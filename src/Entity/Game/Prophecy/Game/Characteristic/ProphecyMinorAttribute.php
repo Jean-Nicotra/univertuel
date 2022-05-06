@@ -4,7 +4,7 @@ namespace App\Entity\Game\Prophecy\Game\Characteristic;
 
 use App\Repository\Game\Prophecy\Game\Characteristic\ProphecyMinorAttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyMinorAttributeRepository::class)
@@ -34,7 +34,7 @@ class ProphecyMinorAttribute
     private $maximumValue;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;

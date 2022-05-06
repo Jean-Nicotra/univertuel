@@ -7,11 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Platform\Message\Thread;
 use App\Entity\User\User;
 use App\Entity\Platform\Message\Message;
-use App\Form\Message\MessageFormType;
-use App\Form\Message\MessageAddFormType;
-use App\Entity\Campaign\Campaign;
-use App\Form\Platform\Message\SendCampaignInvitationFormType;
-use App\Form\Message\MessageContactFormType;
+use App\Form\Platform\Message\MessageFormType;
+use App\Form\Platform\Message\MessageAddFormType;
+use App\Form\Platform\Message\MessageContactFormType;
 
 
 
@@ -144,96 +142,7 @@ class MessageController extends AbstractController
         return $this->render('memberArea/message/form_message_response.html.twig', ['messages' => $messages, 'form' => $form->createView()]);
     }
     
-    /**
-     * role: send a message to a campaign user onwer for asking to join in 
-     * 
-     * @param Request $request
-     * @param Campaign $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function askCampaignInvitation(Request $request, $id)
-    {
-        $thread = new Thread();
-        $receiver = new User();
-        $sender = $this->getUser();              //sender = current user
-        
-        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');
-        $campaign = new Campaign();
-        $campaign = $campaignRepository->find($id);
-        $receiver = $campaign->getOwner();
-        
-        //create a thread first
-        $thread->setSender($sender);
-        $thread->setReceiver($receiver);
-        $thread->setPurpose("demande d'invitation à participer à la campagne : ".$campaign->getName(). 
-        " se déroulant dans l'univers de ".$campaign->getGame()->getName() );
-        
-        //create message in second
-        $message = new Message();
-        $message->setSender($sender);
-        $message->setNumber(1);
-        $message->setThread($thread);           //assign thread created in first
-        $message->setMessage('Bonjour, je sollicite une invitation à participer à la campagne : '.$campaign->getName(). 
-        ' se déroulant dans l\'univers de '.$campaign->getGame()->getName() );
-        $message->setReceiver($thread->getReceiver());
-        
-        //assign thread
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($message);
-        $em->flush();         
-        
-        return $this->redirectToRoute('member_homepage');
-    }
     
-
-    /**
-     * role: send a message to someone by a campaign owner user. It generate a link to create a figure
-     * 
-     * @param Request $request
-     * @param Campaign $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function sendCampaignInvitation(Request $request, $id)
-    {
-        $thread = new Thread();
-        $receiver = new User();
-        $sender = $this->getUser();              //sender = current user
-        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Campaign\Campaign');
-        $campaign = new Campaign();
-        $campaign = $campaignRepository->find($id);
-        $campaigns = $campaignRepository->findBy(['owner' => $this->getUser()]);
-        $thread->setPurpose ('participation à la campagne');
-        $thread->setSender($sender);
-        
-        //create message in second
-        $message = new Message();
-        $message->setSender($sender);
-        $message->setNumber(1);
-        $message->setThread($thread);           //assign thread created in first
-        
-        $form = $this->createForm(SendCampaignInvitationFormType::class, $message);  
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $message->setReceiver($thread->getReceiver());
-            
-            //id is used in route to identifie campaign
-            $link = $this->generateUrl('new_figure', ['id' => $id]);
-            $message->setMessage
-            (
-                "voici le lien, clique et crée ton personnage : ". "<a href=".$link.">lien<a>"
-                );
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->persist($thread);
-            $em->flush();
-            
-            return $this->redirectToRoute('campaign', ['id' => $id]);
-        }
-        return $this->render('memberArea/campaign/form_send_campaign_invitation.html.twig', 
-            ['campaign' => $campaign, 'form' => $form->createView() ]);
-    }
     
     
     public function contact(Request $request)

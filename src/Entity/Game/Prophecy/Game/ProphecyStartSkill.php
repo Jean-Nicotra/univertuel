@@ -4,7 +4,7 @@ namespace App\Entity\Game\Prophecy\Game;
 
 use App\Repository\Game\Prophecy\Game\ProphecyStartSkillRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
 
 /**
@@ -20,7 +20,7 @@ class ProphecyStartSkill
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repository\Campaign;
+namespace App\Repository\Game;
 
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\DBAL\Driver\ResultStatement;
+//use Doctrine\DBAL\Driver\ResultStatement;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 
-/**
+/** 
  * @method Campaign|null find($id, $lockMode = null, $lockVersion = null)
  * @method Campaign|null findOneBy(array $criteria, array $orderBy = null)
  * @method Campaign[]    findAll()

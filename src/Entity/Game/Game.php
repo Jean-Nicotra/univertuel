@@ -39,12 +39,12 @@ class Game
 
     public function getCode(): ?string
     {
-        return $this->code;
+        return ucfirst($this->code);
     }
 
     public function setCode(string $code): self
     {
-        $this->code = ucfirst($code);
+        $this->code = ucfirst(strtolower($code));
 
         return $this;
     }

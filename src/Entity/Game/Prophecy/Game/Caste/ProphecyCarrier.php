@@ -33,7 +33,8 @@ class ProphecyCarrier
     private $prohibited;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;
 

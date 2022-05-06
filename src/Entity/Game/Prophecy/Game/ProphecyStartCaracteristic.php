@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Entity\Game\Prophecy\Game;
-
-use App\Repository\Game\Prophecy\Game\StartCaracteristicRepository;
+ 
+use App\Repository\Game\Prophecy\Game\ProphecyStartCaracteristicRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
   
 /** 
  * @ORM\Entity(repositoryClass=StartCaracteristicRepository::class)
@@ -19,7 +19,7 @@ class ProphecyStartCaracteristic
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;

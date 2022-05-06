@@ -4,7 +4,7 @@ namespace App\Entity\Game\Prophecy\Game\Item;
 
 use App\Repository\Game\Prophecy\Game\Item\ProphecyArmorRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyArmorRepository::class)
@@ -80,7 +80,7 @@ class ProphecyArmor
     private $material;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;
@@ -127,7 +127,7 @@ class ProphecyArmor
     }
     
     /**
-     * @return \App\Entity\Campaign\Campaign
+     * @return \App\Entity\Game\Campaign
      */
     public function getCampaign(): ?Campaign
     {
@@ -135,7 +135,7 @@ class ProphecyArmor
     }
     
     /**
-     * @param \App\Entity\Campaign\Campaign $campaign
+     * @param \App\Entity\Game\Campaign $campaign
      */
     public function setCampaign($campaign): self
     {

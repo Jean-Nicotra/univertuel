@@ -37,7 +37,7 @@ class ProphecyBenefit
     private $caste;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;
@@ -72,7 +72,7 @@ class ProphecyBenefit
     }
 
     /**
-     * @return \App\Entity\Campaign\Campaign
+     * @return \App\Entity\Game\Campaign
      */
     public function getCampaign()
     {
@@ -96,7 +96,7 @@ class ProphecyBenefit
     }
 
     /**
-     * @param \App\Entity\Campaign\Campaign $campaign
+     * @param \App\Entity\Game\Campaign $campaign
      */
     public function setCampaign($campaign)
     {

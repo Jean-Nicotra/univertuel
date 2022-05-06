@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\DBAL\Driver\ResultStatement;
+
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -71,7 +71,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * 
      * @param boolean $isactive = true
-     * @return ResultStatement
      */
     public function findActiveUsers ($isactive = true)
     {
@@ -85,7 +84,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      *
      * @param boolean $isactive = false
-     * @return ResultStatement
      */
     public function findInactiveUsers ($isactive = false)
     {

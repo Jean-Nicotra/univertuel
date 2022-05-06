@@ -5,7 +5,7 @@ namespace App\Entity\Game\Prophecy\Game\Characteristic;
 use App\Repository\Game\Prophecy\Game\Characteristic\ProphecyAdvantageRepository;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyAdvantageRepository::class)
@@ -49,6 +49,12 @@ class ProphecyAdvantage
      * @ORM\Column(type="text")
      */
     private $description;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $campaign;
 
 
     public function getId(): ?int
@@ -125,6 +131,18 @@ class ProphecyAdvantage
     {
         $this->description = $description;
 
+        return $this;
+    }
+    
+    public function getCampaign (): ?Campaign
+    {
+        return $this->campaign;
+    }
+    
+    public function setCampaign ($campaign): self
+    {
+        $this->campaign = $campaign;
+        
         return $this;
     }
 

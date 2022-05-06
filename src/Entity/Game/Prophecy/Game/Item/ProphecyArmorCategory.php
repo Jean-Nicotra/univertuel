@@ -4,7 +4,7 @@ namespace App\Entity\Game\Prophecy\Game\Item;
 
 use App\Repository\Game\Prophecy\Game\Item\ProphecyArmorCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyArmorCategoryRepository::class)
@@ -24,7 +24,7 @@ class ProphecyArmorCategory
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;

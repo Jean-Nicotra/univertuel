@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Message;
+namespace App\Form\Platform\Message;
 
 use App\Entity\Platform\Message\Thread;
 use Symfony\Component\Form\AbstractType;
@@ -33,6 +33,6 @@ class ThreadFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Thread::class,
         ]);
-        //$resolver->setAllowedTypes('id', 'integer');
+        
     }
 }

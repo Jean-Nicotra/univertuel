@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Campaign;
+namespace App\Form\Game\Campaign;
 
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

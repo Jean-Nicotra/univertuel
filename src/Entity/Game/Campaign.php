@@ -6,13 +6,13 @@
     date      : 24/03/2021
 ******************************************************************************************************************/
 
-namespace App\Entity\Campaign;
+namespace App\Entity\Game;
 
-use App\Repository\Campaign\CampaignRepository; 
+use App\Repository\Game\CampaignRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Game;
 use App\Entity\User\User;
-
+ 
 
 /**
  * @ORM\Entity(repositoryClass=CampaignRepository::class)

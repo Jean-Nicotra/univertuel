@@ -4,7 +4,7 @@ namespace App\Entity\Game\Prophecy\Game\Characteristic;
 
 use App\Repository\Game\Prophecy\Game\Characteristic\ProphecyAgeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyAgeRepository::class)
@@ -44,7 +44,7 @@ class ProphecyAge
     private $startAttValue4;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */
     private $campaign;

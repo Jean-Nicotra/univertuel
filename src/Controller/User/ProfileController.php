@@ -45,8 +45,10 @@ class ProfileController extends AbstractController
         return $this->render('memberArea/profile/profile.html.twig', ['form' => $form->createView()]);
     }
     */
+    
     public function profile(Request $request)
     {
+        /*
         $user = new User();
         $userRepository = $this->getDoctrine()->getRepository('App\Entity\User\User');
         $user = $userRepository->find($this->getUser()->getId());
@@ -69,9 +71,11 @@ class ProfileController extends AbstractController
             
             return $this->redirectToRoute('member_homepage');
         }
+        */
         
-        return $this->render('memberArea/profile/profile.html.twig', ['form' => $form->createView()]);
+        return $this->render('memberArea/profile/profile.html.twig', );
     }
+    
 }
 
    

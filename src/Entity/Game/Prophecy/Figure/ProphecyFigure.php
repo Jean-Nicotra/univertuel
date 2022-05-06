@@ -11,7 +11,7 @@ namespace App\Entity\Game\Prophecy\Figure;
 use App\Repository\Game\Prophecy\Figure\ProphecyFigureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User\User;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
@@ -27,13 +27,14 @@ use App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic;
 use App\Entity\Game\Prophecy\Game\Caste\prophecyFavour;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
+use App\Entity\Game\FigureInterface;
 
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyFigureRepository::class)
  * 
  */
-class ProphecyFigure
+class ProphecyFigure implements FigureInterface
 {
     /**
      * @ORM\Id
@@ -55,26 +56,26 @@ class ProphecyFigure
     private $owner;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Campaign\Campaign")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=false)
      */
     private $campaign;
     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $caste;
     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $omen;
     
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $age;
     
@@ -783,4 +784,14 @@ class ProphecyFigure
     {
         return $this->getName();
     }
+    
+    public function setDecrease(int $value)
+    {}
+
+    public function setIncrease(int $value)
+    {}
+
+    public function getCurrentPoints()
+    {}
+
 }

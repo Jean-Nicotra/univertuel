@@ -19,6 +19,7 @@ class ProphecyCreateFigureFormType extends AbstractType
     {
         $builder
         ->add('name', TextType::class)
+        /*
         ->add('caste', EntityType::class, [
             'class' => ProphecyCaste::class,
             'choice_label' => 'name',
@@ -40,6 +41,7 @@ class ProphecyCreateFigureFormType extends AbstractType
             'expanded' => false,
             
         ])
+        */
         ->add('valider', SubmitType::class)
         ;
     }
