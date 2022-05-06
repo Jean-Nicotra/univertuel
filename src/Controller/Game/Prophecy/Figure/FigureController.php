@@ -38,7 +38,7 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figures = $figureRepository->findBy(['owner' => $user]);
         
-        return $this->render('memberArea/figure/figures.html.twig', ['figures' => $figures]);
+        return $this->render('memberArea/figure/prophecy/figures.html.twig', ['figures' => $figures]);
     }
     
     /**
@@ -210,7 +210,7 @@ class FigureController extends AbstractController
             return $this->redirectToRoute('figures', ['figures' => $figures]);
         }
         
-        return $this->render('memberArea/figure/form_new_figure.html.twig', ['form' => $form->createView()]);
+        return $this->render('memberArea/figure/prophecy/form_new_figure.html.twig', ['form' => $form->createView()]);
     }
     
     
@@ -252,7 +252,7 @@ class FigureController extends AbstractController
         $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
         $wounds = $figureWoundRepository->findBy(['figure' => $figure], []);
         
-        return $this->render('memberArea/figure/figure_caracteristics.html.twig', 
+        return $this->render('memberArea/figure/prophecy/figure_caracteristics.html.twig', 
             [
                 'figure' => $figure, 
                 'caracteristics' => $caracteristics, 
@@ -302,7 +302,7 @@ class FigureController extends AbstractController
         $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
         $wounds = $figureWoundRepository->findBy(['figure' => $figure], []);
         
-        return $this->render('memberArea/figure/figure_caracteristics.html.twig',
+        return $this->render('memberArea/figure/prophecy/figure_caracteristics.html.twig',
             [
                 'figure' => $figure,
                 'caracteristics' => $caracteristics,
@@ -326,7 +326,7 @@ class FigureController extends AbstractController
         $figureSphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere');
         $spheres = $figureSphereRepository->findAll();
         
-        return $this->render('memberArea/figure/figure_magic.html.twig',
+        return $this->render('memberArea/figure/prophecy/figure_magic.html.twig',
             [
                 'figure' => $figure, 
                 'disciplines' => $disciplines,
@@ -343,7 +343,7 @@ class FigureController extends AbstractController
         $figureCurrencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency');
         $currencies = $figureCurrencyRepository->findBy(['figure' => $figure], []);
         
-        return $this->render('memberArea/figure/figure_equipment.html.twig', [
+        return $this->render('memberArea/figure/prophecy/figure_equipment.html.twig', [
             'figure' => $figure,
             'currencies' => $currencies,
         ]);
@@ -360,7 +360,7 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        return $this->render('memberArea/figure/figure_caste.html.twig', [
+        return $this->render('memberArea/figure/prophecy/figure_caste.html.twig', [
             'figure' => $figure,
             
         ]);
@@ -376,7 +376,7 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        return $this->render('memberArea/figure/figure_background.html.twig', [
+        return $this->render('memberArea/figure/prophecy/figure_background.html.twig', [
             'figure' => $figure,
             
         ]);
@@ -411,7 +411,7 @@ class FigureController extends AbstractController
             $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
         }
         
-        return $this->render('memberArea/figure/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure, 'figureCaracteristics' => $figureCaracteristics]);
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure, 'figureCaracteristics' => $figureCaracteristics]);
         
         
     }
@@ -436,7 +436,7 @@ class FigureController extends AbstractController
             $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
         }
         
-        return $this->render('memberArea/figure/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
     }
     
     

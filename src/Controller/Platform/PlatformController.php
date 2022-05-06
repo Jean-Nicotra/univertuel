@@ -52,16 +52,6 @@ class PlatformController extends AbstractController
         return $this->render('memberArea/admin/homepage.html.twig', ['games' => $games]);
     }
     
-    public function setup($id)
-    {
-        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
-        $games = $gameRepository->findAll();
-        
-        $game = $gameRepository->find($id);
-        $route = "setup_".$game->getCode();
-        
-        return $this->redirectToRoute($route);
-    }
     
     /**
      * role: display homepage view to create content for Prophecy game 

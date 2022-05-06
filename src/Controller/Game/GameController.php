@@ -62,5 +62,16 @@ class GameController extends AbstractController
        return $this->render('platform/game/available_games.html.twig', ['games' => $games]);
    }
    
+   public function setup($id)
+   {
+       $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+       $games = $gameRepository->findAll();
+       
+       $game = $gameRepository->find($id);
+       $route = "setup_".$game->getCode();
+       
+       return $this->redirectToRoute($route);
+   }
+   
    
 }

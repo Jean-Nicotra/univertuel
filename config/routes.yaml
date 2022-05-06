@@ -134,15 +134,16 @@ admin:
     path: /admin/homepage
     controller: App\Controller\Platform\PlatformController::adminHomepage
 
-setup_prophecy:
+
+setup_prophecy: # appele a disparaitre #
     path: /admin/setup-prophecy
     controller: App\Controller\Platform\PlatformController::setupProphecy
     
 setup:
     path: /admin/setup/{id}
-    controller: App\Controller\Platform\PlatformController::setup   
+    controller: App\Controller\Game\GameController::setup   
     
-setup_PROPHECY:     
+setup_Prophecy:     
     path: /admin/setup-prophecy
     controller: App\Controller\Platform\PlatformController::setupProphecy 
     
