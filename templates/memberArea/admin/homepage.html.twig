@@ -5,14 +5,21 @@
 
 	
 {% block content_member %}
+
 	ceci est la page  d accueil des administrateurs
 	<ul>
 		<li><a href="{{ path('new_game') }}">creer un jeu</a></li>
 		{% for game in games %}
+		
 			<li><a href="{{ path('setup', {'id': game.id}) }}">{{ game.code }}</a></li>
 	
 		{% endfor %}
-		<li><a href="">utilisateurs</a></li>
+		
+		{% if is_granted('ROLE_SADMIN') %}
+		
+			<li><a href="">utilisateurs</a></li>
+		
+		{% endif %}
 	</ul>
 	 
 	

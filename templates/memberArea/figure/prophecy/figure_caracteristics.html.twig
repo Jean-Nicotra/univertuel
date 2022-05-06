@@ -8,13 +8,13 @@
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
 		{% if figure.caste == null %}
-		<li><label>caste: </label>cliquer ici pour initialiser votre caste<a href="">editer</a></li>
+		<li><label>caste: </label>cliquer ici pour initialiser votre caste<a href="{{ path('prophecy_figure_edit_initial_caste', {'id': figure.id }) }}">editer</a></li>
 		{% else %}
 		<li><label>caste: </label>{{ figure.caste.name }}</li>
 		{% endif %}
 		
 		{% if figure.age == null %}
-		<li><label>age: </label>cliquer ici pour initialiser votre age<a href="">editer</a></li>
+		<li><label>age: </label>cliquer ici pour initialiser votre age<a href="{{ path('prophecy_figure_edit_initial_age', {'id': figure.id }) }}">editer</a></li>
 		{% else %}
 		<li><label>age: </label>{{ figure.age.name }}</li>
 		{% endif %}

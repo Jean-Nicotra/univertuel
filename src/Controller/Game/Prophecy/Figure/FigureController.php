@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\Game\Prophecy\Figure\ProphecyFigureRepository;
-use App\Entity\User\User;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute;
@@ -29,6 +28,8 @@ use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCaracteristicsFormType
 use App\Form\Game\Prophecy\Figure\ProphecyCreateFigureFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMajorAttributesFormType;
 use App\Entity\Game\Figure;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCasteFormType;
+use App\Form\Game\Prophecy\InitialiseProphecyFigureAgeFormType;
 
 class FigureController extends AbstractController
 {
@@ -49,8 +50,7 @@ class FigureController extends AbstractController
      */
     public function newFigure(Request $request, $id)
     {
-        $user = $this->getUser();    
-        
+        $user = $this->getUser();        
         $interfaceFigure = new Figure();
         
         //figureCaracteristics
@@ -361,8 +361,7 @@ class FigureController extends AbstractController
         $figure = $figureRepository->find($id);
         
         return $this->render('memberArea/figure/prophecy/figure_caste.html.twig', [
-            'figure' => $figure,
-            
+            'figure' => $figure,      
         ]);
     }
 
@@ -378,7 +377,6 @@ class FigureController extends AbstractController
         
         return $this->render('memberArea/figure/prophecy/figure_background.html.twig', [
             'figure' => $figure,
-            
         ]);
     }
 
@@ -397,8 +395,6 @@ class FigureController extends AbstractController
         $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
         $figure = $figureRepository->find($id);
         $figureCaracteristics = $figureCaracteristicRepository->findByFigure(['figure' => $figure]);
-        //$caracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic');
-        //$figureCaracteristic = new ProphecyFigureCaracteristic();
         
         $form =  $this->createForm(InitialiseProphecyFigureCaracteristicsFormType::class, $figure );
         $form->handleRequest($request);
@@ -439,7 +435,43 @@ class FigureController extends AbstractController
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
     }
     
+    public function figureEditInitialCaste(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $form = $this->createForm(InitialiseProphecyFigureCasteFormType::class, $figure);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
+    }
     
+    public function figureEditInitialAge(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $form = $this->createForm(InitialiseProphecyFigureAgeFormType::class, $figure);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
+    }
     
     
 }

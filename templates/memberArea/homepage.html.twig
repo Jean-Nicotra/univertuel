@@ -10,13 +10,13 @@
 	ceci est la page d accueil pour un membre
 	<ul>
 		{% if (is_granted('ROLE_ADMIN')) %}
-		<li><a href="{{ path('admin') }}">administration</a></li>
+		<li><a href="{{ path('admin') }}"><label>administration</label></a></li>
 		{% endif %}
-		<li><a href="{{ path('figures') }}">mes personnages</a></li>
-		<li><a href="{{ path('campaigns') }}">mes campagnes</a></li>
-		<li><a href="{{ path('find_campaigns') }}">rechercher une campagne</a></li>
-		<li><a href="{{ path('messages') }}">messages</a></li>
-		<li><a href="{{ path('figuresTest') }}">liste de tous les personnages</a>
+		<li><a href="{{ path('figures') }}"><label>mes personnages</label></a></li>
+		<li><a href="{{ path('campaigns') }}"><label>mes campagnes</label></a></li>
+		<li><a href="{{ path('find_campaigns') }}"><label>rechercher une campagne</label></a></li>
+		<li><a href="{{ path('messages') }}"><label>messages</label></a></li>
+		<li><a href="{{ path('figuresTest') }}"><label>liste de tous les personnages</label></a></li>
 	</ul>
 	
 	{% block content_member %}

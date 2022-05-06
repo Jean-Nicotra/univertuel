@@ -317,6 +317,14 @@ figure_edit_initial_caracteristic:
     path: /member/figure/figure-edit-initial-caracteristic/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristic
     
+prophecy_figure_edit_initial_caste:
+    path: /member/figure/prophecy-figure-edit-initial-caste/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaste
+    
+prophecy_figure_edit_initial_age:
+    path: /member/figure/prophecy-figure-edit-initial-age/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialAge
+    
 formulaire:
     path: /form/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristicTest
