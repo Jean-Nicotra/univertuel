@@ -29,7 +29,7 @@ use App\Form\Game\Prophecy\Figure\ProphecyCreateFigureFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMajorAttributesFormType;
 use App\Entity\Game\Figure;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCasteFormType;
-use App\Form\Game\Prophecy\InitialiseProphecyFigureAgeFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureAgeFormType;
 
 class FigureController extends AbstractController
 {

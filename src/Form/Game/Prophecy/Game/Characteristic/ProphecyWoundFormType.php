@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProphecyWoundFormType extends AbstractType

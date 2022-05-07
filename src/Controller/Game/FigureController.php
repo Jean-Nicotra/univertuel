@@ -14,16 +14,16 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Figure');
         $figuresList = $figureRepository->findBy(['owner' => $owner ]);
         
-        return $this->render('memberArea/figure/figures_test.html.twig', ['figures' => $figuresList]);
+        return $this->render('memberArea/figure/prophecy/figures_test.html.twig', ['figures' => $figuresList]);
         
     }
     
-    public function figureCaracteristicsTest($id, $game)
+    public function figureFind($id, $game)
     {
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $game = $gameRepository->find($game);
         $route = $game->getCode().'_figure_caracteristics';//format : Prophecy_figure_caracteristics or Cyberpunk_figure_caracteristics
         
-        $this->redirectToRoute($route);
+        return $this->redirectToRoute($route, ['id' => $id]);
     }
 }

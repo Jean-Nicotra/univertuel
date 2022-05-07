@@ -39,8 +39,13 @@ class CasteController extends AbstractController
         $title = "Nouvelle caste";
         $caste = new ProphecyCaste();
         $campaign = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
         $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste');
         $items = $itemRepository->findBy(['campaign' => $campaign]);
+        
         $route = null;
         $form = $this->createForm(CasteFormType::class, $caste);
         
@@ -67,7 +72,11 @@ class CasteController extends AbstractController
             
         }
         
-        return $this->render('memberArea/admin/game/prophecy/item/create_item.html.twig', ['form' =>$form->createView(), 'title' => $title, 'items' => $items]); 
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(), 
+            'title' => $title, 
+            'items' => $items, 'games' => $games
+        ]); 
     }
     
     /**
@@ -80,8 +89,13 @@ class CasteController extends AbstractController
     {
         $title = "nouveau status de caste";
         $status = new ProphecyStatus();
+        
         $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyStatus');
         $items = $itemRepository->findAll();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
         $route = null;
         $form = $this->createForm(ProphecyStatusFormType::class, $status);
         
@@ -107,7 +121,11 @@ class CasteController extends AbstractController
             return $this->redirectToRoute($route);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/item/create_item.html.twig', ['form' =>$form->createView(), 'title' => $title, 'items' => $items]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -120,8 +138,13 @@ class CasteController extends AbstractController
     {
         $title = "nouveau bénéfice de caste";
         $benefit = new ProphecyBenefit();
+        
         $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit');
         $items = $itemRepository->findAll();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
         $form = $this->createForm(ProphecyFormBenefitType::class, $benefit);
         $route = null;
         $form->handleRequest($request);
@@ -146,7 +169,11 @@ class CasteController extends AbstractController
             return $this->redirectToRoute($route);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/item/create_item.html.twig', ['form' =>$form->createView(), 'title' => $title, 'items' => $items]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -159,10 +186,14 @@ class CasteController extends AbstractController
     {
         $title = "nouvel interdit de caste";
         $prohibited = new ProphecyProhibited();
+        
         $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
         $items = $itemRepository->findAll();
-        $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited);
         
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -185,7 +216,11 @@ class CasteController extends AbstractController
             return $this->redirectToRoute($route);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/item/create_item.html.twig', ['form' =>$form->createView(), 'title' => $title, 'items' => $items]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
    
     /**
@@ -198,10 +233,14 @@ class CasteController extends AbstractController
     {
         $title = "nouveau privilège de caste";
         $favour = new prophecyFavour();
+        
         $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour');
         $items = $itemRepository->findAll();
-        $form = $this->createForm(ProphecyFormFavourType::class, $favour);
         
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyFormFavourType::class, $favour);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -214,7 +253,11 @@ class CasteController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/item/create_item.html.twig', ['form' =>$form->createView(), 'title' => $title, 'items' => $items]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -227,10 +270,14 @@ class CasteController extends AbstractController
     {
         $title = "nouvelle technique de caste";
         $technic = new ProphecyTechnic();
+        
         $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic');
         $items = $itemRepository->findAll();
-        $form = $this->createForm(ProphecyTechnicFormType::class, $technic);
         
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyTechnicFormType::class, $technic);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -247,6 +294,10 @@ class CasteController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/item/create_item.html.twig', ['form' =>$form->createView(), 'title' => $title, 'items' => $items]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 }

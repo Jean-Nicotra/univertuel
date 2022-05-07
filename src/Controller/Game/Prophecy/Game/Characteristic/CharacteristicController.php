@@ -6,7 +6,7 @@
  author    : tristesire
  date      : 18/03/2022
  *******************************************************************************************************************/
-
+/*    A MODIFIER          */
 namespace App\Controller\Game\Prophecy\Game\Characteristic;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,8 +49,14 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvelle catégorie d'avantage et inconvénient";
         $category = new ProphecyAdvantageCategory();
-        $form = $this->createForm(ProphecyAdvantageCategoryFormType::class, $category);
         
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory');
+        $items = $itemRepository->findAll();
+        
+        $form = $this->createForm(ProphecyAdvantageCategoryFormType::class, $category);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -63,7 +69,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -76,6 +86,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvel avantage";
         $advantage = new ProphecyAdvantage();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage');
+        $items = $itemRepository->findAll();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
         $form = $this->createForm(ProphecyAdvantageFormType::class, $advantage);
         
         $form->handleRequest($request);
@@ -90,7 +107,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -103,6 +124,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvelle caractéristique";
         $caracteristic = new ProphecyCaracteristic();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyCaracteristicFormType::class, $caracteristic);
         
         $form->handleRequest($request);
@@ -121,7 +149,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -134,6 +166,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvel âge";
         $age = new ProphecyAge();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyAgeFormType::class, $age);
         
         $form->handleRequest($request);
@@ -152,7 +191,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -165,6 +208,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvel inconvénient";
         $disadvantage = new ProphecyDisadvantage();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyDisadvantageFormType::class, $disadvantage);
         
         $form->handleRequest($request);
@@ -184,7 +234,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 
     /**
@@ -197,6 +251,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvel augure";
         $omen = new ProphecyOmen();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyOmenFormType::class, $omen);
         
         $form->handleRequest($request);
@@ -211,7 +272,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -224,6 +289,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvel attribut majeur";
         $majorAttribute = new ProphecyMajorAttribute();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyMajorAttributeFormType::class, $majorAttribute);
         
         $form->handleRequest($request);
@@ -242,7 +314,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -255,6 +331,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvel attribut mineur";
         $minorAttribute = new ProphecyMinorAttribute();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyMinorAttributeFormType::class, $minorAttribute);
         
         $form->handleRequest($request);
@@ -273,7 +356,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 
     /**
@@ -286,6 +373,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvelle catégorie de compétence";
         $category = new ProphecySkillCategory();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecySkillCategoryFormType::class, $category);
         
         $form->handleRequest($request);
@@ -300,7 +394,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 
     /**
@@ -313,13 +411,20 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvelle tendence";
         $tendency = new ProphecyTendency();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyTendencyFormType::class, $tendency);
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-tendency')
+            if ($request->getPathInfo() == '/admin/new-tendency')return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
             {
                 $tendency->setCampaign(null);
             }
@@ -331,7 +436,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -344,6 +453,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouvelle compétence";
         $skill = new ProphecySkill();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecySkillFormType::class, $skill);
         
         $form->handleRequest($request);
@@ -362,7 +478,11 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -375,6 +495,13 @@ class CharacteristicController extends AbstractController
     {
         $title = "Nouveau type de blessure";
         $wound = new ProphecyWound();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyWoundFormType::class, $wound);
         
         $form->handleRequest($request);
@@ -393,6 +520,10 @@ class CharacteristicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 }

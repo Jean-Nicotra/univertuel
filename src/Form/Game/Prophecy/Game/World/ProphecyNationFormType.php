@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProphecyNationFormType extends AbstractType

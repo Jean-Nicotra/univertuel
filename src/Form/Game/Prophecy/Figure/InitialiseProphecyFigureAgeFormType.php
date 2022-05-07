@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Game\Prophecy;
+namespace App\Form\Game\Prophecy\Figure;
 
 use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use Symfony\Component\Form\AbstractType;

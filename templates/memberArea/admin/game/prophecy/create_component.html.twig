@@ -1,0 +1,20 @@
+{% extends 'memberArea/admin/game/prophecy/prophecy_setup.html.twig' %}
+
+
+{% block component_game %}
+
+	<ul>
+	{% for item in items %}
+		<li>{{ item.name  }}</li>
+	{% endfor %}	
+	</ul>
+	
+	{{ title }}
+    {{ form(form) }}
+{% endblock %}
+
+	
+	
+
+	
+	

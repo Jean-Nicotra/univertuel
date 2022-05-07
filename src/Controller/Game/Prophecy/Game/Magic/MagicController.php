@@ -31,6 +31,13 @@ class MagicController extends AbstractController
     {
         $title = "Nouvelle Discipline";
         $discipline = new ProphecyDiscipline();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyDisciplineFormType::class, $discipline);
         
         $form->handleRequest($request);
@@ -49,7 +56,11 @@ class MagicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -62,6 +73,13 @@ class MagicController extends AbstractController
     {
         $title = "Nouvelle Sphere";
         $sphere = new ProphecySphere();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecySphereFormType::class, $sphere);
         
         $form->handleRequest($request);
@@ -80,7 +98,11 @@ class MagicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -93,6 +115,13 @@ class MagicController extends AbstractController
     {
         $title = "Nouveau sort";
         $spell = new ProphecySpell();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecySpellFormType::class, $spell);
         
         $form->handleRequest($request);
@@ -111,6 +140,10 @@ class MagicController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 }

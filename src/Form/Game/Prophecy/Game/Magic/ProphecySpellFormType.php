@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\Magic\ProphecySphere;
 use App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

@@ -29,6 +29,13 @@ class WorldController extends AbstractController
     {
         $title = "Nouvelle monnaie";
         $currency = new ProphecyCurrency();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyCurrency');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyCurrencyFormType::class, $currency);
         
         $form->handleRequest($request);
@@ -48,7 +55,11 @@ class WorldController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
     
     /**
@@ -61,6 +72,13 @@ class WorldController extends AbstractController
     {
         $title = "Nouvelle nation";
         $nation = new ProphecyNation();
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyNation');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyNationFormType::class, $nation);
         
         $form->handleRequest($request);
@@ -80,6 +98,10 @@ class WorldController extends AbstractController
             return $this->redirectToRoute('setup_prophecy');
         }
         
-        return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
+        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+            'form' =>$form->createView(),
+            'title' => $title,
+            'items' => $items, 'games' => $games
+        ]);
     }
 }

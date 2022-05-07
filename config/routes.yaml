@@ -288,14 +288,19 @@ new_figure:
     path: /member/figure/new-figure{id}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:newFigure
     
-figure_caracteristics:
-    path: /member/figure/figure-caracteristics/{id}
-    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureCaracteristics  
+Prophecy_figure_caracteristics:
+    path: /member/figure/prophecy/figure-caracteristics/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureCaracteristics   
+
+#A ANNULER DES QUE POSSIBLE    
+#figure_caracteristics:
+#    path: /member/figure/figure-caracteristics/{id}
+#    controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureCaracteristics  
     
 #route a definir avec clement qui doit etre commune, accès au  premier onglet du personnage    
-figure_test:
+figure_find:
     path: /member/figure/figure-caracteristics/{id}/{game}
-    controller:  App\Controller\Game\FigureController:figureCaracteristicsTest     
+    controller:  App\Controller\Game\FigureController:figureFind     
     
 figure_magic:
     path: /member/figure/figure-magic/{id}

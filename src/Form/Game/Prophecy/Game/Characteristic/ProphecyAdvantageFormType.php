@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use phpDocumentor\Reflection\PseudoTypes\False_;
-use App\Entity\Campaign\Campaign;
+use App\Entity\Game\Campaign;
 
 class ProphecyAdvantageFormType extends AbstractType
 {
