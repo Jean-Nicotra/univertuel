@@ -95,6 +95,7 @@ class FigureController extends AbstractController
         $figure->setOwner($user);
         $figure->setCampaign($campaign);
         $figure->setIsFinish(false);
+        $figure->setXperience(70);	//MODIFIER AVEC POINTS DE DEPARTS EN FONCTION DE L AGE
         
         $form = $this->createForm(ProphecyCreateFigureFormType::class, $figure);
         $form->handleRequest($request);

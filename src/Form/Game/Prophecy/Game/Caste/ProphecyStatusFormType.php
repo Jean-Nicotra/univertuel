@@ -17,7 +17,7 @@ use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
 class ProphecyStatusFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    {   	
         $builder
             ->add('name', TextType::class, [
             		'label' => 'nom du statut',		
@@ -30,15 +30,7 @@ class ProphecyStatusFormType extends AbstractType
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',
                 'multiple' => false,
-                'expanded' => false,
-                
-            ])
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
+                'expanded' => false,               
             ])
             ->add('description', TextareaType::class)
             ->add('valider', SubmitType::class)

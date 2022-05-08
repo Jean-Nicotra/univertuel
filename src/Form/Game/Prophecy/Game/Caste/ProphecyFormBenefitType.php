@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
-use App\Entity\Game\Campaign;
+
 
 class ProphecyFormBenefitType extends AbstractType
 {
@@ -24,13 +24,6 @@ class ProphecyFormBenefitType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,    
-                
-            ])
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
                 
             ])
             ->add('description', TextareaType::class)

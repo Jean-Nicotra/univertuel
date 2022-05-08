@@ -12,11 +12,14 @@ namespace App\Controller\Game\Prophecy\Game\Caste;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
 use App\Form\Game\Prophecy\Game\Caste\CasteFormType;
+use App\Form\Game\Prophecy\Game\Caste\CasteCampaignFormType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormBenefitType;
+use App\Form\Game\Prophecy\Game\Caste\ProphecyFormBenefitCampaignType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyStatus;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyStatusFormType;
+use App\Form\Game\Prophecy\Game\Caste\ProphecyStatusCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormProhibitedType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
@@ -46,7 +49,21 @@ class CasteController extends AbstractController
         $items = $itemRepository->findBy(['campaign' => $campaign]);
         
         $route = null;
-        $form = $this->createForm(CasteFormType::class, $caste);
+        $form = $this->createForm(CasteCampaignFormType::class, $caste);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-caste' )
+        {
+        	$route = 'setup_Prophecy';
+        	$form = $this->createForm(CasteFormType::class, $caste);
+        	$caste->setCampaign(null);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+        	$route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
@@ -56,17 +73,7 @@ class CasteController extends AbstractController
             $entityManager->persist($caste);
             $entityManager->flush();
             
-            //return to admin create content Prophecy if ok
-            if($request->getPathInfo() == '/admin/new-caste' )
-            {
-                $route = 'setup_Prophecy';
-            }
             
-            //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
-            else
-            {
-                $route = 'homepage';
-            }
             return $this->redirectToRoute($route);
             
         }
@@ -96,7 +103,20 @@ class CasteController extends AbstractController
         $games = $gameRepository->findAll();
         
         $route = null;
-        $form = $this->createForm(ProphecyStatusFormType::class, $status);
+        $form = $this->createForm(ProphecyStatusCampaignFormType::class, $status);
+
+        if($request->getPathInfo() == '/admin/new-status' )
+        {
+        	$route = 'setup_Prophecy';
+        	$form = $this->createForm(ProphecyStatusFormType::class, $status);
+        	$status->setCampaign(null);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+        	$route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
@@ -107,16 +127,6 @@ class CasteController extends AbstractController
             $entityManager->flush();
             
             //return to admin create content Prophecy if ok
-            if($request->getPathInfo() == '/admin/new-status' )
-            {
-                $route = 'setup_Prophecy';
-            }
-            
-            //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
-            else
-            {
-                $route = 'homepage';
-            }
             return $this->redirectToRoute($route);
         }
         
@@ -144,8 +154,24 @@ class CasteController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $form = $this->createForm(ProphecyFormBenefitType::class, $benefit);
+        $form = $this->createForm(ProphecyFormBenefitCampaignType::class, $benefit);
         $route = null;
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-benefit' )
+        {
+        	$route = 'setup_Prophecy';
+        	$form = $this->createForm(ProphecyFormBenefitType::class, $benefit);
+        	$benefit->setCampaign(null);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+        	$route = 'homepage';
+        }
+        
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -154,17 +180,6 @@ class CasteController extends AbstractController
             $entityManager->persist($benefit);
             $entityManager->flush();
                       
-            //return to admin create content Prophecy if ok
-            if($request->getPathInfo() == '/admin/new-benefit' )
-            {
-                $route = 'setup_Prophecy';
-            }
-            
-            //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
-            else
-            {
-                $route = 'homepage';
-            }
             return $this->redirectToRoute($route);
         }
         
@@ -193,6 +208,21 @@ class CasteController extends AbstractController
         $games = $gameRepository->findAll();
         
         $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-prohibited' )
+        {
+        	$route = 'setup_Prophecy';
+        	$form = $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
+        	$prohibited->setCampaign(null);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+        	$route = 'homepage';
+        }
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -201,17 +231,6 @@ class CasteController extends AbstractController
             $entityManager->persist($prohibited);
             $entityManager->flush();
             
-            //return to admin create content Prophecy if ok
-            if($request->getPathInfo() == '/admin/new-prohibited' )
-            {
-                $route = 'setup_Prophecy';
-            }
-            
-            //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
-            else
-            {
-                $route = 'homepage';
-            }
             return $this->redirectToRoute($route);
         }
         
