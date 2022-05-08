@@ -11,7 +11,6 @@ namespace App\Controller\Platform;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class PlatformController extends AbstractController
 {
@@ -25,7 +24,7 @@ class PlatformController extends AbstractController
      */
     public function homepage (): Response
     {
-        return $this->render('platform/homepage/homepage.html.twig', []);
+        return $this->render('platform/homepage/homepage.html.twig');
     }
     
     /**
@@ -36,7 +35,9 @@ class PlatformController extends AbstractController
      */
     public function memberHomepage()
     {
-        return $this->render('memberArea/homepage.html.twig', ['page_label' => 'panneau de controle']);
+        return $this->render('memberArea/homepage.html.twig', [
+            'page_label' => 'panneau de controle'
+        ]);
     }
     
     /**
@@ -49,22 +50,12 @@ class PlatformController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        return $this->render('memberArea/admin/homepage.html.twig', ['games' => $games]);
+        return $this->render('memberArea/admin/homepage.html.twig', [
+            'games' => $games
+        ]);
     }
     
     
-    /**
-     * role: display homepage view to create content for Prophecy game 
-     * 
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function setupProphecy ()
-    {
-        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
-        $games = $gameRepository->findAll();
-        
-        return $this->render('memberArea/admin/game/prophecy\prophecy_setup.html.twig', ['games' => $games]);
-    }
     
     /**
      * display features platform univertuel template 

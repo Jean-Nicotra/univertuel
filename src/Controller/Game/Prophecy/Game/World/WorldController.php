@@ -10,7 +10,6 @@
 namespace App\Controller\Game\Prophecy\Game\World;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\World\ProphecyCurrency;
 use App\Form\Game\Prophecy\Game\World\ProphecyCurrencyFormType;
@@ -58,7 +57,8 @@ class WorldController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items, 
+            'games' => $games,
         ]);
     }
     
@@ -101,7 +101,8 @@ class WorldController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items,
+            'games' => $games,
         ]);
     }
 }

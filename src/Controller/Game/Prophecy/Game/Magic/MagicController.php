@@ -10,7 +10,6 @@
 namespace App\Controller\Game\Prophecy\Game\Magic;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline;
 use App\Form\Game\Prophecy\Game\Magic\ProphecyDisciplineFormType;
@@ -59,7 +58,8 @@ class MagicController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items, 
+            'games' => $games,
         ]);
     }
     
@@ -101,7 +101,8 @@ class MagicController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items,
+            'games' => $games,
         ]);
     }
     
@@ -143,7 +144,8 @@ class MagicController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items,
+            'games' => $games,
         ]);
     }
 }

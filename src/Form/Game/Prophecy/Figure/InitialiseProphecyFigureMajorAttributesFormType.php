@@ -22,7 +22,7 @@ class InitialiseProphecyFigureMajorAttributesFormType extends AbstractType
                     'entry_options' => ['label' => false ]
                 ])
             ->add('valider', SubmitType::class)
-        ;
+        ;           
     }
 
     public function configureOptions(OptionsResolver $resolver): void

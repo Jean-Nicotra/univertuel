@@ -10,7 +10,6 @@
 namespace App\Controller\Game\Prophecy\Game\Characteristic;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategoryFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;

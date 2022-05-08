@@ -15,8 +15,12 @@ class EditProphecyMajorAttributeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('majorAttribute', TextType::class, ['label' => false, 'disabled' => true])
-        ->add('value', ChoiceType::class, ['label' => false,
+        ->add('majorAttribute', TextType::class, [
+            'label' => false, 'disabled' => true
+            
+        ])
+        ->add('value', ChoiceType::class, [
+            'label' => false,
             'choices' =>[
                 1 => 1,
                 2 => 2,

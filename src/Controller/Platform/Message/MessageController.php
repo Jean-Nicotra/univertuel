@@ -12,7 +12,6 @@ use App\Form\Platform\Message\MessageAddFormType;
 use App\Form\Platform\Message\MessageContactFormType;
 
 
-
 class MessageController extends AbstractController
 {
     /**
@@ -26,7 +25,9 @@ class MessageController extends AbstractController
         $messageRepository = $this->getDoctrine()->getRepository('App\Entity\Platform\Message\Thread');
         $messages = $messageRepository->findByUser ($user);
 
-        return $this->render('memberArea/message/messages.html.twig', ['messages' => $messages]);
+        return $this->render('memberArea/message/messages.html.twig', [
+            'messages' => $messages,
+        ]);
     }
 
     /**
@@ -38,9 +39,9 @@ class MessageController extends AbstractController
     public function newMessage(Request $request): Response
     {
         $thread = new Thread();
-        $receiver = new User();
-        
-        $sender = $this->getUser();              //sender = current user
+ 
+        //sender = current user
+        $sender = $this->getUser();              
         
         //create a thread first
         $thread->setSender($sender);
@@ -49,7 +50,9 @@ class MessageController extends AbstractController
         $message = new Message();
         $message->setSender($sender);
         $message->setNumber(1);
-        $message->setThread($thread);           //assign thread created in first
+        
+        //assign thread created in first
+        $message->setThread($thread);           
         
         $form = $this->createForm(MessageFormType::class, $message);
         $form->handleRequest($request);
@@ -64,7 +67,9 @@ class MessageController extends AbstractController
             return $this->redirectToRoute('messages');
         }
         
-        return $this->render('memberArea/message/form_message_new.html.twig', ['form' => $form->createView()]);    
+        return $this->render('memberArea/message/form_message_new.html.twig', [
+            'form' => $form->createView(),   
+        ]);    
     }
 
     /**
@@ -91,7 +96,9 @@ class MessageController extends AbstractController
         
         $messages = $threadRepository->findByUser ($user);
         
-        return $this->render('memberArea/message/messages.html.twig', ['messages' => $messages]);
+        return $this->render('memberArea/message/messages.html.twig', [
+            'messages' => $messages,
+        ]);
     }
 
     /**
@@ -139,7 +146,9 @@ class MessageController extends AbstractController
             
             return $this->redirectToRoute('messages');
         }
-        return $this->render('memberArea/message/form_message_response.html.twig', ['messages' => $messages, 'form' => $form->createView()]);
+        return $this->render('memberArea/message/form_message_response.html.twig', [
+            'messages' => $messages, 'form' => $form->createView(),
+        ]);
     }
     
     
@@ -176,7 +185,9 @@ class MessageController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
         
-        return $this->render('platform/contact/form_contact_new.html.twig', ['form' => $form->createView()]);    
+        return $this->render('platform/contact/form_contact_new.html.twig', [
+            'form' => $form->createView(),   
+        ]);    
     }
     
 

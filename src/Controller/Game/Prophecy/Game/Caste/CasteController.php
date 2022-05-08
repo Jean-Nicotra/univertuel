@@ -10,7 +10,6 @@
 namespace App\Controller\Game\Prophecy\Game\Caste;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
 use App\Form\Game\Prophecy\Game\Caste\CasteFormType;
 use Symfony\Component\HttpFoundation\Request;

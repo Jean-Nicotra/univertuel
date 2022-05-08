@@ -8,7 +8,7 @@
 			
 	liste de mes personnages :
 	{% for figure in figures %}
-		<a href="{{ path('figure_caracteristics', {'id': figure.id}) }}">{{ figure.name }}</a>
+		<a href="{{ path('figure_find', {'id': figure.figure, 'game': figure.campaign.game.id}) }}">{{ figure.name }}</a><label>jeu</label>{{ figure.campaign.game.code }}
 	{% endfor %}
 		
 {% endblock %}

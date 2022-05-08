@@ -21,9 +21,14 @@ class EditProphecyCaracteristicFormType extends AbstractType
         
         $builder
         
-            ->add('caracteristic', TextType::class, ['label' => false, 'disabled' => true])
+            ->add('caracteristic', TextType::class, [
+                'label' => false, 
+                'disabled' => true,
+                
+            ])
             
             ->add('value', ChoiceType::class, [
+                'label' => false,    
                 'choices' =>[
                 1 => 1,
                 2 => 2,
@@ -37,15 +42,6 @@ class EditProphecyCaracteristicFormType extends AbstractType
                 10 => 10,    
                 ]
             ])
-            
-        /*
-            ->add('value', EntityType::class, [
-                'class' => ProphecyStartCaracteristic::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false, 
-            ])   
-            */
         ;
         
 

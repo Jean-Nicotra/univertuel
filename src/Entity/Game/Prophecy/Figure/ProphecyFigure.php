@@ -263,7 +263,7 @@ class ProphecyFigure implements FigureInterface
     {
         $this->background = $background;
         
-        return $thid;
+        return $this;
     }
 
     /**

@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
         SluggerInterface $slugger, TokenAuthenticator $authenticator): Response
     {
         $user = new User();
-        $form = $this->createForm(\App\Form\User\RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 

@@ -8,8 +8,8 @@
  *******************************************************************************************************************/
 
 namespace App\Controller\Game\Prophecy\Game\Item;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\Item\ProphecyWeaponCategory;
 use App\Form\Game\Prophecy\Game\Item\ProphecyWeaponCategoryFormType;
@@ -62,7 +62,8 @@ class ItemController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items, 
+            'games' => $games,
         ]);
     }
     
@@ -104,7 +105,8 @@ class ItemController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items,
+            'games' => $games,
         ]);
     }
     
@@ -146,7 +148,8 @@ class ItemController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items, 
+            'games' => $games,
         ]);
     }
     
@@ -188,7 +191,8 @@ class ItemController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items,
+            'games' => $games,
         ]);
     }
     
@@ -230,7 +234,8 @@ class ItemController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items, 
+            'games' => $games,
         ]);
     }
 }

@@ -10,9 +10,7 @@
 namespace App\Controller\Game\Prophecy\Figure;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\Game\Prophecy\Figure\ProphecyFigureRepository;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute;
@@ -23,7 +21,6 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigureWound;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureDiscipline;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency;
-use App\Form\Game\Prophecy\Figure\EditProphecyCaracteristicFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCaracteristicsFormType;
 use App\Form\Game\Prophecy\Figure\ProphecyCreateFigureFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMajorAttributesFormType;
@@ -39,7 +36,9 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figures = $figureRepository->findBy(['owner' => $user]);
         
-        return $this->render('memberArea/figure/prophecy/figures.html.twig', ['figures' => $figures]);
+        return $this->render('memberArea/figure/prophecy/figures.html.twig', [
+            'figures' => $figures,
+        ]);
     }
     
     /**
@@ -210,7 +209,9 @@ class FigureController extends AbstractController
             return $this->redirectToRoute('figures', ['figures' => $figures]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_new_figure.html.twig', ['form' => $form->createView()]);
+        return $this->render('memberArea/figure/prophecy/form_new_figure.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
     
     
@@ -252,8 +253,7 @@ class FigureController extends AbstractController
         $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
         $wounds = $figureWoundRepository->findBy(['figure' => $figure], []);
         
-        return $this->render('memberArea/figure/prophecy/figure_caracteristics.html.twig', 
-            [
+        return $this->render('memberArea/figure/prophecy/figure_caracteristics.html.twig', [
                 'figure' => $figure, 
                 'caracteristics' => $caracteristics, 
                 'majorAttributes' => $majorAttributes,
@@ -302,8 +302,7 @@ class FigureController extends AbstractController
         $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
         $wounds = $figureWoundRepository->findBy(['figure' => $figure], []);
         
-        return $this->render('memberArea/figure/prophecy/figure_caracteristics.html.twig',
-            [
+        return $this->render('memberArea/figure/prophecy/figure_caracteristics.html.twig',[
                 'figure' => $figure,
                 'caracteristics' => $caracteristics,
                 'majorAttributes' => $majorAttributes,
@@ -326,8 +325,7 @@ class FigureController extends AbstractController
         $figureSphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere');
         $spheres = $figureSphereRepository->findAll();
         
-        return $this->render('memberArea/figure/prophecy/figure_magic.html.twig',
-            [
+        return $this->render('memberArea/figure/prophecy/figure_magic.html.twig',[
                 'figure' => $figure, 
                 'disciplines' => $disciplines,
                 'spheres' => $spheres,
@@ -404,22 +402,23 @@ class FigureController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
-            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+            $this->redirectToRoute('Prophecy_figure_caracteristics', [
+                'id' => $figure->getId()
+            ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure, 'figureCaracteristics' => $figureCaracteristics]);
-        
-        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(), 
+            'figure' => $figure, 
+            'figureCaracteristics' => $figureCaracteristics
+        ]);    
     }
     
     public function figureEditInitialMajorAttribute(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
-        $figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
+        //$figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
         $figure = $figureRepository->find($id);
-        $figureMajorAttributes = $figureMajorAttributeRepository->findByFigure(['figure' => $figure]);
-        //$majorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
-        //$figureCaracteristic = new ProphecyFigureCaracteristic();
         
         $form = $this->createForm(InitialiseProphecyFigureMajorAttributesFormType::class, $figure );
         $form->handleRequest($request);
@@ -429,10 +428,13 @@ class FigureController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
-            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+            $this->redirectToRoute('Prophecy_figure_caracteristics', ['id' => $figure->getId()]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);
     }
     
     public function figureEditInitialCaste(Request $request, $id)
@@ -467,11 +469,15 @@ class FigureController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
-            $this->redirectToRoute('figure_caracteristics', ['id' => $figure->getId()]);
+            $this->redirectToRoute('figure_caracteristics', [
+                'id' => $figure->getId(),
+            ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', ['form' =>$form->createView(), 'figure' => $figure,]);
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(), 
+            'figure' => $figure,
+        ]);
     }
-    
-    
+       
 }

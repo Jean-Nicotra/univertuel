@@ -11,7 +11,6 @@
 namespace App\Controller\Game;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Game\Game;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Game\GameFormType;
@@ -62,10 +61,15 @@ class GameController extends AbstractController
        return $this->render('platform/game/available_games.html.twig', ['games' => $games]);
    }
    
+   /**
+    * role: call the method controller to setup the game components for the target Game
+    * 
+    * @param Game $id
+    * @return \Symfony\Component\HttpFoundation\RedirectResponse
+    */
    public function setup($id)
    {
        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
-       $games = $gameRepository->findAll();
        
        $game = $gameRepository->find($id);
        $route = "setup_".$game->getCode();

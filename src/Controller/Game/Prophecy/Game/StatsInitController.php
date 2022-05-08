@@ -10,7 +10,6 @@
 namespace App\Controller\Game\Prophecy\Game;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Game\Prophecy\Game\ProphecyXPIncrease;
 use App\Form\Game\Prophecy\Game\ProphecyXPIncreaseFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +18,22 @@ use App\Form\Game\Prophecy\Game\ProphecyStartCaracteristicsFormType;
 
 class StatsInitController extends AbstractController
 {
+    
+    /**
+     * role: display homepage view to create content for Prophecy game
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function setupProphecy ()
+    {
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        return $this->render('memberArea/admin/game/prophecy\prophecy_setup.html.twig', [
+            'games' => $games
+        ]);
+    }
+    
     /**
      * role: display the form to setup player's xp progession in Prophecy game
      *
@@ -56,7 +71,8 @@ class StatsInitController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items,
+            'games' => $games
         ]);
     }
     
@@ -70,6 +86,13 @@ class StatsInitController extends AbstractController
     {
         $caracteristics = new ProphecyStartCaracteristic();
         $title = "caractéristiques de départ";
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCurrency');
+        $items = $itemRepository->findAll();
+        
         $form = $this->createForm(ProphecyStartCaracteristicsFormType::class, $caracteristics);
         $form->handleRequest($request);
         
@@ -91,7 +114,8 @@ class StatsInitController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'items' => $items, 
+            'games' => $games
         ]);
     }
 }
