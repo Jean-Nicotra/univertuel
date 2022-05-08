@@ -52,7 +52,7 @@ class MagicController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_prophecy');
+            return $this->redirectToRoute('setup_Prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
@@ -95,7 +95,7 @@ class MagicController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_prophecy');
+            return $this->redirectToRoute('setup_Prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
@@ -138,7 +138,7 @@ class MagicController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_prophecy');
+            return $this->redirectToRoute('setup_Prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [

@@ -59,7 +59,7 @@ class CasteController extends AbstractController
             //return to admin create content Prophecy if ok
             if($request->getPathInfo() == '/admin/new-caste' )
             {
-                $route = 'setup_prophecy';
+                $route = 'setup_Prophecy';
             }
             
             //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -109,7 +109,7 @@ class CasteController extends AbstractController
             //return to admin create content Prophecy if ok
             if($request->getPathInfo() == '/admin/new-status' )
             {
-                $route = 'setup_prophecy';
+                $route = 'setup_Prophecy';
             }
             
             //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -157,7 +157,7 @@ class CasteController extends AbstractController
             //return to admin create content Prophecy if ok
             if($request->getPathInfo() == '/admin/new-benefit' )
             {
-                $route = 'setup_prophecy';
+                $route = 'setup_Prophecy';
             }
             
             //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -204,7 +204,7 @@ class CasteController extends AbstractController
             //return to admin create content Prophecy if ok
             if($request->getPathInfo() == '/admin/new-prohibited' )
             {
-                $route = 'setup_prophecy';
+                $route = 'setup_Prophecy';
             }
             
             //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -249,7 +249,7 @@ class CasteController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_prophecy');
+            return $this->redirectToRoute('setup_Prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
@@ -290,7 +290,7 @@ class CasteController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_prophecy');
+            return $this->redirectToRoute('setup_Prophecy');
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [

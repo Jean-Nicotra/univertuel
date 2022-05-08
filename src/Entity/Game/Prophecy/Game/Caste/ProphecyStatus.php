@@ -35,18 +35,6 @@ class ProphecyStatus
     private $caste;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $technic;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $benefit;
-    
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)
      */

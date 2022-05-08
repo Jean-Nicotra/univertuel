@@ -73,7 +73,7 @@ class ProfileController extends AbstractController
         }
         */
         
-        return $this->render('memberArea/profile/profile.html.twig', );
+        return $this->render('memberArea/profile/profile.html.twig' );
     }
     
 }
