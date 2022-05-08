@@ -141,7 +141,12 @@ admin:
  
 setup:
     path: /admin/setup/{id}
-    controller: App\Controller\Game\GameController::setup   
+    controller: App\Controller\Game\GameController::setup  
+    
+########## SADMIN ##########    
+admin_users:
+    path: /sadmin/users
+    controller: App\Controller\User\SecurityController::adminUser
     
 ########## GAME ##########
 available_games:

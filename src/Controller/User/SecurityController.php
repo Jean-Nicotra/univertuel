@@ -43,4 +43,9 @@ class SecurityController extends AbstractController
     {
         return $this->redirectToRoute('homepage');
     }
+    
+    public function adminUser()
+    {
+    	return $this->render('memberArea/sadmin/homepage.html.twig');
+    }
 }

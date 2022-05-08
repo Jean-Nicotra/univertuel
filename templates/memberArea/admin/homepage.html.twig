@@ -17,7 +17,7 @@
 		
 		{% if is_granted('ROLE_SADMIN') %}
 		
-			<li><a href="">utilisateurs</a></li>
+			<li><a href="{{ path('admin_users') }}">utilisateurs</a></li>
 		
 		{% endif %}
 	</ul>
