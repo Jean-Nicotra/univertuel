@@ -20,13 +20,6 @@ class ProphecyTechnicFormType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
-            ])
             ->add('caste', EntityType::class, [
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',

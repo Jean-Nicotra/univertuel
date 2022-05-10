@@ -23,13 +23,6 @@ class ProphecyMinorAttributeFormType extends AbstractType
             ->add('maximumValue', IntegerType::class)
             ->add('description', TextareaType::class)
             ->add('xpIncrease', IntegerType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
-            ])
             ->add('valider', SubmitType::class)
         ;
     }

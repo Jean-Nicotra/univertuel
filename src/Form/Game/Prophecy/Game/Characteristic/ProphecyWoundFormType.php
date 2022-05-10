@@ -21,13 +21,6 @@ class ProphecyWoundFormType extends AbstractType
             ->add('damages', TextType::class)
             ->add('maxWounds', IntegerType::class)
             ->add('malus', IntegerType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
-            ])
             ->add('valider', SubmitType::class)
         ;
     }

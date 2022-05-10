@@ -4,6 +4,7 @@ namespace App\Entity\Game\Prophecy\Game\Characteristic;
 
 use App\Repository\Game\Prophecy\Game\Characteristic\ProphecyOmenRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyOmenRepository::class)
@@ -41,6 +42,13 @@ class ProphecyOmen
      * @ORM\Column(type="string", length=255)
      */
     private $fault;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $campaign;
+    
 
     public function getId(): ?int
     {
@@ -104,6 +112,18 @@ class ProphecyOmen
     {
         $this->fault = $fault;
 
+        return $this;
+    }
+    
+    public function getCampaign(): ?Campaign
+    {
+        return $this->campaign;
+    }
+    
+    public function setCampaign($campaign): self
+    {
+        $this->campaign = $campaign;
+        
         return $this;
     }
 }

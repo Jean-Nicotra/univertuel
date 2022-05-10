@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Game\Campaign;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
@@ -22,13 +21,6 @@ class ProphecyAgeFormType extends AbstractType
             ->add('startAttValue2', IntegerType::class)
             ->add('startAttValue3', IntegerType::class)
             ->add('startAttValue4', IntegerType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
-            ])
             ->add('valider', SubmitType::class)
         ;
     }

@@ -74,7 +74,7 @@ class ProphecyFavour
         return $this->campaign;
     }
 
-    public function setCampaign(Campaign $campaign): self
+    public function setCampaign($campaign): self
     {
         $this->campaign = $campaign;
 

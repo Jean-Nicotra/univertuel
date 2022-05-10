@@ -13,12 +13,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Campaign;
 
-class ProphecyFormFavourType extends AbstractType
+class ProphecyFormFavourCampaignType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class)
+            ->add('campaign', EntityType::class, [
+                'class' => Campaign::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                
+            ])
             ->add('caste', EntityType::class, [
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',

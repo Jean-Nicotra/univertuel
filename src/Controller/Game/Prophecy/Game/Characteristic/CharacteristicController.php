@@ -12,29 +12,41 @@ namespace App\Controller\Game\Prophecy\Game\Characteristic;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategoryFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategoryCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyCaracteristicFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyCaracteristicCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeCampaignFormType; 
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyDisadvantageFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyDisadvantageCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyOmenFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyOmenCampaignFormType; 
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMajorAttributeFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMajorAttributeCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMinorAttributeFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMinorAttributeCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillCategoryFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillCategoryCampaignFormType; 
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyTendencyFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyTendencyCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundFormType;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundCampaignFormType;
 
 class CharacteristicController extends AbstractController
 {
@@ -52,10 +64,26 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory');
-        $items = $itemRepository->findAll();
+        $route = null;
         
-        $form = $this->createForm(ProphecyAdvantageCategoryFormType::class, $category);
+        $campaign = null;
+        
+        $form = $this->createForm(ProphecyAdvantageCategoryCampaignFormType::class, $category);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-advantage-category' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyAdvantageCategoryFormType::class, $category);
+            $category->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -65,13 +93,13 @@ class CharacteristicController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
     
@@ -86,13 +114,28 @@ class CharacteristicController extends AbstractController
         $title = "Nouvel avantage";
         $advantage = new ProphecyAdvantage();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage');
-        $items = $itemRepository->findAll();
+        $route = null;
+        
+        $campaign = null;
         
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
+      
+        $form = $this->createForm(ProphecyAdvantageCampaignFormType::class, $advantage);
         
-        $form = $this->createForm(ProphecyAdvantageFormType::class, $advantage);
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-advantage' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyAdvantageFormType::class, $advantage);
+            $advantage->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
@@ -103,13 +146,13 @@ class CharacteristicController extends AbstractController
             $entityManager->flush();
            
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
     
@@ -127,31 +170,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyCaracteristicFormType::class, $caracteristic);
+        $form = $this->createForm(ProphecyCaracteristicCampaignFormType::class, $caracteristic);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-caracteristic' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyCaracteristicFormType::class, $caracteristic);
+            $caracteristic->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {                                 
-            if ($request->getPathInfo() == '/admin/new-caracteristic')
-            {
-                $caracteristic->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($caracteristic);
             $entityManager->flush();
           
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
     
@@ -169,31 +222,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
+               
+        $form = $this->createForm(ProphecyAgeCampaignFormType::class, $age);
         
-        $form = $this->createForm(ProphecyAgeFormType::class, $age);
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-age' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyAgeFormType::class, $age);
+            $age->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-age')
-            {
-                $age->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($age);
             $entityManager->flush();
          
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
     
@@ -211,32 +274,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyDisadvantageFormType::class, $disadvantage);
+        $form = $this->createForm(ProphecyDisadvantageCampaignFormType::class, $disadvantage);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-disadvantage' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyDisadvantageFormType::class, $disadvantage);
+            $disadvantage->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-disadvantage')
-            {
-                $disadvantage->setCampaign(null);
-            }
-            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($disadvantage);
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
 
@@ -254,10 +326,24 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyOmenFormType::class, $omen);
+        $form = $this->createForm(ProphecyOmenCampaignFormType::class, $omen);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-omen' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyOmenFormType::class, $omen);
+            $omen->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
@@ -268,13 +354,13 @@ class CharacteristicController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
     
@@ -292,31 +378,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyMajorAttributeFormType::class, $majorAttribute);
+        $form = $this->createForm(ProphecyMajorAttributeCampaignFormType::class, $majorAttribute);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-major-attribute' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyMajorAttributeFormType::class, $majorAttribute);
+            $majorAttribute->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-major-attribute')
-            {
-                $majorAttribute->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($majorAttribute);
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
     
@@ -334,31 +430,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyMinorAttributeFormType::class, $minorAttribute);
+        $form = $this->createForm(ProphecyMinorAttributeCampaignFormType::class, $minorAttribute);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-minor-attribute' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyMinorAttributeFormType::class, $minorAttribute);
+            $minorAttribute->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-minor-attribute')
-            {
-                $minorAttribute->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($minorAttribute);
             $entityManager->flush();
 
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
 
@@ -376,10 +482,24 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecySkillCategoryFormType::class, $category);
+        $form = $this->createForm(ProphecySkillCategoryCampaignFormType::class, $category);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-skill-category' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecySkillCategoryFormType::class, $category);
+            $category->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
@@ -390,13 +510,13 @@ class CharacteristicController extends AbstractController
             $entityManager->flush();
 
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games
         ]);
     }
 
@@ -414,31 +534,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyTendencyFormType::class, $tendency);
+        $form = $this->createForm(ProphecyTendencyCampaignFormType::class, $tendency);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-tendency' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyTendencyFormType::class, $tendency);
+            $tendency->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-tendency')return $this->render('memberArea/admin/game/prophecy/caste/castes.html.twig', ['form' =>$form->createView(), 'title' => $title]);
-            {
-                $tendency->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($tendency);
             $entityManager->flush();
  
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
     
@@ -456,31 +586,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecySkillFormType::class, $skill);
+        $form = $this->createForm(ProphecySkillCampaignFormType::class, $skill);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-skill' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecySkillFormType::class, $skill);
+            $skill->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-skill')
-            {
-                $skill->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($skill);
             $entityManager->flush();
 
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
     
@@ -498,31 +638,41 @@ class CharacteristicController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound');
-        $items = $itemRepository->findAll();
+        $route = null;
+        $campaign = null;
         
-        $form = $this->createForm(ProphecyWoundFormType::class, $wound);
+        $form = $this->createForm(ProphecyWoundCampaignFormType::class, $wound);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-wound' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyWoundFormType::class, $wound);
+            $wound->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-wound')
-            {
-                $wound->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($wound);
             $entityManager->flush();
 
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
 }

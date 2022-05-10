@@ -4,6 +4,7 @@ namespace App\Entity\Game\Prophecy\Game\Characteristic;
 
 use App\Repository\Game\Prophecy\Game\Characteristic\ProphecySkillCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecySkillCategoryRepository::class)
@@ -27,6 +28,12 @@ class ProphecySkillCategory
      * @ORM\JoinColumn(nullable=false)
      */
     private $majorAttribute;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $campaign;
 
     public function getId(): ?int
     {
@@ -54,6 +61,18 @@ class ProphecySkillCategory
     {
         $this->majorAttribute = $majorAttribute;
 
+        return $this;
+    }
+    
+    public function getCampaign(): ?Campaign
+    {
+        return $this->campaign;
+    }
+    
+    public function setCampaign($campaign): self
+    {
+        $this->campaign = $campaign;
+        
         return $this;
     }
 }

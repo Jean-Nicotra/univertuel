@@ -15,7 +15,7 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ProphecySkillFormType extends AbstractType
+class ProphecySkillCampaignFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -42,6 +42,13 @@ class ProphecySkillFormType extends AbstractType
             ])
             ->add('skillCategory', EntityType::class, [
                 'class' => ProphecySkillCategory::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                
+            ])
+            ->add('campaign', EntityType::class, [
+                'class' => Campaign::class,
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,

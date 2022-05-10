@@ -1,40 +1,41 @@
 <?php
 
-namespace App\Form\Game\Prophecy\Game\Caste;
+namespace App\Form\Game\Prophecy\Game\Characteristic;
 
-use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
-use App\Entity\Game\Prophecy\Game\Caste\prophecyFavour;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Campaign;
 
-class ProphecyFormFavourType extends AbstractType
+class ProphecyOmenCampaignFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class)
-            ->add('caste', EntityType::class, [
-                'class' => ProphecyCaste::class,
+            ->add('campaign', EntityType::class, [
+                'class' => Campaign::class,
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
                 
             ])
-            ->add('description', TextareaType::class)
-            ->add('valider', SubmitType::class)
+            ->add('personnality', TextType::class)
+            ->add('motivation', TextType::class)
+            ->add('quality', TextType::class)
+            ->add('fault', TextType::class)
+            ->add('valider', SubmitType::class )
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => prophecyFavour::class,
+            'data_class' => ProphecyOmen::class,
         ]);
     }
 }

@@ -22,10 +22,13 @@ use App\Form\Game\Prophecy\Game\Caste\ProphecyStatusFormType;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyStatusCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormProhibitedType;
+use App\Form\Game\Prophecy\Game\Caste\ProphecyFormProhibitedCampaignType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormFavourType;
+use App\Form\Game\Prophecy\Game\Caste\ProphecyFormFavourCampaignType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyTechnicFormType;
+use App\Form\Game\Prophecy\Game\Caste\ProphecyTechnicCampaignFormType;
 
 class CasteController extends AbstractController
 {
@@ -45,9 +48,6 @@ class CasteController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste');
-        $items = $itemRepository->findBy(['campaign' => $campaign]);
-        
         $route = null;
         $form = $this->createForm(CasteCampaignFormType::class, $caste);
         
@@ -56,7 +56,7 @@ class CasteController extends AbstractController
         {
         	$route = 'setup_Prophecy';
         	$form = $this->createForm(CasteFormType::class, $caste);
-        	$caste->setCampaign(null);
+        	$caste->setCampaign($campaign);
         }
         
         //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -81,7 +81,7 @@ class CasteController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(), 
             'title' => $title, 
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]); 
     }
     
@@ -96,8 +96,7 @@ class CasteController extends AbstractController
         $title = "nouveau status de caste";
         $status = new ProphecyStatus();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyStatus');
-        $items = $itemRepository->findAll();
+        $campaign = null;
         
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
@@ -109,7 +108,7 @@ class CasteController extends AbstractController
         {
         	$route = 'setup_Prophecy';
         	$form = $this->createForm(ProphecyStatusFormType::class, $status);
-        	$status->setCampaign(null);
+        	$status->setCampaign($campaign);
         }
         
         //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -133,7 +132,7 @@ class CasteController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
     
@@ -148,8 +147,7 @@ class CasteController extends AbstractController
         $title = "nouveau bénéfice de caste";
         $benefit = new ProphecyBenefit();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit');
-        $items = $itemRepository->findAll();
+        $campaign = null;
         
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
@@ -162,7 +160,7 @@ class CasteController extends AbstractController
         {
         	$route = 'setup_Prophecy';
         	$form = $this->createForm(ProphecyFormBenefitType::class, $benefit);
-        	$benefit->setCampaign(null);
+        	$benefit->setCampaign($campaign);
         }
         
         //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -170,8 +168,7 @@ class CasteController extends AbstractController
         {
         	$route = 'homepage';
         }
-        
-        
+              
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -186,7 +183,7 @@ class CasteController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
     
@@ -201,20 +198,21 @@ class CasteController extends AbstractController
         $title = "nouvel interdit de caste";
         $prohibited = new ProphecyProhibited();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
-        $items = $itemRepository->findAll();
+        $campaign = null;
+        
+        $route = null;
         
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
+        $form = $this->createForm(ProphecyFormProhibitedCampaignType::class, $prohibited); 
         
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/new-prohibited' )
         {
         	$route = 'setup_Prophecy';
         	$form = $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
-        	$prohibited->setCampaign(null);
+        	$prohibited->setCampaign($campaign);
         }
         
         //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
@@ -237,7 +235,7 @@ class CasteController extends AbstractController
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
    
@@ -252,13 +250,29 @@ class CasteController extends AbstractController
         $title = "nouveau privilège de caste";
         $favour = new prophecyFavour();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour');
-        $items = $itemRepository->findAll();
+        $campaign = null;
         
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $form = $this->createForm(ProphecyFormFavourType::class, $favour);
+        $route = null;
+        
+        $form = $this->createForm(ProphecyFormFavourCampaignType::class, $favour);
+      
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-favour' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyFormFavourType::class, $favour);
+            $favour->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -268,13 +282,13 @@ class CasteController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
     
@@ -289,13 +303,29 @@ class CasteController extends AbstractController
         $title = "nouvelle technique de caste";
         $technic = new ProphecyTechnic();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic');
-        $items = $itemRepository->findAll();
-        
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $form = $this->createForm(ProphecyTechnicFormType::class, $technic);
+        $route = null;
+        
+        $campaign = null;
+        
+        $form = $this->createForm(ProphecyTechnicCampaignFormType::class, $technic);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/new-technic' )
+        {
+            $route = 'setup_Prophecy';
+            $form = $this->createForm(ProphecyTechnicFormType::class, $technic);
+            $technic->setCampaign($campaign);
+        }
+        
+        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        else
+        {
+            $route = 'homepage';
+        }
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -309,13 +339,13 @@ class CasteController extends AbstractController
             $entityManager->flush();
             
             //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            return $this->redirectToRoute($route);
         }
         
         return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
             'form' =>$form->createView(),
             'title' => $title,
-            'items' => $items, 'games' => $games
+            'games' => $games,
         ]);
     }
 }

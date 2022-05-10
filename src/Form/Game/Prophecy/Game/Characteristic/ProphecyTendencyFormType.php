@@ -23,13 +23,6 @@ class ProphecyTendencyFormType extends AbstractType
             ->add('minCircles', IntegerType::class)
             ->add('minValue', IntegerType::class)
             ->add('maximumValue', IntegerType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
-            ])
             ->add('description', TextareaType::class)
             ->add('valider', SubmitType::class)
         ;

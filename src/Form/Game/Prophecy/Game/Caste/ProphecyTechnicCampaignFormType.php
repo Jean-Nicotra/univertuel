@@ -2,23 +2,31 @@
 
 namespace App\Form\Game\Prophecy\Game\Caste;
 
-use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
-use App\Entity\Game\Prophecy\Game\Caste\prophecyFavour;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Campaign;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
 
-class ProphecyFormFavourType extends AbstractType
+class ProphecyTechnicCampaignFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('campaign', EntityType::class, [
+                'class' => Campaign::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                
+            ])
             ->add('caste', EntityType::class, [
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',
@@ -26,7 +34,6 @@ class ProphecyFormFavourType extends AbstractType
                 'expanded' => false,
                 
             ])
-            ->add('description', TextareaType::class)
             ->add('valider', SubmitType::class)
         ;
     }
@@ -34,7 +41,7 @@ class ProphecyFormFavourType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => prophecyFavour::class,
+            'data_class' => ProphecyTechnic::class,
         ]);
     }
 }

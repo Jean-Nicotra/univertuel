@@ -16,7 +16,7 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ProphecyDisadvantageFormType extends AbstractType
+class ProphecyDisadvantageCampaignFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -35,6 +35,13 @@ class ProphecyDisadvantageFormType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
+            ])
+            ->add('campaign', EntityType::class, [
+                'class' => Campaign::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                
             ])
             ->add('valider', SubmitType::class)
         ;
