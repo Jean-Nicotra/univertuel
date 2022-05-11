@@ -289,7 +289,7 @@ prophecy_create_spell:
   
 ## FIGURE ##
 
-new_figure:
+Prophecy_new_figure:
     path: /member/figure/new-figure{id}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:newFigure
     

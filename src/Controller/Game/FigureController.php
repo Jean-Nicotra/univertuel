@@ -20,7 +20,7 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Figure');
         $figuresList = $figureRepository->findBy(['owner' => $owner ]);
         
-        return $this->render('memberArea/figure/prophecy/figures_test.html.twig', [
+        return $this->render('memberArea/figure/figures.html.twig', [
             'figures' => $figuresList,
         ]);
         

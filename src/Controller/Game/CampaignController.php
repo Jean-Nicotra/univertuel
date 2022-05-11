@@ -165,6 +165,9 @@ class CampaignController extends AbstractController
         $campaign = new Campaign();
         $campaign = $campaignRepository->find($id);
         
+        $game = $campaign->getGame();
+        $route = $game->getCode().'_new_figure';
+        
         //create message in second
         $message = new Message();
         $message->setSender($sender);
@@ -178,7 +181,7 @@ class CampaignController extends AbstractController
             $message->setReceiver($thread->getReceiver());
             
             //id is used in route to identifie campaign
-            $link = $this->generateUrl('new_figure', [
+            $link = $this->generateUrl($route, [
                 'id' => $id
             ]);
             
