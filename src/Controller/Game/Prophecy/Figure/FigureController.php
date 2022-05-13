@@ -119,7 +119,6 @@ class FigureController extends AbstractController
             {
                 $figureMajorAttribute = new ProphecyFigureMajorAttribute();
                 $figureMajorAttribute->setFigure($figure);
-                //$figureMajorAttribute->setAttribute($majorAttribute);
                 $figureMajorAttribute->setMajorAttribute($majorAttribute);
                 $em->persist($figureMajorAttribute);
                 $em->flush($figureMajorAttribute);

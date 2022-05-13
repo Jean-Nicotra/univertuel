@@ -1,0 +1,19 @@
+{% extends 'memberArea/campaign/campaign.html.twig' %}
+
+	
+	
+	{% block content_campaign %}
+	
+	<ul>
+		<li><a href="{{ path('prophecy_create_prohibited', {'role': 'member', 'id': campaign.id}) }}">nouvel interdit de caste</a></li>
+	</ul>
+    	{% block form_component %}
+
+    	{% endblock %}
+	
+	{% endblock %}
+		
+			
+
+
+	

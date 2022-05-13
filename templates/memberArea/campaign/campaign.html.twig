@@ -5,7 +5,11 @@
 	<div>
 		<ul>
 			<li>generer un nouveau code</li>
-			<li><a href="">personnaliser la campagne</a></li>
+			<li><a>personnaliser la campagne</a></li>
+				<ul>
+					<li><a href="{{ path('campaign_add_component', {'id': campaign.id}) }}">ajouter un élément</a></li>
+					<li>modifier un élément</li>
+				</ul>
 			<li><a href="{{ path('send_campaign_invitation', {'id': campaign.id}) }}">envoyer une invitation</a></li>
 			<li>personnages</li>
 			<li>pnj</li>

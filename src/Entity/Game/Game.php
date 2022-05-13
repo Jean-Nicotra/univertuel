@@ -44,7 +44,7 @@ class Game
 
     public function setCode(string $code): self
     {
-        $this->code = ucfirst(strtolower($code));
+        $this->code = strtolower($code);
 
         return $this;
     }
@@ -72,6 +72,13 @@ class Game
 
         return $this;
     }
+    
+    
+    public function getInterfaceCode(): ?string
+    {
+        return $this->code;  
+    }
+    
     
     public function __toString()
     {

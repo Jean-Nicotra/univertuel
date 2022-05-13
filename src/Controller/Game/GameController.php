@@ -72,7 +72,7 @@ class GameController extends AbstractController
        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
        
        $game = $gameRepository->find($id);
-       $route = "setup_".$game->getCode();
+       $route = "setup_".$game->getInterfaceCode();
        
        return $this->redirectToRoute($route);
    }

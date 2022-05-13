@@ -193,32 +193,41 @@ class CasteController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newProhibited(Request $request)
+    public function newProhibited(Request $request, $role, $id)
     {
         $title = "nouvel interdit de caste";
         $prohibited = new ProphecyProhibited();
         
         $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
         
+        else 
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $prohibited->setCampaign($campaign);
         $route = null;
         
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $form = $this->createForm(ProphecyFormProhibitedCampaignType::class, $prohibited); 
+        $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
         
         //return to admin create content Prophecy if ok
-        if($request->getPathInfo() == '/admin/new-prohibited' )
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-prohibited' )
         {
         	$route = 'setup_Prophecy';
-        	$form = $form = $this->createForm(ProphecyFormProhibitedType::class, $prohibited); 
-        	$prohibited->setCampaign($campaign);
+        	
         }
         
-        //return to campaign owner create content Prophecy if ok /// MODIFIER ICI LA ROUTE POUR LA CAMPAGNE
+        //return to campaign owner create content Prophecy if ok 
         else
         {
-        	$route = 'homepage';
+        	$route = 'campaign';
         }
         
         $form->handleRequest($request);
@@ -229,14 +238,24 @@ class CasteController extends AbstractController
             $entityManager->persist($prohibited);
             $entityManager->flush();
             
-            return $this->redirectToRoute($route);
+            return $this->redirectToRoute($route, ['id' => $id]);
         }
-        
-        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
-            'form' =>$form->createView(),
-            'title' => $title,
-            'games' => $games,
-        ]);
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-prohibited')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
     }
    
     /**

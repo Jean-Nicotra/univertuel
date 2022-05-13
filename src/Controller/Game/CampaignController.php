@@ -205,4 +205,16 @@ class CampaignController extends AbstractController
         ]);
     }
     
+    public function findAddComponent ($id)
+    {
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign = $campaignRepository->find($id);
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $game = $gameRepository->find($campaign->getGame()->getId());
+        
+        return $this->render('memberArea/campaign/'.$game->getInterfaceCode().'/campaign_add_component.html.twig', [
+            'campaign' => $campaign,
+        ]);
+    }
+    
 }

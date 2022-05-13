@@ -128,7 +128,11 @@ find_campaigns:
 
 see_other_campaign:
     path: /member/campaign/other/campaign{id}
-    controller: App\Controller\Game\CampaignController:seeOtherCampaign    
+    controller: App\Controller\Game\CampaignController:seeOtherCampaign 
+    
+campaign_add_component:
+    path: member/campaign/{id}/find/add-component
+    controller: App\Controller\Game\CampaignController:findAddComponent 
        
 ########## ADMIN ##########
 new_game:
@@ -156,7 +160,7 @@ available_games:
 ####### PROPHECY #######  
 
 ## START STATS ##
-setup_Prophecy:     
+setup_prophecy:     
     path: /admin/setup-prophecy
     controller: App\Controller\Game\Prophecy\Game\StatsInitController::setupProphecy
 
@@ -171,7 +175,7 @@ prophecy_create_start_caracteristics:
     
 ## CASTE ##
 prophecy_create_caste:
-    path: /admin/new-caste
+    path: /admin/new-caste          #{role}/campaign/{id}/prophecy/new-caste
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newCaste
 
 prophecy_create_benefit:
@@ -183,7 +187,8 @@ prophecy_create_status:
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newStatus
 
 prophecy_create_prohibited:
-    path: /admin/new-prohibited
+    #path: /admin/new-prohibited/
+    path: /{role}/campaign/{id}/prophecy/new-prohibited
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newProhibited
 
 prophecy_create_favour:
@@ -289,11 +294,11 @@ prophecy_create_spell:
   
 ## FIGURE ##
 
-Prophecy_new_figure:
+prophecy_new_figure:
     path: /member/figure/new-figure{id}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:newFigure
     
-Prophecy_figure_caracteristics:
+prophecy_figure_caracteristics:
     path: /member/figure/prophecy/figure-caracteristics/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureCaracteristics   
 
@@ -305,19 +310,19 @@ Prophecy_figure_caracteristics:
 #route a definir avec clement qui doit etre commune, accès au  premier onglet du personnage    
     
     
-figure_magic:
+prophecy_figure_magic:
     path: /member/figure/figure-magic/{id}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureMagic 
 
-figure_caste:
+prophecy_figure_caste:
     path: /member/figure/figure-caste/{id}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureCaste      
     
-figure_equipment:
+prophecy_figure_equipment:
     path: /member/figure/figure-equipment/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEquipment 
     
-figure_background:
+prophecy_figure_background:
     path: /member/figure/figure-background/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureBackground 
 
