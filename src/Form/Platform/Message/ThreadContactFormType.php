@@ -13,7 +13,10 @@ class ThreadContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('purpose', TextType::class, ['label' => 'Objet'])
+            ->add('purpose', TextType::class, [
+                'label' => false,
+                'data' => 'objet de votre message',
+            ])
         ;
     }
 

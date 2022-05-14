@@ -1,0 +1,15 @@
+@charset "UTF-8";
+*/*******************************************************************************************************************
+    name      : available_games.css
+    Role      : design style for platform/game/available_games.html.twig template
+    author    : tristesire
+    date      : 13/05/2022
+*******************************************************************************************************************/
+#main_content
+{
+
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	min-height:800px;
+}

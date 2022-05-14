@@ -12,9 +12,16 @@
 	</nav>
 	<span id="log_zone">
 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-			<a id="username" href="{{ path('profile') }}">{{ app.user.username }}</a>
+			<a id="username" href="{{ path('profile') }}">{{ app.user.username }}</a>		  
 			<a id="logout" href="{{ path('logout') }}">se deconnecter</a>
-			
+			{#
+            <ul id="menu">menu
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Menu1</a></li>
+                <li><a href="#">Menu2</a></li>
+            </ul>
+			#}
 		{% else %}
 			<a href="{{ path('login') }}"><button>se connecter</button></a>
 		{% endif %}

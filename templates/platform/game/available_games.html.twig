@@ -8,16 +8,32 @@
 {% block main_content %}
 	
 	<div id="main_content">
-    	<p>Vous trouverez ci-dessous la liste des jeux de rôle pour lesquels vous pourrez créer des campagnes sur Univertuel, et faire jouer vos joueurs.</p>	
-	{% for game in games %}
-		<ul><li>{{ game.name }}</li><li>{{ game.description }}</li></ul>
-	{% endfor %}
+    	
+    	<div>
+    		<p>Vous trouverez ci-dessous la liste des jeux de rôle pour lesquels vous pourrez créer des campagnes sur Univertuel, et faire jouer vos joueurs.</p>	
+		</div>
+		
+		<div>
+        	
+        	{% for game in games %}
+        		
+        		<ul>
+        			<li><label>{{ game.name }}</label><p>{{ game.description }}</p></li>
+        		</ul>
+        	
+        	{% endfor %}
 	
-	<p>Et disponible prochainement sur Univertuel :</p>
-	<ul>
-		<li>Dark Earth v1 et v2</li>
-		<li>Star Trek</li>
-	</ul>
+		</div>
+	
+		<div>
+		
+        	<p>Et disponible bientôtt sur Univertuel :</p>
+        	<ul>
+        		<li>Dark Earth v1 et v2</li>
+        		<li>Star Trek</li>
+        	</ul>
+        	
+        </div>
 	</div>
 	
 {% endblock %}

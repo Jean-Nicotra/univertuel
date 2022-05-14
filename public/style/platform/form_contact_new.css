@@ -1,0 +1,25 @@
+@charset "UTF-8";
+*/*******************************************************************************************************************
+    name      : form_contact_news.css
+    Role      : design style for platform/game/form_contact_news.html.twig template
+    author    : tristesire
+    date      : 13/05/2022
+*******************************************************************************************************************/
+
+
+#main_content
+{
+
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	min-height:800px;
+	border:solid;
+	justify-content: space-around;
+}
+
+p
+{
+	
+}
+

@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+*/*******************************************************************************************************************
+    name      : form_registration.css
+    Role      : design style for user/registration/registration.html.twig template
+    author    : tristesire
+    date      : 13/05/2022
+*******************************************************************************************************************/
+
+.form_layout
+{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	min-height:800px;
+	align-items:center;
+	justify-content:center;
+	background-color:#eeeeec;
+	font-size:1em;
+}
+
+.page_label
+{
+	text-align:center;
+}
+
+form
+{
+	display:flex;
+	flex-direction:column;
+	border:solid;
+	width:40%;
+	height:400px;
+	justify-content: center;
+}
+
+form div
+{
+	display:flex;
+	flex-direction:row;
+	flex:1;
+	height:20px;
+}
+
+#conditions
+{
+	text-align:left;
+}
+
+form div label
+{
+	display:flex;
+	flex-direction:row;
+	flex:1;
+	text-align:left;
+	margin:0% 0% 0% 20px;
+	align-items:center;
+}
+
+form div input
+{
+	flex:2;
+}
+
+button
+{
+	width:200px;
+	height:50px;
+}
+
+
+
+

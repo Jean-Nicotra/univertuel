@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link href="{{ asset('style/platform/homepage.css') }}" type="text/css" rel="stylesheet" media="all">
+	<link href={{ asset('style/platform/form_contact_new.css') }} type="text/css" rel="stylesheet" media="all">
 {% endblock %}	
 
 
@@ -15,7 +15,10 @@
 		Le message est destiné à notre responsable de la communication et sera traité dans un délai pouvant aller jusqu'à trois semaines. Alors merci de ne pas le relancer
 		régulièrement. Un retour vous sera fait par voie de message privé sur cette plateforme.</p> 
 	
-		{{ form(form) }}
+		<h1>formulaire de contact</h1>
+		
+	    {{ form(form) }}
+		
 		
 	</div>
 {% endblock %}

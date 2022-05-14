@@ -14,8 +14,18 @@ class MessageContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('thread', ThreadContactFormType::class, ['label' => " "] )
-        ->add('message', TextareaType::class)
+        ->add('thread', ThreadContactFormType::class, [
+            'label' => false
+        ] )
+        ->add('message', TextareaType::class, [
+            'data' => 'saisissez ici votre message',
+            'label' => false,
+            'attr' =>[
+                'cols' => 100,
+                'rows' => 10,
+                'maxlength' => 1000,
+            ]   
+        ])
         ->add('submit', SubmitType::class)
         ;
     }
