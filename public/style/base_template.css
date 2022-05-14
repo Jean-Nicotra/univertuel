@@ -105,6 +105,48 @@ header nav ul li a, header nav ul li a:visited
 	height:100%;
 }
 
+/* menu */
+
+ul ul 
+{
+	display: none; 
+	position: absolute; 
+	/*left: 144px;*/ 
+	/*top: -1px;*/ 
+	margin:0px; 
+	padding: 0px;
+	border: 1px solid black;
+}
+
+li 
+{
+	list-style-type: none; 
+	position: relative; 
+	width: 140px; 
+	background-color: black; 
+	padding: 2px; 
+	margin: 0px
+}
+
+li:hover 
+{
+	background-color: black;
+}
+
+ li:hover ul.niveau2, li li:hover ul.niveau3 
+ {
+ 	display: block;
+ }
+ 
+ li.plus 
+ {
+ 	background-position:right; 
+ 	background-image: url(illustrations/fdroite.gif); 
+ 	background-repeat: no-repeat; 
+ 	border-bottom: 1px solid yellow;
+ }
+
+
 
 
 

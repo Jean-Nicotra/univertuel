@@ -12,20 +12,32 @@
 	</nav>
 	<span id="log_zone">
 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-			<a id="username" href="{{ path('profile') }}">{{ app.user.username }}</a>		  
+			{#<a id="username" href="{{ path('profile') }}">{{ app.user.username }}</a>#}		  
 			<a id="logout" href="{{ path('logout') }}">se deconnecter</a>
-			{#
-            <ul id="menu">menu
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Menu1</a></li>
-                <li><a href="#">Menu2</a></li>
-            </ul>
-			#}
+			
+            <ul class="niveau1">
+  				<li><a href="#">{{ app.user.username }}</a>
+    				<ul class="niveau2">
+      					<li class="plus">
+        					<ul class="niveau3">
+          						<li><a href="#">mon profil</a></li>
+          						<li><a href="{{ path('figures') }}">mes personnages</a></li>
+          						<li><a href="{{ path('campaigns') }}">mes campagnes</a></li>
+          						<li><a href="{{ path('find_campaigns') }}">rechercher une campagne</a></li>
+          						{% if (is_granted('ROLE_ADMIN')) %}
+								<li><a href="{{ path('admin') }}">administration</label></a></li>
+								{% endif %}
+          						<li><a href="{{ path('messages') }}">mes messages</a></li>
+          						<li><a id="logout" href="{{ path('logout') }}">deconnexion</a></li>
+        					</ul>
+      					</li>
+    				</ul>
+  				</li>
+			</ul>
+			
 		{% else %}
 			<a href="{{ path('login') }}"><button>se connecter</button></a>
 		{% endif %}
-	
 	
 	</span>
 </header>
