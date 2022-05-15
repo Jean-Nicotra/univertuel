@@ -217,4 +217,12 @@ class CampaignController extends AbstractController
         ]);
     }
     
+    public function findFigures ($id)
+    {
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign = $campaignRepository->find($id);
+        
+        return $this->render('memberArea/campaign/campaign_figures.html.twig', ['campaign' => $campaign, 'msg' => 'section faite pour la liste des personnages de la campagne']);
+    }
+    
 }

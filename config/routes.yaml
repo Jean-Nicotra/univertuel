@@ -133,6 +133,10 @@ see_other_campaign:
 campaign_add_component:
     path: member/campaign/{id}/find/add-component
     controller: App\Controller\Game\CampaignController:findAddComponent 
+    
+campaign_figures:
+    path: member/campaign/{id}/figures
+    controller: App\Controller\Game\CampaignController:findFigures
        
 ########## ADMIN ##########
 new_game:

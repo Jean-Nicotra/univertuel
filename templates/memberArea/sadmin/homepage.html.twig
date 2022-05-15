@@ -1,6 +1,11 @@
 {% extends 'memberArea/homepage.html.twig' %}
 
-
+{% block stylesheets %}
+    
+    {{ parent() }}
+      {#<link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   #}
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+{% endblock %}
 
 
 	

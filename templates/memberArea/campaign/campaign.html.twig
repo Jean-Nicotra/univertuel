@@ -11,8 +11,8 @@
 					<li>modifier un élément</li>
 				</ul>
 			<li><a href="{{ path('send_campaign_invitation', {'id': campaign.id}) }}">envoyer une invitation</a></li>
-			<li>personnages</li>
-			<li>pnj</li>
+			<li><a href="{{ path('campaign_figures', {'id': campaign.id}) }}">personnages</a></li>
+			<li><a href={#{{ path(campaign_non_playable_figures) }}"#}></a>personnages non joueurs</li>
 			<li>demarrer un scenario</li>
 		</ul>
 </div>
