@@ -33,6 +33,7 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'mot de passe'
         }) }}
+        {{ form_row(registrationForm.brochure) }}
        {{ form_row(registrationForm.agreeTerms, {'label': 'accepter les conditions d\'utilisation'}) }} 
        <div><a href="{{ asset('cgu/cgu.html') }}" target="_blank" id="conditions">voir conditions</a></div>
 

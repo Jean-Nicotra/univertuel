@@ -53,7 +53,24 @@ class User implements UserInterface
      */
     private $username;
 
+    /**
+     * avatar for the user
+     * @ORM\Column(type="string", length=180, nullable=true)
+     *
+     */
+    private $brochureFilename;
 
+    public function getBrochureFilename()
+    {
+        return $this->brochureFilename;
+    }
+    
+    public function setBrochureFilename($brochureFilename)
+    {
+        $this->brochureFilename = $brochureFilename;
+        
+        return $this;
+    }
 
     public function __construct()
     {
@@ -236,6 +253,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
 
 

@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 
 
 class RegistrationController extends AbstractController
@@ -48,6 +51,35 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            /** @var UploadedFile $brochureFile */
+            $brochureFile = $form->get('brochure')->getData();
+            
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($brochureFile) {
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                $user->setBrochureFilename($newFilename);
+                // Move the file to the directory where brochures are stored
+                try 
+                {
+                    $brochureFile->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                        );
+                } 
+                catch (FileException $e) 
+                {
+                    // ... handle exception if something happens during file upload
+                }
+                
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                
+                //$user->setBrochureFilename($file);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

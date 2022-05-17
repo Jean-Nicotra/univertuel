@@ -60,9 +60,6 @@ class Campaign
      * @ORM\Column(type="integer")
      */
     private $secretCode;
-
-    
-    
     
 
     public function __construct()
