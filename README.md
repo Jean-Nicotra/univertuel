@@ -4,9 +4,9 @@
 
 * amp:
 To use univertuel, you need to run :  
-     * a web server as Apache2 or anyone else. In my case, i use mysql server version 8.0.28  
+     * a web server as Apache2 or anyone else. 
      * php version 7.4 minimum  
-     * a database server as PostgreSQL, mysql, etc...  
+     * a database server as PostgreSQL, mysql, etc... In my case, i use mysql server version 8.0.28   
 
 * Symfony
 Univertuel is written with Symfony on version 5.1
@@ -31,9 +31,7 @@ Those files describe database project's structure to ensure ORM Doctrine service
 You will find there all css, images, and so on contents for the platform, and for personal user contents.
 
 * src : 
-	* Controller
-		* Campaign : controller for Campaigns 
-		* Game : a folder by game, a subfolder for game class data, a subfolder for figure (caracter) class data 
+	* Controller: Game : a folder for game managment, a subfolder for game class data, a subfolder for figure (caracter) class data and one for Campaign for Campaigns managment 
 		* Platform : common methods and messages module used in the platform
 		* User : user registration and authentication 
 	* Entity : 
@@ -41,9 +39,9 @@ You will find there all css, images, and so on contents for the platform, and fo
 		* Game : a folder by game, a subfolder for game class data, a subfolder for figure (caracter) class data 
 		* Platform : message module used in the platform for private messages
 		* User : user class 
-	* Form : same strucute as entity, form class to creature and update entities
+	* Form : same strucute as entity, form class to create and update entities
 	* Repository : same structure as entity to load ans store data 
-	* Security : TokenAuthenticator class to encrypt user passwords, credentials, ans many authenticate methods  
+	* Security : TokenAuthenticator class to encrypt user passwords, credentials, and many authenticate methods  
 
 * templates:
 All templates view :
@@ -65,8 +63,13 @@ Then, a member must create a campain. To create a caracter named figure in unive
 Check your personal messages, and follow the sended link to create figure. No figure can be created out of campaign, and a campaign il linked to a game.
 
 What is a figure?
-A figure is a caracter in univertuel. In a game like Prophecy, folder game entities are game objects while figure are components of a sheet caracter. Each class store a sheet component. ProphecyFigureXXXXX realize the relation between a game component and the figure.
+A figure is a caracter in Univertuel, each figure as a unique owner(user). In a game like Prophecy, folder game entities are game objects while figure are components of a sheet caracter. Each class store a sheet component. ProphecyFigureXXXXX realize the relation between a game component and the figure.
 For exemple in Prophecy, we have most of skills. Class ProphecySkill design a model for a skill (name, max and min value, blablabla...), ProphecyFigureSkill realize the skill for a figure. It is an association of Tendency and Figure, with a value property.
+ 
+What is a Campaign?
+A campaign is a game mode owned by a member, and can contain one or many figures. Each campaign can be customized by the owner, and customize or not some rules for caracter creation, or experience evolution and/or component game (armors, weapons, skills, etc...).
+The campaign owner must send an invitation to someone in order to authorize him to create a figure.
+ 
 
 Why prefix Prophecy for entity class?
 We use a single database, but, in the future many games. In order to distinct each table, we need to prefix class. An other solution would have to use ORM to rename the destination table, but this should have been some confusion.    
