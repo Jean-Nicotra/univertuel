@@ -58,16 +58,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, nullable=true)
      *
      */
-    private $brochureFilename;
+    private $avatar;
 
-    public function getBrochureFilename()
+    public function getAvatar()
     {
-        return $this->brochureFilename;
+        return $this->avatar;
     }
     
-    public function setBrochureFilename($brochureFilename)
+    public function setAvatar($avatar)
     {
-        $this->brochureFilename = $brochureFilename;
+        $this->avatar = $avatar;
         
         return $this;
     }

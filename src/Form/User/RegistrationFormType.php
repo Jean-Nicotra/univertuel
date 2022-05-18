@@ -50,8 +50,8 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('brochure', FileType::class, [
-                'label' => 'Brochure (image file)',
+            ->add('avatar', FileType::class, [
+                'label' => 'avatar (fichier image)',
                 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -64,7 +64,7 @@ class RegistrationFormType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/jpg',
                             'image/jpeg',

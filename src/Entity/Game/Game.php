@@ -26,11 +26,34 @@ class Game
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        
+        return $this;
+    }
 
     public function getId(): ?int
     {
