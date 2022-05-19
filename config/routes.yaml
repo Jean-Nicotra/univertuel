@@ -179,28 +179,27 @@ prophecy_create_start_caracteristics:
     
 ## CASTE ##
 prophecy_create_caste:
-    path: /admin/new-caste          #{role}/campaign/{id}/prophecy/new-caste
+    path: /{role}/campaign/{id}/prophecy/new-caste          
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newCaste
 
 prophecy_create_benefit:
-    path: /admin/new-benefit
+    path: /{role}/campaign/{id}/prophecy/new-benefit
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newBenefit
 
 prophecy_create_status:
-    path: /admin/new-status
+    path: /{role}/campaign/{id}/prophecy/new-status
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newStatus
 
 prophecy_create_prohibited:
-    #path: /admin/new-prohibited/
     path: /{role}/campaign/{id}/prophecy/new-prohibited
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newProhibited
 
 prophecy_create_favour:
-    path: /admin/new-favour
+    path: /{role}/campaign/{id}/prophecy/new-favour
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newFavour
 
 prophecy_create_technic:
-    path: /admin/new-technic
+    path: /{role}/campaign/{id}/prophecy/new-technic
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newTechnic
 
 ## CHARACTERISTIC ##
@@ -341,6 +340,10 @@ prophecy_figure_edit_initial_caste:
 prophecy_figure_edit_initial_age:
     path: /member/figure/prophecy-figure-edit-initial-age/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialAge
+    
+prophecy_figure_edit_initial_background:
+    path: /member/figure/prophecy-figure-edit-initial-background/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialBackground
     
 formulaire:
     path: /form/{id}

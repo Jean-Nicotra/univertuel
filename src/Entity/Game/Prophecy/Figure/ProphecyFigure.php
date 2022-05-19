@@ -196,6 +196,12 @@ class ProphecyFigure implements FigureInterface
     private $disadvantages;
     
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     */
+    private $advantagePoints;    
+    
+    /**
      * Many Figures have many technics.
      * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic")
      * @ORM\JoinTable(name="prophecy_figures_technics",
@@ -247,6 +253,24 @@ class ProphecyFigure implements FigureInterface
      */
     private $isFinish;
     
+
+    /**
+     * @return mixed
+     */
+    public function getAdvantagePoints(): ?int
+    {
+        return $this->advantagePoints;
+    }
+
+    /**
+     * @param mixed $advantagePoints
+     */
+    public function setAdvantagePoints($advantagePoints): self
+    {
+        $this->advantagePoints = $advantagePoints;
+        
+        return $this;
+    }
 
     /**
      * @return mixed

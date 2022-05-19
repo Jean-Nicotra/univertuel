@@ -66,7 +66,7 @@ class RegistrationController extends AbstractController
                     try
                     {
                         $avatarFile->move(
-                            $this->getParameter('avatars_directory'),
+                            $this->getParameter('upload_directory'),
                             $newFilename
                             );
                     }

@@ -55,7 +55,7 @@ class GameController extends AbstractController
                try
                {
                    $imageFile->move(
-                       $this->getParameter('avatars_directory'),
+                       $this->getParameter('upload_directory'),
                        $newFilename
                        );
                }
