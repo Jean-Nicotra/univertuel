@@ -353,5 +353,5 @@ figure_edit_initial_major_attribute:
     path: /member/figure/figure-edit-initial-major-attribute/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialMajorAttribute
     
-#delete_figure:        
+       
     
