@@ -204,51 +204,51 @@ prophecy_create_technic:
 
 ## CHARACTERISTIC ##
 prophecy_create_advantage_category:
-    path: /admin/new-advantage-category
+    path: /{role}/campaign/{id}/prophecy/new-advantage-category
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAdvantageCategory
 
 prophecy_create_advantage:
-    path: /admin/new-advantage
+    path: /{role}/campaign/{id}/prophecy/new-advantage
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAdvantage
 
 prophecy_create_caracteristic:
-    path: /admin/new-caracteristic
+    path: /{role}/campaign/{id}/prophecy/new-caracteristic
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newCaracteristic
 
 prophecy_create_age:
-    path: /admin/new-age
+    path: /{role}/campaign/{id}/prophecy/new-age
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAge
 
 prophecy_create_disadvantage:
-    path: /admin/new-disadvantage
+    path: /{role}/campaign/{id}/prophecy/new-disadvantage
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newDisadvantage
 
 prophecy_create_omen:
-    path: /admin/new-omen
+    path: /{role}/campaign/{id}/prophecy/new-omen
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newOmen
     
 prophecy_create_major_attribute:
-    path: /admin/new-major-attribute
+    path: /{role}/campaign/{id}/prophecy/new-major-attribute
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newMajorAttribute
     
 prophecy_create_minor_attribute:
-    path: /admin/new-minor-attribute
+    path: /{role}/campaign/{id}/prophecy/new-minor-attribute
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newMinorAttribute        
     
 prophecy_create_skill_category:
-    path: /admin/new-skill-category
+    path: /{role}/campaign/{id}/prophecy/new-skill-category
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newSkillCategory    
     
 prophecy_create_tendency:
-    path: /admin/new-tendency
+    path: /{role}/campaign/{id}/prophecy/new-tendency
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newTendency    
         
 prophecy_create_skill:
-    path: /admin/new-skill
+    path: /{role}/campaign/{id}/prophecy/new-skill
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newSkill   
     
 prophecy_create_wound:
-    path: /admin/new-wound
+    path: /{role}/campaign/{id}/prophecy/new-wound
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newWound      
     
 ## WORLD ##    

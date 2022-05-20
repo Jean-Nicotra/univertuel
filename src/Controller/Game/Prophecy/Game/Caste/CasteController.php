@@ -12,23 +12,18 @@ namespace App\Controller\Game\Prophecy\Game\Caste;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
 use App\Form\Game\Prophecy\Game\Caste\CasteFormType;
-use App\Form\Game\Prophecy\Game\Caste\CasteCampaignFormType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormBenefitType;
-use App\Form\Game\Prophecy\Game\Caste\ProphecyFormBenefitCampaignType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyStatus;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyStatusFormType;
-use App\Form\Game\Prophecy\Game\Caste\ProphecyStatusCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormProhibitedType;
-use App\Form\Game\Prophecy\Game\Caste\ProphecyFormProhibitedCampaignType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormFavourType;
-use App\Form\Game\Prophecy\Game\Caste\ProphecyFormFavourCampaignType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyTechnicFormType;
-use App\Form\Game\Prophecy\Game\Caste\ProphecyTechnicCampaignFormType;
+
 
 class CasteController extends AbstractController
 {
