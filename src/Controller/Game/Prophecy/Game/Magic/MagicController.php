@@ -26,41 +26,71 @@ class MagicController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newDiscipline(Request $request)
+    public function newDiscipline(Request $request, $role, $id)
     {
         $title = "Nouvelle Discipline";
         $discipline = new ProphecyDiscipline();
         
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $discipline->setCampaign($campaign);
+        $route = null;
+        
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline');
-        $items = $itemRepository->findAll();
-        
         $form = $this->createForm(ProphecyDisciplineFormType::class, $discipline);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-discipline' )
+        {
+            $route = 'setup_Prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-discipline')
-            {
-                $discipline->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($discipline);
             $entityManager->flush();
             
-            //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
-            'form' =>$form->createView(),
-            'title' => $title,
-            'items' => $items, 
-            'games' => $games,
-        ]);
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-discipline')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
     }
     
     /**
@@ -69,41 +99,71 @@ class MagicController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newSphere(Request $request)
+    public function newSphere(Request $request, $role, $id)
     {
         $title = "Nouvelle Sphere";
         $sphere = new ProphecySphere();
         
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $sphere->setCampaign($campaign);
+        $route = null;
+        
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
-        $items = $itemRepository->findAll();
-        
         $form = $this->createForm(ProphecySphereFormType::class, $sphere);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-sphere' )
+        {
+            $route = 'setup_Prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-sphere')
-            {
-                $sphere->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($sphere);          
+            $entityManager->persist($sphere);
             $entityManager->flush();
             
-            //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
-            'form' =>$form->createView(),
-            'title' => $title,
-            'items' => $items,
-            'games' => $games,
-        ]);
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-sphere')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
     }
     
     /**
@@ -112,40 +172,70 @@ class MagicController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newSpell(Request $request)
+    public function newSpell(Request $request, $role, $id)
     {
         $title = "Nouveau sort";
         $spell = new ProphecySpell();
         
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $spell->setCampaign($campaign);
+        $route = null;
+        
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
-        $items = $itemRepository->findAll();
-        
         $form = $this->createForm(ProphecySpellFormType::class, $spell);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-spell' )
+        {
+            $route = 'setup_Prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-spell')
-            {
-                $spell->setCampaign(null);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($spell);
             $entityManager->flush();
             
-            //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
-            'form' =>$form->createView(),
-            'title' => $title,
-            'items' => $items,
-            'games' => $games,
-        ]);
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-spell')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
     }
 }

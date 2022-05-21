@@ -24,42 +24,71 @@ class WorldController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newCurrency(Request $request)
+    public function newCurrency(Request $request, $role, $id)
     {
         $title = "Nouvelle monnaie";
         $currency = new ProphecyCurrency();
         
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $currency->setCampaign($campaign);
+        $route = null;
+        
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyCurrency');
-        $items = $itemRepository->findAll();
-        
         $form = $this->createForm(ProphecyCurrencyFormType::class, $currency);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-currency' )
+        {
+            $route = 'setup_Prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-currency')
-            {
-                $currency->setCampaign(null);
-            }
-            
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($currency);        
+            $entityManager->persist($currency);
             $entityManager->flush();
-   
-            //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
-            'form' =>$form->createView(),
-            'title' => $title,
-            'items' => $items, 
-            'games' => $games,
-        ]);
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-currency')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
     }
     
     /**
@@ -68,41 +97,70 @@ class WorldController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newNation(Request $request)
+    public function newNation(Request $request, $role, $id)
     {
         $title = "Nouvelle nation";
         $nation = new ProphecyNation();
         
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $nation->setCampaign($campaign);
+        $route = null;
+        
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $games = $gameRepository->findAll();
         
-        $itemRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyNation');
-        $items = $itemRepository->findAll();
-        
         $form = $this->createForm(ProphecyNationFormType::class, $nation);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-nation' )
+        {
+            $route = 'setup_Prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
         
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($request->getPathInfo() == '/admin/new-nation')
-            {
-                $nation->setCampaign(null);
-            }
-            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($nation);
             $entityManager->flush();
-           
-            //return to create content Prophecy if ok
-            return $this->redirectToRoute('setup_Prophecy');
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
         }
         
-        return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
-            'form' =>$form->createView(),
-            'title' => $title,
-            'items' => $items,
-            'games' => $games,
-        ]);
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-nation')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
     }
 }
