@@ -4,6 +4,7 @@
 
 
 	{% block content_member %}
+	
 		{% for campaign in campaigns %}
 		    <a href="{{ path('see_other_campaign', {'id': campaign.id} ) }}">{{ campaign.name }}</a>{{ campaign.owner.username }}
 	    {% endfor %}

@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProfileController extends AbstractController
 {
+	
+	
     /*
     public function profile(Request $request)
     {

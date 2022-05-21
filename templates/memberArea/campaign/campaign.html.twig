@@ -6,10 +6,10 @@
 		<ul>
 			<li>generer un nouveau code</li>
 			<li><a>personnaliser la campagne</a></li>
-				<ul>
-					<li><a href="{{ path('campaign_add_component', {'id': campaign.id}) }}">ajouter un élément</a></li>
-					<li>modifier un élément</li>
-				</ul>
+			
+			<li><a href="{{ path('campaign_add_component', {'id': campaign.id}) }}">ajouter un élément</a></li>
+			<li>modifier un élément</li>
+			
 			<li><a href="{{ path('send_campaign_invitation', {'id': campaign.id}) }}">envoyer une invitation</a></li>
 			<li><a href="{{ path('campaign_figures', {'id': campaign.id}) }}">personnages</a></li>
 			<li><a href={#{{ path(campaign_non_playable_figures) }}"#}></a>personnages non joueurs</li>

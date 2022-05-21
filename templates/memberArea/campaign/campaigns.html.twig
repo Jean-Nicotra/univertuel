@@ -9,11 +9,18 @@
 		{% block content_member %}
 			<a href="{{ path('create_campaign') }}">nouvelle campagne</a>
 			
+			{% if campaigns == null %}
+				<label>Vous n'avez pas encore de campagne.</label>
+			
+			{% else %}		
+			
 			liste de mes campagnes :
-			{% for campaign in campaigns %}
-				<a href="{{ path('campaign', {'id': campaign.id}) }}">{{ campaign.name }}</a>
-			{% endfor %}
+				{% for campaign in campaigns %}
+					<a href="{{ path('campaign', {'id': campaign.id}) }}">{{ campaign.name }}</a>
+				{% endfor %}
 		
+			{% endif %}
+			
 			{% block form_campaign %}
 			{% endblock %}
 			
