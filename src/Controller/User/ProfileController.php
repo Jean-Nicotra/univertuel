@@ -17,6 +17,13 @@ class ProfileController extends AbstractController
 {
 	
 	
+    public function relations()
+    {
+        $user = $this->getUser();
+        
+        return $this->render('memberArea/contacts/homepage.html.twig');
+    }
+    
     /*
     public function profile(Request $request)
     {

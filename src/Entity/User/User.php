@@ -59,6 +59,23 @@ class User implements UserInterface
      *
      */
     private $avatar;
+    
+    /**
+     * Many Users have Many relations.
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="relations")
+     */
+    private $myRelations;
+    
+    
+    /**
+     * Many Users have many Users.
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="myRelations")
+     * @ORM\JoinTable(name="relations",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="relation_user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $relations;
 
     public function getAvatar()
     {

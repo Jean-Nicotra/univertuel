@@ -1,0 +1,23 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+{% block stylesheets %}
+    
+    {{ parent() }}
+      {#<link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   #}
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+{% endblock %}
+
+
+	
+{% block content_member %}
+
+	ceci est la page  des contacts du membre
+	<a>ajouter un contact</a>
+	<ul>mes contacts
+		<li>c1</li>
+		<li>c2</li>
+	</ul>
+	 
+	
+{% endblock %}
+	

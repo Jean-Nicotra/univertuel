@@ -98,6 +98,10 @@ send_campaign_invitation:
 contact:
     path: /member/message/contact
     controller: App\Controller\Platform\Message\MessageController:contact
+    
+relations:
+    path: /member/contacts
+    controller: App\Controller\User\ProfileController::relations   
 
 ## FIGURE ##
 figures:
