@@ -42,7 +42,9 @@ class ProphecyBenefit
      */
     private $campaign;
     
-    
+    /**
+     * @ORM\Column(type="text")
+     */
     private $description;
 
     /**

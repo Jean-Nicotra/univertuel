@@ -12,6 +12,8 @@ use App\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -76,6 +78,11 @@ class User implements UserInterface
      *      )
      */
     private $relations;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
 
     public function getAvatar()
     {
@@ -94,6 +101,8 @@ class User implements UserInterface
         $this->setRoles(['ROLE_MEMBER']);
         $this->setIsActive(true);
         //$this->setCreaDate(new \DateTime());
+        $this->myRelations = new ArrayCollection();
+        $this->relations = new ArrayCollection();
     }
     
     /**
@@ -271,7 +280,42 @@ class User implements UserInterface
         return $this;
     }
 
+	public function getDescription(): ?string
+	{
+		return $this->description;
+	}
 
-
-
+	public function setDescription($description): self
+	{
+		$this->description = $description;
+		
+		return $this;
+	}
+	
+	public function addMyRelations(User $relation): self
+	{
+		/*
+		if(!($this->relations->contains($relation)))
+		{
+			$this->relations->add($relation);
+		}
+		*/
+		$this->relations->add($relation);
+		return $this;
+	}
+	
+	public function removeRelations(User $relation): self
+	{
+		if ($this->relations->contains($relation))
+		{
+			$this->relations->remove($relation);
+		}
+		
+		return $this;
+	}
+	
+	public function getRelations(): ?Collection
+	{
+		return $this->relations;
+	}
 }

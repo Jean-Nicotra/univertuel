@@ -21,7 +21,7 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
         
-        return $this->render('memberArea/contacts/homepage.html.twig');
+        return $this->render('memberArea/relations/homepage.html.twig');
     }
     
     /*
@@ -55,36 +55,28 @@ class ProfileController extends AbstractController
     }
     */
     
-    public function profile(Request $request)
+    public function profile($id)
     {
-        /*
-        $user = new User();
+        
         $userRepository = $this->getDoctrine()->getRepository('App\Entity\User\User');
-        $user = $userRepository->find($this->getUser()->getId());
+        $user = $userRepository->find($id);
         
-        $form = $this->createFormBuilder($user)
-        ->add('email', EmailType::class)
-        ->add('password', PasswordType::class)
-        ->add('username', TextType::class)
-        ->add('submit', SubmitType::class, ['label' => 'valider'])
-        ->getForm();
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($currentUser);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
-            
-            return $this->redirectToRoute('member_homepage');
-        }
-        */
-        
-        return $this->render('memberArea/profile/profile.html.twig' );
+        return $this->render('memberArea/profile/profile.html.twig', ['user' => $user]  );
     }
     
+    public function relationAdd($id)
+    {
+    	$userRepository = $this->getDoctrine()->getRepository('App\Entity\User\User');
+    	$relation = $userRepository->find($id);
+    	$user = $this->getUser();
+	
+    	$user->addMyRelations($relation);
+    	$em = $this->getDoctrine()->getManager();
+    	$em->persist($user);
+    	$em->flush();
+    	
+    	return $this->render('memberArea/profile/profile.html.twig', ['user' => $user]  );
+    }
 }
 
    

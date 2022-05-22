@@ -6,6 +6,16 @@
 	
 {% block main_content %}
 	ceci est la page de profil du membre
+	
+	<a {{ path('relation_add', {'id': user.id}) }} ><button>ajouter aux contacts</button></a>
+	<a><button>supprimer des contacts</button></a>
+	
+	{{ user.username }}
+	
+	<img src="{{ asset('public/uploads/{{ user.getImage()}}.jpeg') }}" class="img-rounded" width=200px height=100px />
+	{#{{ user.image }}#}
+	
+	{{ user.description }}
 
 {% endblock %}
 	

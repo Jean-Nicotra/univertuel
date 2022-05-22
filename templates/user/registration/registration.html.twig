@@ -34,6 +34,7 @@
             label: 'mot de passe'
         }) }}
         {{ form_row(registrationForm.avatar) }}
+        {{ form_row(registrationForm.description) }}
        {{ form_row(registrationForm.agreeTerms, {'label': 'accepter les conditions d\'utilisation'}) }} 
        <div><a href="{{ asset('cgu/cgu.html') }}" target="_blank" id="conditions">voir conditions</a></div>
 

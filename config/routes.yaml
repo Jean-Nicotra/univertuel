@@ -66,7 +66,7 @@ logout:
     
     
 profile:
-    path: /member/profile
+    path: /member/profile/{id}
     controller: App\Controller\User\ProfileController::profile
     
 ##########  MEMBER ##########
@@ -100,8 +100,12 @@ contact:
     controller: App\Controller\Platform\Message\MessageController:contact
     
 relations:
-    path: /member/contacts
+    path: /member/relations
     controller: App\Controller\User\ProfileController::relations   
+    
+relation_add:
+    path: /member/relation/add/{id}
+    controller: App\Controller\User\ProfileController::relationAdd    
 
 ## FIGURE ##
 figures:

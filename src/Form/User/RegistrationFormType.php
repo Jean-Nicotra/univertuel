@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -50,6 +51,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('description', TextareaType::class, [
+            		'required' => false,
+            ])
             ->add('avatar', FileType::class, [
                 'label' => 'avatar (fichier image)',
                 
@@ -73,7 +77,7 @@ class RegistrationFormType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-            ])
+            ])   
         ;
     }
 
