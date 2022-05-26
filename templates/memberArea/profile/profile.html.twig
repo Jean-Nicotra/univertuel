@@ -5,17 +5,17 @@
 
 	
 {% block main_content %}
-	ceci est la page de profil du membre
+	ceci est la page de profil du membre {{ relation.username }}. L'utilisateur courant est {{ app.user.username }}
 	
-	<a {{ path('relation_add', {'id': user.id}) }} ><button>ajouter aux contacts</button></a>
+	<a   href={{ path('relation_add', {'id': relation.id}) }}  ><button>ajouter aux contacts</button></a>
 	<a><button>supprimer des contacts</button></a>
 	
-	{{ user.username }}
+{#  {{ user.username }}  #}
 	
 	<img src="{{ asset('public/uploads/{{ user.getImage()}}.jpeg') }}" class="img-rounded" width=200px height=100px />
-	{#{{ user.image }}#}
+	{# {{ user.image }} #}
 	
-	{{ user.description }}
+	{#  {{ user.description }} #}
 
 {% endblock %}
 	

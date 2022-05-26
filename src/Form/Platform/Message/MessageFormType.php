@@ -31,8 +31,9 @@ class MessageFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Platform\Message\Message',
-       
+            'relations' => array(),
         ]);
+        $resolver->setRequired(['relations']);
     }
 }
  

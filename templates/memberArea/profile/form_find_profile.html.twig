@@ -1,0 +1,20 @@
+{% extends 'base_template.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    <link href="{{ asset('style/memberArea/homepage.css') }}" rel="stylesheet" media="all" >   
+{% endblock %}
+
+	
+{% block main_content %}
+	ceci est la page de recherche de profil d'un membre
+	
+	{{ form(form) }}
+	
+	<ul>
+	{% for user in users %}
+		<li><a href="{{ path('profile', {'id': user.id}) }}">{{ user.username }}<p>{{ user.id }}</p></a></li>
+	{% endfor %}
+	</ul>
+	
+{% endblock %}

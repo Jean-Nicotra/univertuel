@@ -12,12 +12,14 @@
 {% block content_member %}
 
 	ceci est la page  des contacts du membre
-	<a>ajouter un contact</a>
+	<a href="{{ path('find') }}" >rechercher un membre</a>
+	{#
 	<ul>mes contacts
-		<li><a href="{{ path('profile', {'id': 2}) }}">c1</a></li>
-		<li><a href="{{ path('profile', {'id': 2}) }}">c2</a></li>
+		{% for contact in user.relations %}
+			<li><a href="{{ path('profile', {'id': user.relations.id}) }}">c1</a></li>
+		{% endfor %}
 	</ul>
-	 
+	#}
 	
 {% endblock %}
 	

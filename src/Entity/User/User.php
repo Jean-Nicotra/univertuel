@@ -60,22 +60,20 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, nullable=true)
      *
      */
-    private $avatar;
-    
-    /**
-     * Many Users have Many relations.
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="relations")
-     */
-    private $myRelations;
-    
+    private $avatar;  
+   
     
     /**
      * Many Users have many Users.
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="myRelations")
-     * @ORM\JoinTable(name="relations",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="relation_user_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="user_relations",
+     * joinColumns={
+     *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="relation", referencedColumnName="id")
+     *   }
+     * )
      */
     private $relations;
     
@@ -101,7 +99,6 @@ class User implements UserInterface
         $this->setRoles(['ROLE_MEMBER']);
         $this->setIsActive(true);
         //$this->setCreaDate(new \DateTime());
-        $this->myRelations = new ArrayCollection();
         $this->relations = new ArrayCollection();
     }
     
@@ -168,7 +165,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string) ucfirst($this->username);
+        return (string) ($this->username);
     }
 
     /**
@@ -292,19 +289,19 @@ class User implements UserInterface
 		return $this;
 	}
 	
-	public function addMyRelations(User $relation): self
+	public function addRelation($relation): self
 	{
-		/*
+		
 		if(!($this->relations->contains($relation)))
 		{
 			$this->relations->add($relation);
 		}
-		*/
-		$this->relations->add($relation);
+		
+		
 		return $this;
 	}
 	
-	public function removeRelations(User $relation): self
+	public function removeRelation(User $relation): self
 	{
 		if ($this->relations->contains($relation))
 		{
@@ -314,7 +311,7 @@ class User implements UserInterface
 		return $this;
 	}
 	
-	public function getRelations(): ?Collection
+	public function getRelations()
 	{
 		return $this->relations;
 	}

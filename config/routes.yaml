@@ -69,6 +69,23 @@ profile:
     path: /member/profile/{id}
     controller: App\Controller\User\ProfileController::profile
     
+relations:
+    path: /member/relations
+    controller: App\Controller\User\ProfileController::relations   
+    
+relation_add:
+    path: /member/relation/add/{id}
+    controller: App\Controller\User\ProfileController::relationAdd   
+    
+find:
+    path: /member/find-profile
+    controller: App\Controller\User\ProfileController::findProfile
+    
+#a enlever, pour tester    
+my_relations:
+    path: /member/relations/list
+    controller: App\Controller\User\ProfileController::getRelations   
+    
 ##########  MEMBER ##########
 ## MESSAGES ##
 messages:
@@ -97,15 +114,7 @@ send_campaign_invitation:
     
 contact:
     path: /member/message/contact
-    controller: App\Controller\Platform\Message\MessageController:contact
-    
-relations:
-    path: /member/relations
-    controller: App\Controller\User\ProfileController::relations   
-    
-relation_add:
-    path: /member/relation/add/{id}
-    controller: App\Controller\User\ProfileController::relationAdd    
+    controller: App\Controller\Platform\Message\MessageController:contact    
 
 ## FIGURE ##
 figures:

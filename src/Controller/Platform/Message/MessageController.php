@@ -10,6 +10,7 @@ use App\Entity\Platform\Message\Message;
 use App\Form\Platform\Message\MessageFormType;
 use App\Form\Platform\Message\MessageAddFormType;
 use App\Form\Platform\Message\MessageContactFormType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 class MessageController extends AbstractController
@@ -41,8 +42,9 @@ class MessageController extends AbstractController
         $thread = new Thread();
  
         //sender = current user
-        $sender = $this->getUser();              
-        
+        $sender = $this->getUser(); 
+        $relations = $sender->getRelations(); 
+
         //create a thread first
         $thread->setSender($sender);
         
@@ -54,7 +56,7 @@ class MessageController extends AbstractController
         //assign thread created in first
         $message->setThread($thread);           
         
-        $form = $this->createForm(MessageFormType::class, $message);
+        $form = $this->createForm(MessageFormType::class, $message,['relations' => $relations]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -68,7 +70,8 @@ class MessageController extends AbstractController
         }
         
         return $this->render('memberArea/message/form_message_new.html.twig', [
-            'form' => $form->createView(),   
+            'form' => $form->createView(), 
+            'relations' => $relations
         ]);    
     }
 
@@ -98,6 +101,7 @@ class MessageController extends AbstractController
         
         return $this->render('memberArea/message/messages.html.twig', [
             'messages' => $messages,
+            
         ]);
     }
 
