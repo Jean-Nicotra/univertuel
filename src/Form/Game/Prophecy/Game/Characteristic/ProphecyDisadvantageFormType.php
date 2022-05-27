@@ -21,16 +21,25 @@ class ProphecyDisadvantageFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'inconvénient',
+            ])
             ->add('multiselect', CheckboxType::class, [
+                'label' => 'multi achetable',
                 'required' => false,
             ])
             ->add('buyable', CheckboxType::class, [
+                'label' => 'achetable',
                 'required' => false,
             ])
-            ->add('initialCost', IntegerType::class)
-            ->add('description', TextareaType::class)
+            ->add('initialCost', IntegerType::class, [
+                'label' => 'cout',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('advantageCategory', EntityType::class,[
+                'label' => 'catégorie d\'inconvénient',
                 'class' => ProphecyAdvantageCategory::class,
                 'choice_label' => 'name',
                 'multiple' => false,

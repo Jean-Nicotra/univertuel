@@ -15,8 +15,12 @@ class CasteFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description',TextareaType::class )
+            ->add('name', TextType::class, [ 
+                'label' => 'nom',  
+            ])
+            ->add('description',TextareaType::class,[
+                'label' => 'description'
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

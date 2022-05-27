@@ -53,7 +53,7 @@ class MagicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-discipline' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -126,7 +126,7 @@ class MagicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-sphere' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -199,7 +199,7 @@ class MagicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-spell' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         

@@ -67,7 +67,7 @@ class StatsInitController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-xp-increase' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -140,7 +140,7 @@ class StatsInitController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-start-caracteristics' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         

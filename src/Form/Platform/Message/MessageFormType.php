@@ -20,8 +20,10 @@ class MessageFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $sender = $options['sender'];
+        
         $builder
-        ->add('thread', ThreadFormType::class, ['label' => false] )
+        ->add('thread', ThreadFormType::class, ['label' => false, 'sender' => $sender] )
         ->add('message', TextareaType::class)
         ->add('submit', SubmitType::class)
         ;
@@ -31,9 +33,9 @@ class MessageFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Platform\Message\Message',
-            'relations' => array(),
+            'sender' => User::class,
         ]);
-        $resolver->setRequired(['relations']);
+        $resolver->setRequired(['sender']);
     }
 }
  

@@ -5,7 +5,7 @@
 
 	
 {% block main_content %}
-	ceci est la page de profil du membre {{ relation.username }}. L'utilisateur courant est {{ app.user.username }}
+	ceci est la page de profil du membre L'utilisateur courant est {{ app.user.username }}
 	
 	<a   href={{ path('relation_add', {'id': relation.id}) }}  ><button>ajouter aux contacts</button></a>
 	<a><button>supprimer des contacts</button></a>

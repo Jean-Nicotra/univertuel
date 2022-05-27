@@ -19,23 +19,26 @@ class ProphecyCurrencyFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('factorValue', IntegerType::class)
+            ->add('name', TextType::class, [
+                'label' => 'monnaie',
+            ])
+            ->add('factorValue', IntegerType::class, [
+                'label' => 'valeur',
+            ])
             ->add('available', CheckboxType::class, [
+                'label' => 'disponible',
                 'required' => false,
             ])
             ->add('display', CheckboxType::class, [
+                'label' => 'affichable',
                 'required' => false,
             ])
-            ->add('code', TextType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
+            ->add('code', TextType::class, [
+                'label' => 'code',
             ])
-            ->add('description',TextareaType::class)
+            ->add('description',TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

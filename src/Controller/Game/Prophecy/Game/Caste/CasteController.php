@@ -61,7 +61,7 @@ class CasteController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-caste' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -134,7 +134,7 @@ class CasteController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-benefit' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -207,7 +207,7 @@ class CasteController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-status' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -281,7 +281,7 @@ class CasteController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-prohibited' )
         {
-        	$route = 'setup_Prophecy';
+        	$route = 'setup_prophecy';
         	
         }
         
@@ -352,7 +352,7 @@ class CasteController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-favour' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -425,7 +425,7 @@ class CasteController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-technic' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         

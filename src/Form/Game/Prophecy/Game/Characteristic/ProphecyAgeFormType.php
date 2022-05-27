@@ -15,9 +15,15 @@ class ProphecyAgeFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //Ce formulaire est a revoir, il faut trouver un moyen d'affecter un atribut majeur selon l'age, et ce, en tenant compte qu'on peut créer des attributs majeurs 
+        
         $builder
-            ->add('name', TextType::class)
-            ->add('startAttValue1', IntegerType::class)
+            ->add('name', TextType::class, [
+                'label' => 'age',
+            ])
+            ->add('startAttValue1', IntegerType::class, [
+                
+            ])
             ->add('startAttValue2', IntegerType::class)
             ->add('startAttValue3', IntegerType::class)
             ->add('startAttValue4', IntegerType::class)

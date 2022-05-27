@@ -20,34 +20,49 @@ class ProphecySkillFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('xpIncrease', IntegerType::class)
-            ->add('cost', IntegerType::class)
+            ->add('name', TextType::class, [
+                'label' => 'compétence',
+            ])
+            ->add('xpIncrease', IntegerType::class, [
+                'label' => 'coût en expérience',
+            ])
             ->add('reserved', CheckboxType::class, [
+                'label' => 'réservée',
                 'required' =>false
             ])
             ->add('free', CheckboxType::class, [
+                'label' => 'commune',
                 'required' => false,
             ])
             ->add('forbidden', CheckboxType::class, [
+                'label' => 'interdite',
                 'required' => false,
             ])
-            ->add('maximumValue', IntegerType::class)
-            ->add('minValue', IntegerType::class)
+            ->add('minValue', IntegerType::class, [
+                'label' => 'valeur minimale',
+            ])
+            ->add('maximumValue', IntegerType::class, [
+                'label' => 'valeur maximale',
+            ])
             ->add('available', CheckboxType::class, [
+                'label' => 'disponible',
                 'required' => false,
             ])
             ->add('display', CheckboxType::class, [
+                'label' => 'imprimable',
                 'required' => false,
             ])
             ->add('skillCategory', EntityType::class, [
+                'label' => 'catégorie de compétence',
                 'class' => ProphecySkillCategory::class,
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
                 
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

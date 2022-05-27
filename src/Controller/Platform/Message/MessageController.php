@@ -43,7 +43,7 @@ class MessageController extends AbstractController
  
         //sender = current user
         $sender = $this->getUser(); 
-        $relations = $sender->getRelations(); 
+        //$relations = $sender->getRelations(); 
 
         //create a thread first
         $thread->setSender($sender);
@@ -56,7 +56,7 @@ class MessageController extends AbstractController
         //assign thread created in first
         $message->setThread($thread);           
         
-        $form = $this->createForm(MessageFormType::class, $message,['relations' => $relations]);
+        $form = $this->createForm(MessageFormType::class, $message,['sender' => $sender]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -71,7 +71,7 @@ class MessageController extends AbstractController
         
         return $this->render('memberArea/message/form_message_new.html.twig', [
             'form' => $form->createView(), 
-            'relations' => $relations
+            
         ]);    
     }
 

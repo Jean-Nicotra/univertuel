@@ -51,7 +51,7 @@ class WorldController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-currency' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -124,7 +124,7 @@ class WorldController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-nation' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         

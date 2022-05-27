@@ -14,11 +14,21 @@ class ProphecyOmenFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('personnality', TextType::class)
-            ->add('motivation', TextType::class)
-            ->add('quality', TextType::class)
-            ->add('fault', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'augure',
+            ])
+            ->add('personnality', TextType::class, [
+                'label' => 'personnalité',
+            ])
+            ->add('motivation', TextType::class, [
+                'label' => 'motivation',
+            ])
+            ->add('quality', TextType::class, [
+                'label' => 'qualité',
+            ])
+            ->add('fault', TextType::class, [
+                'label' => 'défaut',
+            ])
             ->add('valider', SubmitType::class )
         ;
     }

@@ -181,6 +181,7 @@ available_games:
 ####### PROPHECY #######  
 
 ## START STATS ##
+
 setup_prophecy:     
     path: /admin/setup-prophecy
     controller: App\Controller\Game\Prophecy\Game\StatsInitController::setupProphecy

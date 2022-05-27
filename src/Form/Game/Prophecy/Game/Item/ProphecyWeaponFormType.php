@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -19,20 +18,47 @@ class ProphecyWeaponFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('weight', IntegerType::class)
-            ->add('creationDifficulty', IntegerType::class)
-            ->add('constructionDelay', IntegerType::class)
-            ->add('villageRarety', TextType::class)
-            ->add('cityRarety', TextType::class)
-            ->add('villagePrice', IntegerType::class)
-            ->add('cityPrice', IntegerType::class)      
-            ->add('meleeInitiative', IntegerType::class)
-            ->add('contactInitiative', IntegerType::class)
-            ->add('special', TextType::class)
-            ->add('damages', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'arme',
+            ])       
+            ->add('weight', IntegerType::class, [
+                'label' => 'poids',
+            ])
+            ->add('creationDifficulty', IntegerType::class, [
+                'label' => 'difficulté de création',
+            ])
+            ->add('constructionDelay', IntegerType::class, [
+                'label' => 'temps de fabrication',
+            ])
+            ->add('villageRarety', TextType::class, [
+                'label' => 'rareté en village',
+            ])
+            ->add('cityRarety', TextType::class, [
+                'label' => 'rareté en ville',
+            ])
+            ->add('villagePrice', IntegerType::class, [
+                'label' => 'prix en village',
+            ])
+            ->add('cityPrice', IntegerType::class, [
+                'label' => 'prix en ville',
+            ])      
+            ->add('meleeInitiative', IntegerType::class, [
+                'label' => 'initiative de melée',
+            ])
+            ->add('contactInitiative', IntegerType::class, [
+                'label' => 'initiative de contact',
+            ])
+            ->add('special', TextType::class, [
+                'label' => 'special',
+            ])
+            ->add('damages', TextType::class, [
+                'label' => 'dégâts',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description', 
+            ])
             ->add('caracRequirement1', EntityType::class, [
+                'label' => 'caractéristique prérequise',
                 'class' => ProphecyCaracteristic::class,
                 'choice_label' => 'name',
                 'multiple' => false,
@@ -40,9 +66,11 @@ class ProphecyWeaponFormType extends AbstractType
                 'required' => false,
             ])
             ->add('valueRequirement1', IntegerType::class, [
+                'label' => 'valeur minimale de la caractéristique prérequise',
                 'required' => false,
             ])
             ->add('caracRequirement2', EntityType::class, [
+                'label' => 'caractéristique prérequise',
                 'class' => ProphecyCaracteristic::class,
                 'choice_label' => 'name',
                 'multiple' => false,
@@ -50,14 +78,8 @@ class ProphecyWeaponFormType extends AbstractType
                 'required' => false,
             ])
             ->add('valueRequirement2', IntegerType::class, [
+                'label' => 'valeur minimale de la caractéristique prérequise',
                 'required' => false,
-            ])
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
             ])
             ->add('valider', SubmitType::class)
         ;

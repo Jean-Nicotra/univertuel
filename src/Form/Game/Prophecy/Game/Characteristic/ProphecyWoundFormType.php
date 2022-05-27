@@ -17,10 +17,18 @@ class ProphecyWoundFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('damages', TextType::class)
-            ->add('maxWounds', IntegerType::class)
-            ->add('malus', IntegerType::class)
+            ->add('name', TextType::class, [
+                'label' => 'blessure',
+            ])
+            ->add('damages', TextType::class, [
+                'label' => 'dégats',
+            ])
+            ->add('maxWounds', IntegerType::class, [
+                'label' => 'nombre maximum de blessures',
+            ])
+            ->add('malus', IntegerType::class, [
+                'label' => 'malus',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

@@ -57,7 +57,7 @@ class ItemController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-weapon-category' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -130,7 +130,7 @@ class ItemController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-armor-category' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -203,7 +203,7 @@ class ItemController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-shield' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -276,7 +276,7 @@ class ItemController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-armor' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -349,7 +349,7 @@ class ItemController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-weapon' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         

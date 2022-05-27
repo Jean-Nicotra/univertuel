@@ -1,10 +1,10 @@
 <?php
 /******************************************************************************************************************
-    name      : User.php
-    Role      : entity User, store data of a signed person 
-    author    : tristesire
-    date      : 18/02/2021
-******************************************************************************************************************/
+ name      : User.php
+ Role      : entity User, store data of a signed person
+ author    : tristesire
+ date      : 18/02/2021
+ ******************************************************************************************************************/
 
 namespace App\Entity\User;
 
@@ -28,40 +28,40 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
-
+    
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
-
+    
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
-
+    
     /**
      * @ORM\Column(type="boolean")
      */
     private $isActive;
-
+    
     /**
      * @ORM\Column(type="string", length=30)
      */
     private $username;
-
+    
     /**
      * avatar for the user
      * @ORM\Column(type="string", length=180, nullable=true)
      *
      */
-    private $avatar;  
-   
+    private $avatar;
+    
     
     /**
      * Many Users have many Users.
@@ -81,7 +81,7 @@ class User implements UserInterface
      * @ORM\Column(type="text")
      */
     private $description;
-
+    
     public function getAvatar()
     {
         return $this->avatar;
@@ -93,7 +93,7 @@ class User implements UserInterface
         
         return $this;
     }
-
+    
     public function __construct()
     {
         $this->setRoles(['ROLE_MEMBER']);
@@ -103,47 +103,47 @@ class User implements UserInterface
     }
     
     /**
-     * 
+     *
      * @return int|NULL
      */
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
     /**
-     * 
+     *
      * @return string|NULL
      */
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
+    
     /**
-     * 
+     *
      * @param string $email
      * @return self
      */
     public function setEmail(string $email): self
     {
         $this->email = strtolower($email);
-
+        
         return $this;
     }
     
     /**
      * role: used to identify the user and turn object user into string.
-     * 
+     *
      * @return string|NULL
      */
     public function __toString(): ?string
     {
         return $this->username;
     }
-
+    
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \Symfony\Component\Security\Core\User\UserInterface::getRoles()
      */
@@ -158,32 +158,32 @@ class User implements UserInterface
     
     /**
      * Role : A visual identifier that represents this user.
-     * configure config/packages/security  property: email 
-     * if you want to use another username, and change return property 
-     * 
-     * 
+     * configure config/packages/security  property: email
+     * if you want to use another username, and change return property
+     *
+     *
      */
     public function getUsername(): ?string
     {
         return (string) ($this->username);
     }
-
+    
     /**
      * Role : set user's role for authorizations.
-     * configure config/packages/security   role_hierarchy 
-     * param role is array, but use only the highest role of the user 
+     * configure config/packages/security   role_hierarchy
+     * param role is array, but use only the highest role of the user
      * @param array $roles
      * @return self
      */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
+        
         return $this;
     }
-
+    
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \Symfony\Component\Security\Core\User\UserInterface::getPassword()
      */
@@ -193,7 +193,7 @@ class User implements UserInterface
     }
     
     /**
-     * 
+     *
      * @param string $password
      * @return self
      */
@@ -203,116 +203,115 @@ class User implements UserInterface
         {
             $this->password = $password;
         }
-
+        
         return $this;
     }
-
+    
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
-     * 
+     *
      */
     public function getSalt(): ?string
     {
         return null;
     }
-
+    
     /**
-     * 
+     *
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
+    
     /*
-    public function getCreaDate(): ?string
-    {
-        return $this->creaDate->format('d/m/Y à H:i:s');
-    }
-
-    public function setCreaDate(\DateTime $creaDate): self
-    {
-        $this->creaDate = $creaDate;
-        
-        return $this;
-    }
-    */
-
+     public function getCreaDate(): ?string
+     {
+     return $this->creaDate->format('d/m/Y à H:i:s');
+     }
+     public function setCreaDate(\DateTime $creaDate): self
+     {
+     $this->creaDate = $creaDate;
+     
+     return $this;
+     }
+     */
+    
     /**
      * role: if user is active or not
-     * 
+     *
      * @return bool|NULL
      */
     public function getIsActive(): ?bool
     {
         return $this->isActive;
     }
-
+    
     /**
      * role: to active or inactive a user. Admin can turn off or turn on
-     * 
+     *
      * @param bool $isActive
      * @return self
      */
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
-
+        
         return $this;
     }
-
+    
     /**
      * role: username to identify user on platform univertuel. Must be unique
-     * 
+     *
      * @param string $username
      * @return self
      */
     public function setUsername(string $username): self
     {
         $this->username = strtolower($username);
-
+        
         return $this;
     }
-
-	public function getDescription(): ?string
-	{
-		return $this->description;
-	}
-
-	public function setDescription($description): self
-	{
-		$this->description = $description;
-		
-		return $this;
-	}
-	
-	public function addRelation($relation): self
-	{
-		
-		if(!($this->relations->contains($relation)))
-		{
-			$this->relations->add($relation);
-		}
-		
-		
-		return $this;
-	}
-	
-	public function removeRelation(User $relation): self
-	{
-		if ($this->relations->contains($relation))
-		{
-			$this->relations->remove($relation);
-		}
-		
-		return $this;
-	}
-	
-	public function getRelations()
-	{
-		return $this->relations;
-	}
+    
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+    
+    public function setDescription($description): self
+    {
+        $this->description = $description;
+        
+        return $this;
+    }
+    
+    public function addRelation($relation): self
+    {
+        
+        if(!($this->relations->contains($relation)))
+        {
+            $this->relations->add($relation);
+        }
+        
+        
+        return $this;
+    }
+    
+    public function removeRelation(User $relation): self
+    {
+        if ($this->relations->contains($relation))
+        {
+            $this->relations->remove($relation);
+        }
+        
+        return $this;
+    }
+    
+    public function getRelations()
+    {
+        return $this->relations;
+    }
 }

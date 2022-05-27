@@ -16,13 +16,8 @@ class ProphecyWeaponCategoryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
+            ->add('name', TextType::class, [
+                'label' => 'catégorie d\'arme',
             ])
             ->add('valider', SubmitType::class)
         ;

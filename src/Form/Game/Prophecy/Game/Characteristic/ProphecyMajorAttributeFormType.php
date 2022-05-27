@@ -18,10 +18,18 @@ class ProphecyMajorAttributeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('minValue', IntegerType::class)
-            ->add('maximumValue', IntegerType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'attribut majeur',
+            ])
+            ->add('minValue', IntegerType::class, [
+                'label' => 'valeure minimale',
+            ])
+            ->add('maximumValue', IntegerType::class, [
+                'label' => 'valeure maximale',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

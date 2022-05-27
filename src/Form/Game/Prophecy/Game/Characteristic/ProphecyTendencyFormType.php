@@ -18,12 +18,20 @@ class ProphecyTendencyFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('maxCircles', IntegerType::class)
-            ->add('minCircles', IntegerType::class)
+            ->add('name', TextType::class, [
+                'label' => 'tendence',
+            ])
+            ->add('minCircles', IntegerType::class, [
+                'label' => 'nombre maximum de cercles',
+            ])
+            ->add('maxCircles', IntegerType::class, [
+                'label' => 'nombre maximum de cercles',
+            ])
             ->add('minValue', IntegerType::class)
             ->add('maximumValue', IntegerType::class)
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'label' => 'descripion',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

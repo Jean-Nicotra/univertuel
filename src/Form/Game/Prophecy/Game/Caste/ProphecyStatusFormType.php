@@ -20,19 +20,22 @@ class ProphecyStatusFormType extends AbstractType
     {   	
         $builder
             ->add('name', TextType::class, [
-            		'label' => 'nom du statut',		
+            		'label' => 'statut',		
             		])
             ->add('level', IntegerType::class, [
             		'label' => 'niveau',
             		'attr' => ['min' => 1,'max' => 5],
             ])
             ->add('caste', EntityType::class, [
+                'label' => 'caste',
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,               
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

@@ -12,41 +12,30 @@ namespace App\Controller\Game\Prophecy\Game\Characteristic;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategoryFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategoryCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyCaracteristicFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyCaracteristicCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeCampaignFormType; 
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyDisadvantageFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyDisadvantageCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyOmenFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyOmenCampaignFormType; 
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyOmenFormType; 
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMajorAttributeFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMajorAttributeCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMinorAttributeFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyMinorAttributeCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillCategoryFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillCategoryCampaignFormType; 
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyTendencyFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyTendencyCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillCampaignFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundFormType;
-use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundCampaignFormType;
+
 
 class CharacteristicController extends AbstractController
 {
@@ -83,7 +72,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-advantage-category' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -156,7 +145,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-advantage' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -229,7 +218,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-caracteristic' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -302,7 +291,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-age' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -375,7 +364,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-disadvantage' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -448,7 +437,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-omen' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -521,7 +510,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-major-attribute' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -594,7 +583,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-minor-attribute' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -667,7 +656,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-skill-category' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -740,7 +729,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-tendency' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -813,7 +802,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-skill' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         
@@ -886,7 +875,7 @@ class CharacteristicController extends AbstractController
         //return to admin create content Prophecy if ok
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-wound' )
         {
-            $route = 'setup_Prophecy';
+            $route = 'setup_prophecy';
             
         }
         

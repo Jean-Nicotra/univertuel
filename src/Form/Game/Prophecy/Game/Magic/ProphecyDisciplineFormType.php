@@ -18,16 +18,17 @@ class ProphecyDisciplineFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('minValue', IntegerType::class)
-            ->add('maximumValue', IntegerType::class)
-            ->add('description', TextareaType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
+            ->add('name', TextType::class, [
+                'label' => 'discipline',
+            ])
+            ->add('minValue', IntegerType::class, [
+                'label' => 'valeur minimale',
+            ])
+            ->add('maximumValue', IntegerType::class, [
+                'label' => 'valeur maximale',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
             ])
             ->add('valider', SubmitType::class)
         ;

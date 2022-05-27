@@ -18,10 +18,11 @@ class ThreadFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         
-        $relations = $options['relations'];
+        $sender = $options['sender'];
         $builder
             ->add('purpose', TextType::class, ['label' => 'Objet'])
-            /*
+            
+            
             ->add('receiver', EntityType::class, [
             		'class' => 'App\Entity\User\User',
             		'choice_label' => "username",
@@ -29,17 +30,19 @@ class ThreadFormType extends AbstractType
             		'multiple' => false,
                     'label' => 'Destinataire',
                     //'choices' => ['relations' => $options['relations']]
+                    'choices' => $sender->getRelations(),
                 
             ])
-            */
             
-        
+            
+        /*
             ->add('receiver', ChoiceType::class, [
                 'label' => 'destinataire',
                 'choices' => $relations, 
                 
              ])
-           
+          */    
+        
         ;
     }
 
@@ -47,9 +50,9 @@ class ThreadFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Thread::class,
-           'relations' => array(),
+           'sender' => User::class,
         ]);
-        $resolver->setRequired(['relations']);
+        $resolver->setRequired(['sender']);
 
         
     }

@@ -33,7 +33,7 @@ class GameFormType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new \Symfony\Component\Validator\Constraints\File([
-                        'maxSize' => '2048',
+                        'maxSize' => '230000',
                         'mimeTypes' => [
                             'image/jpg',
                             'image/jpeg',

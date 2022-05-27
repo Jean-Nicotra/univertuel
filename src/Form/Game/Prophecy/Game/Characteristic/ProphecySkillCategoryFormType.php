@@ -16,8 +16,11 @@ class ProphecySkillCategoryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'catégorie de compétence',
+            ])
             ->add('majorAttribute', EntityType::class, [
+                'label' => 'attribut majeur',
                 'class' => ProphecyMajorAttribute::class,
                 'choice_label' => 'name',
                 'multiple' => false,

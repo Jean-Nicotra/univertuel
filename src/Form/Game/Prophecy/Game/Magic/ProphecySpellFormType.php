@@ -20,22 +20,32 @@ class ProphecySpellFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('level', IntegerType::class)
-            ->add('complexity', IntegerType::class)
-            ->add('manaCost', IntegerType::class)
-            ->add('castingTime', TextType::class)
-            ->add('difficulty', IntegerType::class)
-            ->add('description', TextareaType::class)
-            ->add('spellKeys', TextType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
+            ->add('name', TextType::class, [
+                'label' => 'sortilège',
+            ])
+            ->add('level', IntegerType::class, [
+                'label' => 'niveau',
+            ])
+            ->add('complexity', IntegerType::class, [
+                'label' => 'complexité',
+            ])
+            ->add('manaCost', IntegerType::class, [
+                'label' => 'coût en points de magie',
+            ])
+            ->add('castingTime', TextType::class, [
+                'label' => 'temps d\'invocation',
+            ])
+            ->add('difficulty', IntegerType::class, [
+                'label' => 'difficulté',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
+            ->add('spellKeys', TextType::class, [
+                'label' => 'clefs',
             ])
             ->add('sphere', EntityType::class, [
+                'label' => 'sphère de magie',
                 'class' => ProphecySphere::class,
                 'choice_label' => 'name',
                 'multiple' => false,
@@ -43,6 +53,7 @@ class ProphecySpellFormType extends AbstractType
                 
             ])
             ->add('discipline', EntityType::class, [
+                'label' => 'discipline de magie',
                 'class' => ProphecyDiscipline::class,
                 'choice_label' => 'name',
                 'multiple' => false,

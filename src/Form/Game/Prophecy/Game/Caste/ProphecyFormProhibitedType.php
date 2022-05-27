@@ -18,9 +18,14 @@ class ProphecyFormProhibitedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'interdit',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('caste', EntityType::class, [
+                'label' => 'caste',
                 'class' => ProphecyCaste::class,
                 'choice_label' => 'name',
                 'multiple' => false,

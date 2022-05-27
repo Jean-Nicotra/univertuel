@@ -18,12 +18,24 @@ class ProphecyCaracteristicFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('code', TextType::class)
-            ->add('minValue', IntegerType::class)
-            ->add('maximumValue', IntegerType::class)
-            ->add('xpIncrease', IntegerType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'caractéristique', 
+            ])
+            ->add('code', TextType::class, [
+                'label' => 'code caractéristique',
+            ])
+            ->add('minValue', IntegerType::class, [
+                'label' => 'valeure minimale',
+            ])
+            ->add('maximumValue', IntegerType::class, [
+                'label' => 'valeur maximale',
+            ])
+            ->add('xpIncrease', IntegerType::class, [
+                'label' => 'coût en expérience',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

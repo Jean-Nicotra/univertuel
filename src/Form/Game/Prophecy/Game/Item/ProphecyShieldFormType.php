@@ -18,25 +18,42 @@ class ProphecyShieldFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('weight', IntegerType::class)
-            ->add('createDifficulty', IntegerType::class)
-            ->add('constructionTime', IntegerType::class)
-            ->add('villageRarety', TextType::class)
-            ->add('cityRarety', TextType::class)
-            ->add('villagePrice', IntegerType::class)
-            ->add('cityPrice', IntegerType::class)
-            ->add('protection', IntegerType::class)
-            ->add('movePenalty', IntegerType::class)
-            ->add('material', TextType::class)
-            ->add('campaign', EntityType::class, [
-                'class' => Campaign::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
+            ->add('name', TextType::class, [
+                'label' => 'bouclier',
             ])
-            ->add('description', TextareaType::class)
+            ->add('weight', IntegerType::class, [
+                'label' => 'poids',
+            ])
+            ->add('createDifficulty', IntegerType::class, [
+                'label' => 'difficulté de fabrication',
+            ])
+            ->add('constructionTime', IntegerType::class, [
+                'label' => 'temps de fabrication',
+            ])
+            ->add('villageRarety', TextType::class, [
+                'label' => 'rareté en village',
+            ])
+            ->add('cityRarety', TextType::class, [
+                'label' => 'rareté en ville',
+            ])
+            ->add('villagePrice', IntegerType::class, [
+                'label' => 'prix en village',
+            ])
+            ->add('cityPrice', IntegerType::class, [
+                'label' => 'prix en ville',
+            ])
+            ->add('protection', IntegerType::class, [
+                'label' => 'protection',
+            ])
+            ->add('movePenalty', IntegerType::class, [
+                'label' => 'pénalité de mouvement',
+            ])
+            ->add('material', TextType::class, [
+                'label' => 'matériel de construction',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'description',
+            ])
             ->add('valider', SubmitType::class)
         ;
     }

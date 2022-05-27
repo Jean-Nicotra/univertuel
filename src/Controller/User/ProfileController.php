@@ -6,12 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-
 use App\Entity\User\User;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class ProfileController extends AbstractController
 {
@@ -69,12 +69,13 @@ class ProfileController extends AbstractController
     public function relationAdd($id)
     {
     	$userRepository = $this->getDoctrine()->getRepository('App\Entity\User\User');
-    	$relation = $userRepository->find($id);
+    	$relation = $userRepository->find($id); 
+    	
     	$user = $this->getUser();
     	$user->addRelation($relation);
     	
     	$em = $this->getDoctrine()->getManager();
-    	$em->persist($user);
+    	$em->persist($relation);
     	$em->flush();
 	
     	

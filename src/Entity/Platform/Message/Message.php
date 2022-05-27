@@ -90,7 +90,7 @@ class Message
         return $this->receiver;
     }
     
-    public function setReceiver(User $receiver): self
+    public function setReceiver($receiver): self
     {
         $this->receiver = $receiver;
         
