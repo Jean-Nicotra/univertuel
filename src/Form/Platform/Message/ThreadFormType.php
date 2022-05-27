@@ -20,29 +20,16 @@ class ThreadFormType extends AbstractType
         
         $sender = $options['sender'];
         $builder
-            ->add('purpose', TextType::class, ['label' => 'Objet'])
-            
-            
+            ->add('purpose', TextType::class, ['label' => 'Objet'])    
             ->add('receiver', EntityType::class, [
+                    'label' => 'Destinataire',
             		'class' => 'App\Entity\User\User',
             		'choice_label' => "username",
             		'expanded' => false,
             		'multiple' => false,
-                    'label' => 'Destinataire',
-                    //'choices' => ['relations' => $options['relations']]
-                    'choices' => $sender->getRelations(),
-                
-            ])
-            
-            
-        /*
-            ->add('receiver', ChoiceType::class, [
-                'label' => 'destinataire',
-                'choices' => $relations, 
-                
-             ])
-          */    
-        
+                    'choices' => $sender->getRelations(),       
+            ])   
+       
         ;
     }
 

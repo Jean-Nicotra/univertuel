@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Form\Platform\Message\ThreadFormType;
+use App\Entity\User\User;
 
 
 
@@ -17,8 +18,13 @@ class SendCampaignInvitationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $sender = $options['sender'];
+        
         $builder
-        ->add('thread', ThreadFormType::class, ['label' => " "] )
+        ->add('thread', ThreadFormType::class, [
+            'label' => false,
+            'sender' => $sender,
+        ])
         ->add('submit', SubmitType::class)
         ;
     }
@@ -27,6 +33,8 @@ class SendCampaignInvitationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Message::class,
+            'sender' => User::class,
         ]);
+        $resolver->setRequired(['sender']);
     }
 }

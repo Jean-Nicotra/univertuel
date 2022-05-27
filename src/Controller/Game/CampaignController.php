@@ -174,7 +174,10 @@ class CampaignController extends AbstractController
         $message->setNumber(1);
         $message->setThread($thread);           //assign thread created in first
         
-        $form = $this->createForm(SendCampaignInvitationFormType::class, $message);
+        $form = $this->createForm(SendCampaignInvitationFormType::class, $message, [
+            'sender' => $sender,     
+        ]);
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {

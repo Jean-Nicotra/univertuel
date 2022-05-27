@@ -23,7 +23,10 @@ class MessageFormType extends AbstractType
         $sender = $options['sender'];
         
         $builder
-        ->add('thread', ThreadFormType::class, ['label' => false, 'sender' => $sender] )
+        ->add('thread', ThreadFormType::class, [
+            'label' => false,
+            'sender' => $sender,      
+        ])
         ->add('message', TextareaType::class)
         ->add('submit', SubmitType::class)
         ;

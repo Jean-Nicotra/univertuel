@@ -42,8 +42,7 @@ class MessageController extends AbstractController
         $thread = new Thread();
  
         //sender = current user
-        $sender = $this->getUser(); 
-        //$relations = $sender->getRelations(); 
+        $sender = $this->getUser();  
 
         //create a thread first
         $thread->setSender($sender);
