@@ -166,7 +166,7 @@ class CampaignController extends AbstractController
         $campaign = $campaignRepository->find($id);
         
         $game = $campaign->getGame();
-        $route = $game->getCode().'_new_figure';
+        $route = $game->getInterfaceCode().'_new_figure';
         
         //create message in second
         $message = new Message();
