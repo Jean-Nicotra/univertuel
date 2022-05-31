@@ -330,50 +330,63 @@ prophecy_figure_caracteristics:
     
 #route a definir avec clement qui doit etre commune, accès au  premier onglet du personnage    
     
+
+prophecy_figure_view:
+    path: /member/figure/{id}/view
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureView
     
 prophecy_figure_magic:
-    path: /member/figure/figure-magic/{id}
+    path: /member/figure/{id}/figure-magic
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureMagic 
 
 prophecy_figure_caste:
-    path: /member/figure/figure-caste/{id}
+    path: /member/figure/{id}/figure-caste
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:figureCaste      
     
 prophecy_figure_equipment:
-    path: /member/figure/figure-equipment/{id}
+    path: /member/figure/{id}/figure-equipment
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEquipment 
     
 prophecy_figure_background:
-    path: /member/figure/figure-background/{id}
+    path: /member/figure/{id}/figure-background
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureBackground 
     
 prophecy_edit_initial_omen:
-    path: /member/figure/figure-edit-initial-omen/{id}
+    path: /member/figure/{id}/figure-edit-initial-omen
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialOmen   
 
 figure_edit_initial_caracteristic:  
-    path: /member/figure/figure-edit-initial-caracteristic/{id}
+    path: /member/figure/{id}/figure-edit-initial-caracteristic
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristic
+
+figure_edit_initial_major_attribute:
+    path: /member/figure/{id}/figure-edit-initial-major-attribute
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialMajorAttribute
+    
+figure_edit_initial_minor_attribute:
+    path: /member/figure/{id}/figure-edit-initial-minor-attribute
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialMinorAttribute
     
 prophecy_figure_edit_initial_caste:
-    path: /member/figure/prophecy-figure-edit-initial-caste/{id}
+    path: /member/figure/{id}/prophecy-figure-edit-initial-caste
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaste
     
 prophecy_figure_edit_initial_age:
-    path: /member/figure/prophecy-figure-edit-initial-age/{id}
+    path: /member/figure/{id}/prophecy-figure-edit-initial-age
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialAge
     
 prophecy_figure_edit_initial_background:
-    path: /member/figure/prophecy-figure-edit-initial-background/{id}
+    path: /member/figure/{id}/prophecy-figure-edit-initial-background
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialBackground
+    
+prophecy_edit_initial_nation:
+    path: /member/figure/{id}/figure-edit-initial-nation
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialNation 
     
 formulaire:
     path: /form/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristicTest
     
-figure_edit_initial_major_attribute:
-    path: /member/figure/figure-edit-initial-major-attribute/{id}
-    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialMajorAttribute
     
 #delete_figure:        
     

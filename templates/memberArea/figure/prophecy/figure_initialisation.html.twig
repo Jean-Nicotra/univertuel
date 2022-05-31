@@ -1,15 +1,25 @@
-{% extends 'memberArea/figure/prophecy/figure.html.twig' %}
+{% extends 'memberArea/homepage.html.twig' %}
 
 	
-{% block figure_page %}
+    {% block content_member %}
+    
 
-Cette page sera a refaire comme la fiche de personnage, car le processus de creation est deporte sur une page a part.
+    
+    	{% if figure.isFinish == false %}
+    		<p>la création du personnage n'est pas encore terminée</p>
 
-	----------------- informations de base sur le personnage ----------------
+    	{% endif %}
+    		
+    		
+    		Processus de creation du personnage
+    		
+    	----------------- informations de base sur le personnage ----------------
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
 		<li><label>taille</label>{{ figure.size }}</li>
 		<li><label>poids</label>{{ figure.weight }}</li>
+		
+		etape 1
 		
 		{% if figure.omen == null %}
 		<li><label>augure de naissance: </label>cliquer ici pour initialiser votre augure de naissance<a href="{{ path('prophecy_edit_initial_omen', {'id': figure.id}) }}">editer</a></li>
@@ -18,6 +28,8 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 		{% endif %}
 		
 		{# ---------------------------------------------------------------------------- #}
+		
+		etape 2
 		
 		{% if figure.omen == null %}
 		
@@ -28,6 +40,8 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 		{% endif %}
 		
 		{# ---------------------------------------------------------------------------- #}
+		
+		etape 3
 		
 		{% if figure.age == null %}
 		
@@ -43,12 +57,15 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	</ul>	
 	
 	----------------- caracteristiques du personnage ----------------
+	
+	etape 4
+		
 	{% if figure.caste == null %}
 	
 	{% elseif caracteristics[0].value == null %}
 		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
 	
-	
+	{% else %}
 	<ul>
 	{% for caracteristic in caracteristics %}
 		<li><label>{{ caracteristic.caracteristic.name }}</label>  {{ caracteristic.value }}</li>
@@ -59,11 +76,13 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	
 	----------------- attributs majeurs du personnage ----------------
 	
+	etape 5
+	
 	{% if figure.caracteristics[0].value == null %}
 	
 	{% elseif majorAttributes[0].value == null %}
 		cliquer ici pour initialiser vos attributs majeurs<a href="{{ path('figure_edit_initial_major_attribute', {'id': figure.id }) }}">editer</a>
-	
+	{% else %}
 	<ul>
 	{% for majorAttribute in majorAttributes %}
 		<li><label>{{ majorAttribute.majorAttribute.name }}</label>  {{ majorAttribute.value }}</li>
@@ -74,11 +93,13 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	
 	----------------- attributs mineurs du personnage ----------------
 	
+	etape 6
+	
 	{% if figure.majorAttributes[0].value == null %}
 		
 	{% elseif minorAttributes[0].value == null %}
-		cliquer ici pour initialiser vos attributs mineurs<a href="">editer</a>
-		
+		cliquer ici pour initialiser vos attributs mineurs<a href="{{ path('figure_edit_initial_minor_attribute', {'id': figure.id }) }}">editer</a>
+	{% else %}	
 	<ul>
 	{% for minorAttribute in minorAttributes %}
 		<li><label>{{ minorAttribute.minorAttribute.name }}</label>  {{ minorAttribute.value }}</li>
@@ -86,11 +107,12 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	</ul>	
 	{% endif %}
 	
-	
-	{% if minorAttributes == null %}
+	etape 7
+	minor : 
+	{% if minorAttributes[0].value == null %}
 	
 	{% elseif figure.nation == null %}
-		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="">editer</a></li>
+		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="{{ path('prophecy_edit_initial_nation', {'id': figure.id}) }}">editer</a></li>
 	{% else %}
 		<li><label>pays d'origine</label>{{ figure.nation }}</li>
 	{% endif %}
@@ -104,7 +126,7 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	
 	----------------- tendances du personnage ----------------
 	
-	
+	etape 8
 	
 	<ul>
 	{% for tendency in tendencies %}
@@ -122,10 +144,10 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	
 	
 	----------------- inconvenients du personnage ----------------
-		
+	etape 9
 	
 	----------------- avantages du personnage ----------------
-	
+	etape 10
 	
 	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
 	
@@ -138,6 +160,9 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	
 	
 	----------------- compétences du personnage ----------------
+	
+	etape 11 : rajouter la magie
+	
 	<ul>	
 	{% for majorAttribute in majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
@@ -154,7 +179,13 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	{% endfor %}
 	</ul>
 	
+	
+	
+	
 		----------------- renommée du personnage ----------------
+	
+	etape 12
+	
 	<ul>renommée
 		<li>{{ figure.reputation }}</li>
 	</ul>
@@ -163,8 +194,9 @@ Cette page sera a refaire comme la fiche de personnage, car le processus de crea
 	----------------- expérience du personnage ----------------
 	<ul>experience
 		<li>{{ figure.xperience }}</li>
-	</ul>
-	
+	</ul>	
+    		
+    		
+
 		
 {% endblock %}
-	

@@ -134,6 +134,11 @@ class ProphecyFigure implements FigureInterface
      */
     private $majorAttributes;
    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureMinorAttribute", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $minorAttributes;
     
     /**
      * Many Figures have many weapons.
@@ -314,6 +319,8 @@ class ProphecyFigure implements FigureInterface
         $this->armors = new ArrayCollection();
         $this->spells = new ArrayCollection();
         $this->caracteristics = new ArrayCollection();
+        $this->minorAttributes = new ArrayCollection();
+        $this->majorAttributes = new ArrayCollection();
     }
     
     
@@ -802,6 +809,11 @@ class ProphecyFigure implements FigureInterface
     public function getMajorAttributes()
     {
         return $this->majorAttributes;
+    }
+    
+    public function getMinorAttributes ()
+    {
+        return $this->minorAttributes;
     }
     
     public function __toString(): ?string

@@ -38,7 +38,7 @@ class FigureController extends AbstractController
         $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
         $game = $gameRepository->find($game);
         //format like Prophecy_figure_caracteristics or Cyberpunk_figure_caracteristics, etc...
-        $route = $game->getInterfaceCode().'_figure_caracteristics';
+        $route = $game->getInterfaceCode().'_figure_view';
         
         return $this->redirectToRoute($route, ['id' => $id]);
     }
