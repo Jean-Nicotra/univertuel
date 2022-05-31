@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220523082237 extends AbstractMigration
+final class Version20220530145408 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -80,7 +80,7 @@ final class Version20220523082237 extends AbstractMigration
         $this->addSql('CREATE TABLE prophecy_xpincrease (id INT AUTO_INCREMENT NOT NULL, campaign_id INT DEFAULT NULL, caracteristic INT NOT NULL, major_attribute INT NOT NULL, minor_attribute INT NOT NULL, reserved_skill INT NOT NULL, skill INT NOT NULL, forbidden_skill INT NOT NULL, mana INT NOT NULL, spell INT NOT NULL, famous INT NOT NULL, favour INT NOT NULL, advantage INT NOT NULL, disadvantage INT NOT NULL, INDEX IDX_106B5169F639F774 (campaign_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE thread (id INT AUTO_INCREMENT NOT NULL, sender_id INT NOT NULL, receiver_id INT NOT NULL, is_receiver_deleted TINYINT(1) NOT NULL, is_sender_deleted TINYINT(1) NOT NULL, purpose VARCHAR(255) NOT NULL, INDEX IDX_31204C83F624B39D (sender_id), INDEX IDX_31204C83CD53EDB6 (receiver_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_active TINYINT(1) NOT NULL, username VARCHAR(30) NOT NULL, avatar VARCHAR(180) DEFAULT NULL, description LONGTEXT NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE relations (user_id INT NOT NULL, relation_user_id INT NOT NULL, INDEX IDX_146CBF78A76ED395 (user_id), INDEX IDX_146CBF78BE15C1E4 (relation_user_id), PRIMARY KEY(user_id, relation_user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user_relations (user_id INT NOT NULL, relation INT NOT NULL, INDEX IDX_148C329CA76ED395 (user_id), INDEX IDX_148C329C62894749 (relation), PRIMARY KEY(user_id, relation)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE campaign ADD CONSTRAINT FK_1F1512DD7E3C61F9 FOREIGN KEY (owner_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE campaign ADD CONSTRAINT FK_1F1512DDE48FD905 FOREIGN KEY (game_id) REFERENCES game (id)');
         $this->addSql('ALTER TABLE figure ADD CONSTRAINT FK_2F57B37AF639F774 FOREIGN KEY (campaign_id) REFERENCES campaign (id)');
@@ -185,8 +185,8 @@ final class Version20220523082237 extends AbstractMigration
         $this->addSql('ALTER TABLE prophecy_xpincrease ADD CONSTRAINT FK_106B5169F639F774 FOREIGN KEY (campaign_id) REFERENCES campaign (id)');
         $this->addSql('ALTER TABLE thread ADD CONSTRAINT FK_31204C83F624B39D FOREIGN KEY (sender_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE thread ADD CONSTRAINT FK_31204C83CD53EDB6 FOREIGN KEY (receiver_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE relations ADD CONSTRAINT FK_146CBF78A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE relations ADD CONSTRAINT FK_146CBF78BE15C1E4 FOREIGN KEY (relation_user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE user_relations ADD CONSTRAINT FK_148C329CA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE user_relations ADD CONSTRAINT FK_148C329C62894749 FOREIGN KEY (relation) REFERENCES user (id)');
     }
 
     public function down(Schema $schema): void
@@ -296,8 +296,8 @@ final class Version20220523082237 extends AbstractMigration
         $this->addSql('ALTER TABLE prophecy_figure DROP FOREIGN KEY FK_976724287E3C61F9');
         $this->addSql('ALTER TABLE thread DROP FOREIGN KEY FK_31204C83F624B39D');
         $this->addSql('ALTER TABLE thread DROP FOREIGN KEY FK_31204C83CD53EDB6');
-        $this->addSql('ALTER TABLE relations DROP FOREIGN KEY FK_146CBF78A76ED395');
-        $this->addSql('ALTER TABLE relations DROP FOREIGN KEY FK_146CBF78BE15C1E4');
+        $this->addSql('ALTER TABLE user_relations DROP FOREIGN KEY FK_148C329CA76ED395');
+        $this->addSql('ALTER TABLE user_relations DROP FOREIGN KEY FK_148C329C62894749');
         $this->addSql('DROP TABLE campaign');
         $this->addSql('DROP TABLE figure');
         $this->addSql('DROP TABLE game');
@@ -358,6 +358,6 @@ final class Version20220523082237 extends AbstractMigration
         $this->addSql('DROP TABLE prophecy_xpincrease');
         $this->addSql('DROP TABLE thread');
         $this->addSql('DROP TABLE user');
-        $this->addSql('DROP TABLE relations');
+        $this->addSql('DROP TABLE user_relations');
     }
 }

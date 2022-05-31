@@ -28,6 +28,7 @@ use App\Entity\Game\Figure;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCasteFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureAgeFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureBackgroundFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureOmenFormType;
 
 class FigureController extends AbstractController
 {
@@ -380,6 +381,32 @@ class FigureController extends AbstractController
     }
 
    
+    public function figureEditInitialOmen(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $form =  $this->createForm(InitialiseProphecyFigureOmenFormType::class, $figure );
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('Prophecy_figure_caracteristics', [
+                'id' => $figure->getId()
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);    
+        
+    }
+    
     
     /**
      * Role: to the figure creation, edit initial caracteristic

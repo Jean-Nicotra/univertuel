@@ -16,7 +16,7 @@
 			
 			liste de mes campagnes :
 				{% for campaign in campaigns %}
-					<a href="{{ path('campaign', {'id': campaign.id}) }}">{{ campaign.name }}</a>
+					<a href="{{ path('campaign', {'id': campaign.id}) }}">{{ campaign.name }} </a>
 				{% endfor %}
 		
 			{% endif %}

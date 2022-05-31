@@ -346,6 +346,10 @@ prophecy_figure_equipment:
 prophecy_figure_background:
     path: /member/figure/figure-background/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureBackground 
+    
+prophecy_edit_initial_omen:
+    path: /member/figure/figure-edit-initial-omen/{id}
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialOmen   
 
 figure_edit_initial_caracteristic:  
     path: /member/figure/figure-edit-initial-caracteristic/{id}

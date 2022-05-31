@@ -7,69 +7,93 @@
 	----------------- informations de base sur le personnage ----------------
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
-		{% if figure.caste == null %}
-		<li><label>caste: </label>cliquer ici pour initialiser votre caste<a href="{{ path('prophecy_figure_edit_initial_caste', {'id': figure.id }) }}">editer</a></li>
+		<li><label>taille</label>{{ figure.size }}</li>
+		<li><label>poids</label>{{ figure.weight }}</li>
+		
+		{% if figure.omen == null %}
+		<li><label>augure de naissance: </label>cliquer ici pour initialiser votre augure de naissance<a href="{{ path('prophecy_edit_initial_omen', {'id': figure.id}) }}">editer</a></li>
 		{% else %}
-		<li><label>caste: </label>{{ figure.caste.name }}</li>
+		<li><label>augure de naissance: </label>{{ figure.omen.name }}</li>
 		{% endif %}
 		
-		{% if figure.age == null %}
+		{# ---------------------------------------------------------------------------- #}
+		
+		{% if figure.omen == null %}
+		
+		{% elseif figure.age == null %}
 		<li><label>age: </label>cliquer ici pour initialiser votre age<a href="{{ path('prophecy_figure_edit_initial_age', {'id': figure.id }) }}">editer</a></li>
 		{% else %}
 		<li><label>age: </label>{{ figure.age.name }}</li>
 		{% endif %}
 		
-		{% if figure.omen == null %}
-		<li><label>augure de naissance: </label>cliquer ici pour initialiser votre augure de naissance<a href="">editer</a></li>
+		{# ---------------------------------------------------------------------------- #}
+		
+		{% if figure.age == null %}
+		
+		{% elseif figure.caste == null %}
+		<li><label>caste: </label>cliquer ici pour initialiser votre caste<a href="{{ path('prophecy_figure_edit_initial_caste', {'id': figure.id }) }}">editer</a></li>
 		{% else %}
-		<li><label>augure de naissance: </label>{{ figure.omen.name }}</li>
+		<li><label>caste: </label>{{ figure.caste.name }}</li>
 		{% endif %}
 	
-		<li><label>taille</label>{{ figure.size }}</li>
-		<li><label>poids</label>{{ figure.weight }}</li>
+		{# ---------------------------------------------------------------------------- #}
 		
-		{% if figure.nation == null %}
-		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="">editer</a></li>
-		{% else %}
-		<li><label>pays d'origine</label>{{ figure.nation }}</li>
-		{% endif %}
 		
 	</ul>	
 	
-	----------------- renommée du personnage ----------------
-	<ul>renommée
-		<li>{{ figure.reputation }}</li>
-	</ul>
-	
 	----------------- caracteristiques du personnage ----------------
-	{% if caracteristics[0].value == null %}
+	{% if figure.caste == null %}
+	
+	{% elseif caracteristics[0].value == null %}
 		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
-	{% endif %}
+	
+	
 	<ul>
 	{% for caracteristic in caracteristics %}
 		<li><label>{{ caracteristic.caracteristic.name }}</label>  {{ caracteristic.value }}</li>
 	{% endfor %}
 	</ul>
+	{% endif %}
+	
 	
 	----------------- attributs majeurs du personnage ----------------
-	{% if majorAttributes[0].value == null %}
+	
+	{% if figure.caracteristics[0].value == null %}
+	
+	{% elseif majorAttributes[0].value == null %}
 		cliquer ici pour initialiser vos attributs majeurs<a href="{{ path('figure_edit_initial_major_attribute', {'id': figure.id }) }}">editer</a>
-	{% endif %}
+	
 	<ul>
 	{% for majorAttribute in majorAttributes %}
 		<li><label>{{ majorAttribute.majorAttribute.name }}</label>  {{ majorAttribute.value }}</li>
 	{% endfor %}
 	</ul>
-		
-	----------------- attributs mineurs du personnage ----------------	
-	{% if minorAttributes[0].value == null %}
-		cliquer ici pour initialiser vos attributs mineurs<a href="">editer</a>
 	{% endif %}
+	
+	
+	----------------- attributs mineurs du personnage ----------------
+	
+	{% if figure.majorAttributes[0].value == null %}
+		
+	{% elseif minorAttributes[0].value == null %}
+		cliquer ici pour initialiser vos attributs mineurs<a href="">editer</a>
+		
 	<ul>
 	{% for minorAttribute in minorAttributes %}
 		<li><label>{{ minorAttribute.minorAttribute.name }}</label>  {{ minorAttribute.value }}</li>
 	{% endfor %}
 	</ul>	
+	{% endif %}
+	
+	
+	{% if minorAttributes == null %}
+	
+	{% elseif figure.nation == null %}
+		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="">editer</a></li>
+	{% else %}
+		<li><label>pays d'origine</label>{{ figure.nation }}</li>
+	{% endif %}
+	
 	
 			{# PB Si certaines tendances sont a 0. il faut aborder differemment pour la creation
 	{% if tendencies[0].circles == null %}
@@ -78,6 +102,9 @@
 	#}
 	
 	----------------- tendances du personnage ----------------
+	
+	
+	
 	<ul>
 	{% for tendency in tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
@@ -90,6 +117,14 @@
 		cliquer ici pour initialiser vos attributs mineurs
 	{% endif %}
 	#}
+	
+	
+	
+	----------------- inconvenients du personnage ----------------
+		
+	
+	----------------- avantages du personnage ----------------
+	
 	
 	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
 	
@@ -117,6 +152,12 @@
 		{% endfor %}
 	{% endfor %}
 	</ul>
+	
+		----------------- renommée du personnage ----------------
+	<ul>renommée
+		<li>{{ figure.reputation }}</li>
+	</ul>
+	
 	
 	----------------- expérience du personnage ----------------
 	<ul>experience

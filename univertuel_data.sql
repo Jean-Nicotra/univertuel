@@ -35,6 +35,23 @@ INSERT INTO `game` (`id`, `code`, `name`, `image`, `description`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_active`, `username`, `avatar`, `description`) VALUES
+(1, 'phoenix@gmail.com', '[\"ROLE_SADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZGlQZSMOrGKEnfHJTsQ3pQ$E+jVstkowmEmDgfltBJ86K5L772ytcHLwK6h9RiEW60', 1, 'phoenix', 'avatar-629115f8ebe9d.jpeg', 'je suis passionné de jdr'),
+(2, 'jeannicotra@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$1xsN2dZB+W9CwuN1JElaog$BECnZdtDK5FlqgEoi2kupZf/+9uWbovebGdXmGFmvVQ', 1, 'jean', 'avatar-6291166c6cf09.jpeg', 'je suis sans famille et je m\'appelle jean'),
+(3, 'clement@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$zdUbY4SFGzNGcLwe0k89IA$lTVpDJkHAMBj5rZrJY0an6K05LpO+IJuwnoo3kYWwYU', 1, 'clement', 'avatar-629116a25d0e4.jpeg', 'je m\'appelle clement et j\'ai 13 ans'),
+(4, 'eric@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$HCMuls9gPOPCYtvIWY6SLg$qwAn0gUpOQ+Yrq+JpfGzQcI1O+8MsscRqL8eYi9L2XA', 1, 'eric', 'avatar-629116da737ba.jpeg', 'je suis eric, j\'ai dix ans, et quand je serais grand, je voudrais dormir toute la journée'),
+(5, 'clementine@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$tBgnZ31UK3Qw4xz0mudwOg$6bft2nopvUf3XgPaza0x4bf+/E2Mvytz5tLs/MMBj4o', 1, 'clementine', 'avatar-62911722b8216.jpeg', 'salut, je suis une fille, et je joue aux jdr, na!'),
+(6, 'writer@gmail.com', '[\"ROLE_WRITER\"]', '$argon2id$v=19$m=65536,t=4,p=1$5SQO6RU0jgdrKYZ1szKh3g$J+SPmlnV4CqcVbum3qWZ79CeRK7iEHBDcPQ81ZOCrY0', 1, 'writer', 'avatar-62911764c78e5.jpeg', 'je suis writer, et j\'ai un role de writer sur ce site'),
+(7, 'member@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$nS2nQausRVKkLlER74Rx2w$V/3xLkvhPOqd2T4Smgy1c0tGNkVrBRaIeGmo64ZEbks', 1, 'member', 'avatar-62911790532fb.jpeg', 'je suis un simple membre, avec des droits de membre'),
+(8, 'admin@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$dNWGlT99YVxkkkGgEIroTA$eV2e921UtQAfWeWLN7ob9TgdjrOYJf227yXedrpcZSs', 1, 'admin', NULL, 'je suis un admin, avec les super droits de admin je tue presque tout'),
+(9, 'sadmin@gmail.com', '[\"ROLE_SADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$HSPYH7sS+2tCLobe0QWu1Q$JGqcaNkdRTWtPfq/jrfneQX4/jPyCcCNDkj4T8goIvU', 1, 'sadmin', NULL, 'je suis un sadmin, j\'ai tous les pouvoirs, fatals!!!!!');
+
+-- --------------------------------------------------------
+
 
 --
 -- Déchargement des données de la table `prophecy_caracteristic`
@@ -254,22 +271,96 @@ INSERT INTO `prophecy_status` (`id`, `caste_id`, `campaign_id`, `name`, `level`,
 
 
 --
--- Déchargement des données de la table `user`
+-- Déchargement des données de la table `prophecy_armor_category`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_active`, `username`, `avatar`, `description`) VALUES
-(1, 'phoenix@gmail.com', '[\"ROLE_SADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZGlQZSMOrGKEnfHJTsQ3pQ$E+jVstkowmEmDgfltBJ86K5L772ytcHLwK6h9RiEW60', 1, 'phoenix', 'avatar-629115f8ebe9d.jpeg', 'je suis passionné de jdr'),
-(2, 'jeannicotra@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$1xsN2dZB+W9CwuN1JElaog$BECnZdtDK5FlqgEoi2kupZf/+9uWbovebGdXmGFmvVQ', 1, 'jean', 'avatar-6291166c6cf09.jpeg', 'je suis sans famille et je m\'appelle jean'),
-(3, 'clement@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$zdUbY4SFGzNGcLwe0k89IA$lTVpDJkHAMBj5rZrJY0an6K05LpO+IJuwnoo3kYWwYU', 1, 'clement', 'avatar-629116a25d0e4.jpeg', 'je m\'appelle clement et j\'ai 13 ans'),
-(4, 'eric@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$HCMuls9gPOPCYtvIWY6SLg$qwAn0gUpOQ+Yrq+JpfGzQcI1O+8MsscRqL8eYi9L2XA', 1, 'eric', 'avatar-629116da737ba.jpeg', 'je suis eric, j\'ai dix ans, et quand je serais grand, je voudrais dormir toute la journée'),
-(5, 'clementine@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$tBgnZ31UK3Qw4xz0mudwOg$6bft2nopvUf3XgPaza0x4bf+/E2Mvytz5tLs/MMBj4o', 1, 'clementine', 'avatar-62911722b8216.jpeg', 'salut, je suis une fille, et je joue aux jdr, na!'),
-(6, 'writer@gmail.com', '[\"ROLE_WRITER\"]', '$argon2id$v=19$m=65536,t=4,p=1$5SQO6RU0jgdrKYZ1szKh3g$J+SPmlnV4CqcVbum3qWZ79CeRK7iEHBDcPQ81ZOCrY0', 1, 'writer', 'avatar-62911764c78e5.jpeg', 'je suis writer, et j\'ai un role de writer sur ce site'),
-(7, 'member@gmail.com', '[\"ROLE_MEMBER\"]', '$argon2id$v=19$m=65536,t=4,p=1$nS2nQausRVKkLlER74Rx2w$V/3xLkvhPOqd2T4Smgy1c0tGNkVrBRaIeGmo64ZEbks', 1, 'member', 'avatar-62911790532fb.jpeg', 'je suis un simple membre, avec des droits de membre'),
-(8, 'admin@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$dNWGlT99YVxkkkGgEIroTA$eV2e921UtQAfWeWLN7ob9TgdjrOYJf227yXedrpcZSs', 1, 'admin', NULL, 'je suis un admin, avec les super droits de admin je tue presque tout'),
-(9, 'sadmin@gmail.com', '[\"ROLE_SADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$HSPYH7sS+2tCLobe0QWu1Q$JGqcaNkdRTWtPfq/jrfneQX4/jPyCcCNDkj4T8goIvU', 1, 'sadmin', NULL, 'je suis un sadmin, j\'ai tous les pouvoirs, fatals!!!!!');
+INSERT INTO `prophecy_armor_category` (`id`, `campaign_id`, `name`) VALUES
+(1, NULL, 'armure légere'),
+(2, NULL, 'armure lourde'),
+(3, NULL, 'armure moyenne');
 
 -- --------------------------------------------------------
 
+--
+-- Déchargement des données de la table `prophecy_shield`
+--
 
+INSERT INTO `prophecy_shield` (`id`, `campaign_id`, `name`, `weight`, `create_difficulty`, `construction_time`, `village_rarety`, `city_rarety`, `village_price`, `city_price`, `protection`, `move_penalty`, `material`, `description`) VALUES
+(1, NULL, 'petit bouclier', 1, 15, 2, 'peu commun', 'commun', 60, 65, 2, 0, 'bois', 'description du petit bouclier'),
+(2, NULL, 'bouclier renforcé', 2, 15, 4, 'peu commun', 'peu commun', 120, 160, 4, -2, 'bois et metal', 'peut etre utilisé en attaque avec les domages : FOR+2+1D10'),
+(3, NULL, 'grand bouclier', 4, 20, 6, 'rare', 'peu commun', 425, 465, 6, -4, 'bois et metal', 'peut etre utilise en attaque avec les domages : FOR+4+D10'),
+(4, NULL, 'bouclier dragon', 5, 20, 5, 'N/A', 'N/A', 420, 420, 7, -5, 'metal', 'peut etre utilise en attaque avec les domages : FOR+5+1D10. La construction de ce bouclier ne peut etre realisee que par un artisan specialement mandate par la caste des protecteurs'),
+(5, NULL, 'bouclier draconique', 6, 25, 2, 'introuvable', 'tres rare', 2600, 1600, 8, -5, 'ecailles de dragon', 'fabrique par un artisan elementaire a partir d\'une ecaille de dragon. Peut etre utilise en combat avec les domages : FOR+5+1D10');
 
+-- --------------------------------------------------------
 
+--
+-- Déchargement des données de la table `prophecy_weapon_category`
+--
+
+INSERT INTO `prophecy_weapon_category` (`id`, `campaign_id`, `name`) VALUES
+(1, NULL, 'armes tranchantes'),
+(2, NULL, 'armes de choc'),
+(3, NULL, 'arme contondante'),
+(4, NULL, 'arme articulee'),
+(5, NULL, 'arme double'),
+(6, NULL, 'arme de corps a corps'),
+(7, NULL, 'arme d\'hast'),
+(8, NULL, 'arme de jet'),
+(9, NULL, 'arme a projectile'),
+(10, NULL, 'arme mecanique');
+
+-- --------------------------------------------------------
+
+--
+-- Déchargement des données de la table `prophecy_armor`
+--
+
+INSERT INTO `prophecy_armor` (`id`, `category_id`, `campaign_id`, `name`, `weight`, `create_difficulty`, `construction_time`, `village_rarety`, `city_rarety`, `village_price`, `city_price`, `protection`, `move_penalty`, `material`, `description`) VALUES
+	(1, 1, NULL, 'vetements epais', 2, 10, 4, 'peu commun', 'commun', 115, 125, 2, 0, 'tissus', 'vetements souples et legers'),
+	(2, 1, NULL, 'fourrures', 4, 10, 5, 'très courant', 'peu courant', 150, 415, 5, 0, 'fourrure', 'vetements de fourrure'),
+	(3, 1, NULL, 'cuir souple', 3, 15, 8, 'courant', 'tres courant', 215, 160, 4, 0, 'cuir', 'armure en cuir souple'),
+	(4, 1, NULL, 'cuir cloute', 6, 15, 10, 'commun', 'commun', 300, 375, 6, 0, 'cuir', 'du cuir avec des clous'),
+	(5, 1, NULL, 'cuir bouilli', 6, 20, 12, 'peu commun', 'commun', 765, 790, 8, -2, 'cuir', 'description'),
+	(6, 3, NULL, 'armure d\'os et de corne', 7, 20, 20, 'rare', 'rare', 2400, 3350, 12, -2, 'cuir,os,corne', 'armure avec des os, corne et cuir'),
+	(7, 3, NULL, 'cotte légère', 8, 15, 15, 'peu commun', 'commun', 550, 550, 10, 0, 'cuir,metal', 'une armure avec un peu de metal'),
+	(8, 3, NULL, 'cotte de mailles', 12, 20, 25, 'introuvable', 'peu commun', 3500, 1900, 15, -2, 'metal', 'armure militaaire'),
+	(9, 3, NULL, 'armure d\'anneaux', 14, 15, 30, 'peu commun', 'peu commun', 1900, 1900, 16, -4, 'cuir metal', 'armure d\'anneaux en metal'),
+	(10, 3, NULL, 'brigandine', 16, 20, 20, 'rare', 'peu commun', 2300, 1800, 17, -5, 'cuir metal', 'armure brigandine'),
+	(11, 2, NULL, 'armure d\'écailles', 17, 20, 30, 'très rare', 'rare', 2800, 2800, 20, -5, 'metal', 'armure en ecailles'),
+	(12, 3, NULL, 'armure de bois', 10, 20, 15, 'rare', 'rare', 1200, 1600, 15, -6, 'cuir bois', 'une armure speciale a base de bois'),
+	(13, 2, NULL, 'armsure de demi-plaque', 15, 20, 25, 'très rare', 'peu courant', 2400, 1900, 18, -6, 'metal', 'armure avec des plaque de metal'),
+	(14, 2, NULL, 'armure de lamelles', 20, 20, 30, 'tres rare', 'rare', 2800, 2800, 22, -8, 'metal', 'armure avec des lamelles de fer'),
+	(15, 2, NULL, 'armure de plaques', 25, 25, 40, 'introuvable', 'rare', 11000, 7500, 25, -10, 'metal', 'armure avec des plaques de metal'),
+	(16, 2, NULL, 'armure draconique', 30, 25, 10, 'introuvable', 'tres rare', 10000, 7000, 27, -10, 'ecaille de dragon', 'armure a base d ecaille de dragon, modelee par un artisan elementaire');
+
+-- --------------------------------------------------------
+
+--
+-- Déchargement des données de la table `prophecy_weapon`
+--	
+	
+INSERT INTO `prophecy_weapon` (`id`, `carac_requirement1_id`, `carac_requirement2_id`, `campaign_id`, `name`, `weight`, `creation_difficulty`, `construction_delay`, `village_rarety`, `city_rarety`, `village_price`, `city_price`, `value_requirement1`, `value_requirement2`, `melee_initiative`, `contact_initiative`, `special`, `damages`, `description`) VALUES
+	(1, 1, NULL, NULL, 'epee courte', 1, 15, 3, 'commun', 'tres commun', 60, 55, 3, NULL, 0, 0, 'rien', 'FOR+8+1D10', 'description'),
+	(2, 1, NULL, NULL, 'epee vulgaire', 1, 15, 3, 'commun', 'tres commun', 75, 70, 4, NULL, 1, 0, 'N/A', 'FOR+10+1D10', 'description'),
+	(3, 1, NULL, NULL, 'epee longue', 1, 15, 4, 'peu commun', 'commun', 120, 115, 5, NULL, 2, -2, 'N/A', 'FOR+12+1D10', 'description'),
+	(4, 1, NULL, NULL, 'epee large', 1, 15, 4, 'peu commun', 'commun', 125, 120, 5, NULL, 0, -2, 'N/A', 'FOR+14+1D10', 'description'),
+	(5, 1, NULL, NULL, 'epee de duel', 1, 20, 6, 'introuvable', 'peu commun', 600, 325, 4, NULL, 2, 0, 'perforation', 'FOR+8+1D10', 'description'),
+	(6, 1, 5, NULL, 'sabre', 1, 15, 5, 'peu commun', 'commun', 125, 125, 3, 4, 1, 0, 'N/A', 'FOR+9+1D10', 'description'),
+	(7, 1, 5, NULL, 'fauchard', 1, 15, 5, 'peu commun', 'commun', 140, 135, 4, 4, 1, 0, 'N/A', 'FOR+11+1D10', 'description'),
+	(8, 1, 5, NULL, 'cimeterre', 1, 15, 4, 'rare', 'peu commun', 115, 140, 5, 4, 1, -1, 'N/A', 'FOR+13+1D10', 'description'),
+	(9, 1, NULL, NULL, 'epee batarde', 1, 15, 5, 'rare', 'peu commun', 145, 175, 5, NULL, 2, 0, 'N/A', 'FOR*2+8+1D10', 'description'),
+	(10, 1, NULL, NULL, 'epee a deux mains', 1, 20, 5, 'rare', 'peu commun', 250, 310, 6, NULL, 1, 0, 'N/A', 'FOR*2+11+1D10', 'descripton'),
+	(11, 1, 5, NULL, 'cimeterre a deux mains', 2, 20, 5, 'tres rare', 'rare', 410, 320, 7, 5, 1, 0, 'N/A', 'FOR*2+13+1D10', 'description'),
+	(12, 1, 5, NULL, 'hachette', 1, 10, 2, 'tres commun', 'commun', 40, 65, 4, 4, -1, 1, 'N/A', 'FOR+10+1D10', 'description hachette'),
+	(13, 1, 5, NULL, 'hache', 1, 15, 3, 'tres commun', 'commun', 65, 100, 5, 5, -1, 0, 'N/A', 'FOR+15+1D10', 'description'),
+	(14, 1, 5, NULL, 'hache double', 1, 15, 4, 'rare', 'peu commun', 120, 145, 5, 6, 0, 0, 'N/A', 'FOR+15+1D10', 'description'),
+	(15, 1, 5, NULL, 'pic de guerre', 1, 10, 3, 'tres rare', 'peu commun', 130, 100, 3, 6, -1, 1, 'armures divisees par 2', 'FOR+6+1D10', 'description'),
+	(16, 1, 5, NULL, 'bec de corbin', 1, 10, 4, 'tres rare', 'rare', 190, 145, 5, 7, -1, 0, 'armures divisees par 2', 'FOR+10+1D10', 'description'),
+	(17, 1, 5, NULL, 'hache de justice', 2, 20, 4, 'N/A', 'N/A', 500, 500, 6, 4, -2, 0, 'N/A', 'FOR*2+15+1D10', 'description'),
+	(18, 1, 5, NULL, 'hache a deux mains', 2, 15, 4, 'peu commun', 'peu commun', 115, 170, 6, 6, -2, 0, 'N/A', 'FOR*2+16+1D10', 'description'),
+	(19, 1, 5, NULL, 'hache double a deux mains', 2, 20, 5, 'tres rare', 'rare', 115, 170, 7, 6, -2, 0, 'N/A', 'FOR*2+17+1D10', 'description'),
+	(20, 1, 5, NULL, 'pioche de guerre', 2, 15, 5, 'rare', 'rare', 170, 200, 6, 6, -1, 0, 'armures divisees par 2', 'FOR*2+12+1D10', 'description');
+
+commit;
+	
