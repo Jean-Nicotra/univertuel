@@ -2,26 +2,26 @@
 
 namespace App\Form\Game\Prophecy\Figure;
 
+use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class InitialiseProphecyFigureCaracteristicsFormType extends AbstractType
+class ___InitialiseProphecyFigureProhibitedFormType extends AbstractType
 {
-  
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $prohibiteds = $options['prohibiteds'];
         
         $builder
-            ->add('caracteristics', CollectionType::class,[
-                'entry_type' => EditProphecyCaracteristicFormType::class,
-                'allow_add' => true,
-                'label' => 'caractéristiques',
-                'entry_options' => ['label' => false ]
+            ->add('prohibiteds', EntityType::class [
             ])
+            
             ->add('valider', SubmitType::class)
         ;
     }
@@ -30,7 +30,7 @@ class InitialiseProphecyFigureCaracteristicsFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ProphecyFigure::class,
-
         ]);
+        $resolver->setRequired('prohibiteds');
     }
 }

@@ -18,19 +18,21 @@
 		<li><label>nom: </label>{{ figure.name }}</li>
 		<li><label>taille</label>{{ figure.size }}</li>
 		<li><label>poids</label>{{ figure.weight }}</li>
+	</ul>
 		
-		etape 1
+		----------------- augure du personnage ----------------
 		
+	<ul>etape 1
 		{% if figure.omen == null %}
 		<li><label>augure de naissance: </label>cliquer ici pour initialiser votre augure de naissance<a href="{{ path('prophecy_edit_initial_omen', {'id': figure.id}) }}">editer</a></li>
 		{% else %}
 		<li><label>augure de naissance: </label>{{ figure.omen.name }}</li>
 		{% endif %}
+	</ul>	
+		----------------- age du personnage --------------- 
 		
-		{# ---------------------------------------------------------------------------- #}
 		
-		etape 2
-		
+	<ul>etape 2
 		{% if figure.omen == null %}
 		
 		{% elseif figure.age == null %}
@@ -38,10 +40,10 @@
 		{% else %}
 		<li><label>age: </label>{{ figure.age.name }}</li>
 		{% endif %}
+	</ul>	
+		----------------- caste du personnage --------------- 
 		
-		{# ---------------------------------------------------------------------------- #}
-		
-		etape 3
+	<ul>etape 3
 		
 		{% if figure.age == null %}
 		
@@ -50,15 +52,25 @@
 		{% else %}
 		<li><label>caste: </label>{{ figure.caste.name }}</li>
 		{% endif %}
+	</ul>
 	
-		{# ---------------------------------------------------------------------------- #}
-		
-		
-	</ul>	
+	----------------- interdit du personnage ---------------
 	
+	<ul>etape 4
+		{% if figure.caste == null %}
+		
+		{% elseif figure.prohibited == null %}
+		<li><label>interdit: </label>cliquer ici pour initialiser l'interdit de caste<a href="{{ path('prophecy_figure_edit_initial_prohibited', {'id': figure.id}) }}">editer</a></li>
+		{% else %}
+		<li><label>interdit: </label>{{ figure.prohibited.name }}</li>
+		{% endif %}
+	</ul>
+	
+	
+		 
 	----------------- caracteristiques du personnage ----------------
 	
-	etape 4
+	<ul>etape 5
 		
 	{% if figure.caste == null %}
 	
@@ -72,11 +84,11 @@
 	{% endfor %}
 	</ul>
 	{% endif %}
-	
+	</ul>
 	
 	----------------- attributs majeurs du personnage ----------------
 	
-	etape 5
+	<ul>etape 6
 	
 	{% if figure.caracteristics[0].value == null %}
 	
@@ -89,11 +101,11 @@
 	{% endfor %}
 	</ul>
 	{% endif %}
-	
+	</ul>
 	
 	----------------- attributs mineurs du personnage ----------------
 	
-	etape 6
+	<ul>etape 7
 	
 	{% if figure.majorAttributes[0].value == null %}
 		
@@ -106,9 +118,12 @@
 	{% endfor %}
 	</ul>	
 	{% endif %}
+	</ul>
 	
-	etape 7
-	minor : 
+	----------------- nation d'origine du personnage ----------------
+	
+	<ul>etape 8
+	
 	{% if minorAttributes[0].value == null %}
 	
 	{% elseif figure.nation == null %}
@@ -123,12 +138,12 @@
 		cliquer ici pour initialiser vos attributs mineurs
 	{% endif %}
 	#}
+	</ul>
 	
 	----------------- tendances du personnage ----------------
 	
-	etape 8
+	<ul>etape 9
 	
-	<ul>
 	{% for tendency in tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
 		<li><label>cercles de tendance</label>{{ tendency.circles}}</li>
@@ -144,10 +159,10 @@
 	
 	
 	----------------- inconvenients du personnage ----------------
-	etape 9
+	etape 10
 	
 	----------------- avantages du personnage ----------------
-	etape 10
+	etape 11
 	
 	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
 	
@@ -161,9 +176,10 @@
 	
 	----------------- compétences du personnage ----------------
 	
-	etape 11 : rajouter la magie
 	
-	<ul>	
+	
+	<ul>	etape 12 : rajouter la magie
+	
 	{% for majorAttribute in majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
 		{% for skillCategory in skillCategories %}
@@ -184,7 +200,7 @@
 	
 		----------------- renommée du personnage ----------------
 	
-	etape 12
+	etape 13
 	
 	<ul>renommée
 		<li>{{ figure.reputation }}</li>

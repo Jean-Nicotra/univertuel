@@ -18,30 +18,9 @@ class ProphecyCreateFigureFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name', TextType::class)
-        /*
-        ->add('caste', EntityType::class, [
-            'class' => ProphecyCaste::class,
-            'choice_label' => 'name',
-            'multiple' => false,
-            'expanded' => false,
-            
+        ->add('name', TextType::class, [
+            'label' => 'nom du personnage',
         ])
-        ->add('omen', EntityType::class, [
-            'class' => ProphecyOmen::class,
-            'choice_label' => 'name',
-            'multiple' => false,
-            'expanded' => false,
-            
-        ])
-        ->add('age', EntityType::class, [
-            'class' => ProphecyAge::class,
-            'choice_label' => 'name',
-            'multiple' => false,
-            'expanded' => false,
-            
-        ])
-        */
         ->add('valider', SubmitType::class)
         ;
     }

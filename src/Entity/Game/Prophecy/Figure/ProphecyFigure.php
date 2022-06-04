@@ -237,14 +237,10 @@ class ProphecyFigure implements FigureInterface
     private $benefits;
     
     /**
-     * Many Figures have many prohibiteds.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited")
-     * @ORM\JoinTable(name="prophecy_figures_prohibiteds",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="prohibited_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $prohibiteds;
+    private $prohibited;
     
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -252,12 +248,37 @@ class ProphecyFigure implements FigureInterface
      */
     private $background;
     
+    
+    /**
+     * @ORM\Column(type="string", nullable=true, length="120")
+     *
+     */
+    private $image;
+    
     /**
      * @ORM\Column(type="boolean")
      *
      */
     private $isFinish;
     
+
+    /**
+     * @return mixed
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): self
+    {
+        $this->image = $image;
+        
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -760,29 +781,16 @@ class ProphecyFigure implements FigureInterface
         return $this->benefits;
     }
     
-    public function addProhibited(ProphecyProhibited $prohibited)
+    public function setProhibited($prohibited): self
     {
-        if(!$this->prohibiteds->contains($prohibited))
-        {
-            $this->prohibiteds->add($prohibited);
-        }
+        $this->prohibited = $prohibited;
         
         return $this;
     }
     
-    public function removeProhibited(ProphecyProhibited $prohibited)
+    public function getProhibited(): ?ProphecyProhibited
     {
-        if($this->prohibiteds->contains($prohibited))
-        {
-            $this->prohibiteds->remove($prohibited);
-        }
-        
-        return $this;
-    }
-    
-    public function getProhibiteds()
-    {
-        return $this->prohibiteds;
+        return $this->prohibited;
     }
     
     public function addCaracteristic($figureCaracteristic)

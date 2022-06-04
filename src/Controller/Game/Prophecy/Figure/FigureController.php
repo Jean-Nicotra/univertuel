@@ -29,11 +29,10 @@ use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureCasteFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureAgeFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureBackgroundFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureOmenFormType;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMinorAttributesFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureNationFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureProhibitedFormType;
 
 class FigureController extends AbstractController
 {
@@ -455,7 +454,6 @@ class FigureController extends AbstractController
     public function figureEditInitialMajorAttribute(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
-        //$figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
         $figure = $figureRepository->find($id);
         
         $form = $this->createForm(InitialiseProphecyFigureMajorAttributesFormType::class, $figure );
@@ -481,7 +479,6 @@ class FigureController extends AbstractController
     public function figureEditInitialMinorAttribute(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
-        //$figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
         $figure = $figureRepository->find($id);
         
         $form = $this->createForm(InitialiseProphecyFigureMinorAttributesFormType::class, $figure );
@@ -557,7 +554,6 @@ class FigureController extends AbstractController
     public function figureEditInitialNation(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
-        //$figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
         $figure = $figureRepository->find($id);
         
         $form = $this->createForm(InitialiseProphecyFigureNationFormType::class, $figure );
@@ -571,6 +567,38 @@ class FigureController extends AbstractController
             
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId()
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);
+    }
+    
+    public function figureEditInitialProhibited(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        $caste = $figure->getCaste();
+        
+        $prohibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
+        $prohibiteds = $prohibitedRepository->findBy(['caste' => $caste]);
+        
+        
+        $form = $this->createForm(InitialiseProphecyFigureProhibitedFormType::class, $figure, [
+            'prohibiteds' => $prohibiteds,
+        ]);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
             ]);
         }
         

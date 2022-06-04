@@ -23,8 +23,23 @@ class ProphecySpellFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'sortilège',
             ])
+            ->add('sphere', EntityType::class, [
+                'label' => 'sphère de magie',
+                'class' => ProphecySphere::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,               
+            ])
             ->add('level', IntegerType::class, [
                 'label' => 'niveau',
+            ])
+            ->add('discipline', EntityType::class, [
+                'label' => 'discipline de magie',
+                'class' => ProphecyDiscipline::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                
             ])
             ->add('complexity', IntegerType::class, [
                 'label' => 'complexité',
@@ -33,7 +48,7 @@ class ProphecySpellFormType extends AbstractType
                 'label' => 'coût en points de magie',
             ])
             ->add('castingTime', TextType::class, [
-                'label' => 'temps d\'invocation',
+                'label' => 'temps d\'incantation',
             ])
             ->add('difficulty', IntegerType::class, [
                 'label' => 'difficulté',
@@ -43,22 +58,6 @@ class ProphecySpellFormType extends AbstractType
             ])
             ->add('spellKeys', TextType::class, [
                 'label' => 'clefs',
-            ])
-            ->add('sphere', EntityType::class, [
-                'label' => 'sphère de magie',
-                'class' => ProphecySphere::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
-            ])
-            ->add('discipline', EntityType::class, [
-                'label' => 'discipline de magie',
-                'class' => ProphecyDiscipline::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                
             ])
             ->add('valider', SubmitType::class)
         ;

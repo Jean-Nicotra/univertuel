@@ -52,6 +52,19 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_active`, `username`,
 
 -- --------------------------------------------------------
 
+--
+-- Déchargement des données de la table `prophecy_age`
+--
+
+INSERT INTO `prophecy_age` (`id`, `campaign_id`, `name`, `start_att_value1`, `start_att_value2`, `start_att_value3`, `start_att_value4`) VALUES
+(1, NULL, 'enfant', 4, 4, 4, 3),
+(2, NULL, 'adolescent', 5, 4, 4, 3),
+(3, NULL, 'adulte', 5, 5, 4, 3),
+(4, NULL, 'ancien', 6, 5, 4, 3),
+(5, NULL, 'venerable', 6, 6, 4, 3);
+
+-- --------------------------------------------------------
+
 
 --
 -- Déchargement des données de la table `prophecy_caracteristic`
@@ -86,6 +99,37 @@ INSERT INTO `prophecy_caste` (`id`, `campaign_id`, `name`, `description`) VALUES
 (8, NULL, 'voyageurs', 'description de la caste des voyageurs');
 
 -- --------------------------------------------------------
+
+
+--
+-- Déchargement des données de la table `prophecy_prohibited`
+--
+
+INSERT INTO `prophecy_prohibited` (`id`, `caste_id`, `campaign_id`, `name`, `description`) VALUES
+(1, 1, NULL, 'la loi du compagnon', 'Tu transmettra ton savoir. S\'il est bien un point sur lequel artisans et érudits peuvent s\'entendre, c\'est la nécessité de la transmission du savoir et l\'enseignement des techniques qu\'ils utilisent chaque jour. Ainsi, on attend toujours d\'un artisan qu\'il apporte des explications sur ce uq\'il fait et la façon dont il le fait.'),
+(2, 1, NULL, 'la loi et la perfection', 'Tu rechercheras toujours l\'oeuvre ultime. Tout artisan ne recherchant pas la perfection dans son oeuvre perd peu à peu son lien avec la matière et ne pourra plus jamais créer d\'oeuvres exceptionnelles et encore moins enchantées.'),
+(3, 1, NULL, 'la loi du respect', 'Tu respecteras la matière que tu travailles et les oeuvres d\'autrui. Il est bien entendu essentiel d\'aimer la matière. Au fur et à mesure qu\'\'un artisan se désintéresse du produit qu\'il façonne, la matière devient de plus en plus difficile à travailler et prend des formes d eplus en plus laides. On raconter que certains artisans et sorciers de l\'ombre transgresseraient cette loi volontairement pour donner à leur oeuvres un aspect tourmenté.'),
+(4, 2, NULL, 'la loi de l\'arme', 'Tu respecteras ton statut. La plus ancienne des traditions de la caste interdits aux combattants de porter plus d\'armes que ne leur permet leur rang, c\'est à dire une arme par statut obtenu.'),
+(5, 2, NULL, 'la loi de l\'honneur', 'Tu honnoreras ton arme. La notion du respect s\'applique autant à l\'arme que manie le combattant qu\'à son adversaire. Il est donc interdit de se mesurer à plus faible que soi et de compromettre son arme dans un combat non équitable.'),
+(6, 2, NULL, 'la loi du sang', 'Tu ne chercheras que la victoire. Le code de l\'honneur des combattants interdit aux membres de la caste d\'achever un adversaire qui a dors et déjà perdu un combat, qu\'il s\'agisse d\'un duel comme d\'une véritable bataille.'),
+(7, 3, NULL, 'la loi du coeur', 'Tu respecteras la parole donnée. Bien qu\'habitués à mentir, ou tout du moins à présenter certains éléments sous leur jour le plus attrayant, les commerçants ont pour tradition de respecter leursd engagements une fois pris et d\'honnorer la confiance qu\'on leur témoigne.'),
+(8, 3, NULL, 'la loi de l\'ordre', 'Tu respecteras l\'ordre établi. Sans ordre, il n\'y a pas de prospérité possible. Il est nécessaire de lutter contre l\'anarchie et donc, tous ceux qui voudraient développer des activités commerciales indépendantes des organisations.'),
+(9, 3, NULL, 'la loi du progrès', 'Tu ne manqueras aucune occasion de faire progresser la société. Une société qui stagne est une société mourante. Un commerçant se doit de ne jamais repousser une idée. Il se doit de toujours trouver comment améliorer ses affaires et celles des autres.'),
+(10, 4, NULL, 'la loi du savoir', 'Tu partageras tes découvertes. La tradition primordiale de la caste pousse les érudits à mettre leurs connaissances en commun, à comparer leurs découvertes et à aider leurs confrères à évoluer dans la voie qu\'ils ont choisie. De ce fait, un personnage ne peut refuser de révéler ce qu\'il sait à un autre érudit qui lui en fait la demande. Cet interdit ne concerne bien évidemment que les découvertes académiques du personnage et non ses secrets personnels.'),
+(11, 4, NULL, 'la loi du collège', 'Tu agiras dans la concertation. L\'habitude qu\'ont les érudits de débattre continuellement avec leurs confrères se traduit, chez ceux qui quittent un jour les académies où ils ont parfait leur éducation, par une incapacité de prendre des initiatives sans demander conseil. Le personnage devra donc référer à ses compagnons des moindres actions qu\'il souhaite entreprendre et, d\'une façon plus générale ne cacher aucune de ses découvertes susceptibles d\'orienter la conduite de son groupe.'),
+(12, 4, NULL, 'la loi du secret', 'Tu ne partageras pas l\'art interdit. Si tous les érudits s\'intéressent de près ou de loin au développement des sciences chiffrées qui sont l\'apanage des humanistes, rares sont ceux qui tolèrent leur enseignement au commun des mortels. Cet interdit empêche le personnage de divulguer les secrets des techniques proscrites par les Dragons : sciences, art du mécanisme, conception d\'explosifs...'),
+(13, 5, NULL, 'tu n\'abuseras pas de ta force', 'La plus ancienne tradition des mages est de mlouer le don de Nenya, le grand Dragon de la magie en n\'utilisant leurs terribles pouvoirs qu\'en cas de nécessité. De ce fait, un mage qui abuse outrageusement de sa magie risque de s\'attirer les foudres de son collège, ainsi que de tous les autres mages, pour qui la discrétion est mère d\'humilité.'),
+(14, 5, NULL, 'la loi du partage', 'Tu dois transmettre ton savoir. La magie est un art demandant une grande coopération entre ceux qui l\'étudient. Les mages se doivent de partager leurs découvertes avec leurs confrères mais aussi de transmettre leurs connaissances à des apprentis. Ceux qui se montrent trop secrèts et trop égoistes, ne recherchant bien souvent que le pouvoir pour servir leurs propres intérêts, sont dangereux pour la société et peuvent être traités comme des criminels.'),
+(15, 5, NULL, 'la loi de la prudence', 'Tu te dois d\'être vigilant. La magie est une force dangereuse qui nécessite une très grande prudence pour ne pas mettre en danger des innocents. Ainsi, un mage ne dois pas tenter d\'expériences  dangereuses dans des endroits peuplés et doit assumer toutes les conséquences de ses actes. Ceux qui pratiquent la magie sans se soucier des conséquences que leur art peut entrainer chez les autyres oeuvent être bannis des écoles.'),
+(16, 6, NULL, 'la loi de la malédiction', 'Tu te dois de réflechir à ce que tu vois et à ce que tu fais. Le prodige se doit de réflechir à ce que lui ou un autre fait, a fait et fera. Toute action entraine obligatoirement une réaction. Il faut donc penser avant d\'agir mais aussi assumer toutes les conséquences d\'une décision. Les actes irréfléchis rompent le lien qui existe entre un prodige et la nature.'),
+(17, 6, NULL, 'la loi de la nature', 'Tu te dois de respecter la nature sous toutes ses formes animées ou inanimées. La nature se comprend dans sa globalité. Montagnes, forêts et plaines sont une partie intégrante au même titre que l\'homme, le Dragon ou l\'animal. Ne voir qu\'un aspect de la nature revient à ne plus percevoir l\'oeuvre d\'Heyra.'),
+(18, 6, NULL, 'la loi du sang', 'Tu ne verseras pas le sang. La plus ancienne tradition de Heyra interdit à ses fidèles de souiller la terre du sang de toute forme de vie consciente qu\'il s\'agisse d\'un humain ou d\'un animal. C\'est sans doute pourquoi la majorité dses prodiges manient les armes contondantes et usent de leur force physique pour se défendre des dangers quotidiens.'),
+(19, 7, NULL, 'la loi du lien', 'Tu ne trahiras pas les grands Dragons. Fidèles aux lois draconiques, les protecteurs sont soumis à l\'autorité directe des grands Dragons et de leurs représentants. C\'est pourquoi ils ne peuvent ni mentir, ni désobéir, ni cacher des informations ou tenter quelque action néfaste que ce soit à l\'encontre des dragons et de leurs émissaires.'),
+(20, 7, NULL, 'la loi du sacrifice', 'Tu ne craindras pas la mort. On ne demande pas aux protecteurs de mourir en lieu et place d\'un autre citoyen de Kor, mais uniquement de se porter au devant d\'un danger le menaçant. Leur rôle de défenseur du royaume et de garant de la bonne marche des cités les contraint effectivement à courir le risque de mourir en combattant un danger qui ne leur était pas initialement destiné.'),
+(21, 7, NULL, 'la loi du sang', 'Tu préserveras la vie. Chargés d\'assurer la sécurité des cités, routes et habitants de Kor, les protecteurs ont pour tradition de n\'user de la force qu\'n cas de nécessité absolue et, lorsque cette solution est encore possible, de lui préférer le dialogue et la conciliation. Cet interdit n\'est pas brisé lorsqu\'un protecteur se défend d\'une attaque, mais à chaque fois qu\'il sort son arme avant d\'avoir tenté de raisonner et d\'arrêter officiellement un individu.'),
+(22, 8, NULL, 'la loi de l\'amitié', 'Tu ne refuseras pas ton aide. Habitués à la solitude de leurs errances, les voyageurs ont pour tradition de ne jamais refuser leur aide à un compagnon dans le besoin, qu\'il s\'agisse d\'un membre de leur caste, d\'un autre citoyen ou de n\'importe quel humain.'),
+(23, 8, NULL, 'la loi de la découverte', 'Tu te dois d\'explorer l\'inconnu. Un voyageur ne peut rester insensible à l\'appel de l\'inconnu. S\'il entend parler d\'un endroit inexploré, d\'un vallon isolé, ou d\'un site légendaire, il se doit de tenter de le découvrir. C\'est sa nature et s\'il n\'y obéit pas, il perdra son statut de voyageur.'),
+(24, 8, NULL, 'la loi de la liberté', 'Tu dois refuser d\'être enfermé. Un voyageur contraint à rester dans un même endroit meurt peu à peu. Il a besoin de liberté et de se déplacer. Emprisoné, enchainé, il perd toute raison de vivre et dépérit.');
 
 
 --

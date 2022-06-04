@@ -13,13 +13,13 @@
 
 	ceci est la page  des contacts du membre
 	<a href="{{ path('find') }}" >rechercher un membre</a>
-	{#
+	
 	<ul>mes contacts
-		{% for contact in user.relations %}
-			<li><a href="{{ path('profile', {'id': user.relations.id}) }}">c1</a></li>
+		{% for relation in user.relations %}
+			<li><a href="{{ path('profile', {'id': relation.id}) }}">{{ relation.username }}</a></li>
 		{% endfor %}
 	</ul>
-	#}
+	
 	
 {% endblock %}
 	
