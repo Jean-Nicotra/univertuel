@@ -22,7 +22,7 @@ class ProphecyTendencyFormType extends AbstractType
                 'label' => 'tendence',
             ])
             ->add('minCircles', IntegerType::class, [
-                'label' => 'nombre maximum de cercles',
+                'label' => 'nombre minimum de cercles',
             ])
             ->add('maxCircles', IntegerType::class, [
                 'label' => 'nombre maximum de cercles',

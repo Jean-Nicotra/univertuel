@@ -439,6 +439,7 @@ class FigureController extends AbstractController
             $entityManager->persist($figure);
             $entityManager->flush();
             
+            
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId()
             ]);
@@ -642,8 +643,8 @@ class FigureController extends AbstractController
         $skillcategories = $skillCategoryRepository->findAll();
         
         //add caracteristics to figure's view
-        $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
-        $caracteristics = $figureCaracteristicRepository->findBy(['figure' => $figure]);
+        //$figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
+        //$caracteristics = $figureCaracteristicRepository->findBy(['figure' => $figure]);
         
         //add majorAttributes to figure's view
         $figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
@@ -654,8 +655,8 @@ class FigureController extends AbstractController
         $minorAttributes = $figureMinorAttributeRepository->findBy(['figure' => $figure]);
         
         //add tendencies to figure's view
-        $figureTendencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureTendency');
-        $tendencies = $figureTendencyRepository->findBy(['figure' => $figure]);
+        //$figureTendencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureTendency');
+        //$tendencies = $figureTendencyRepository->findBy(['figure' => $figure]);
         
         //add skills to figure's view
         $figureSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill');
@@ -683,10 +684,10 @@ class FigureController extends AbstractController
             
         return $this->render('memberArea/figure/prophecy/figure_initialisation.html.twig', [
             'figure' => $figure,
-            'caracteristics' => $caracteristics,
-            'majorAttributes' => $majorAttributes,
+            //'caracteristics' => $caracteristics,
+            //'majorAttributes' => $majorAttributes,
             'minorAttributes' => $minorAttributes,
-            'tendencies' => $tendencies,
+            //'tendencies' => $tendencies,
             'skills' => $skills,
             'skillCategories' => $skillcategories,
             'wounds' => $wounds,

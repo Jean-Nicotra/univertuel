@@ -25,6 +25,7 @@ class ProphecyFigureTendency
     private $figure;
 
     /**
+     * a tendency object
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency")
      * @ORM\JoinColumn(nullable=false)
      */

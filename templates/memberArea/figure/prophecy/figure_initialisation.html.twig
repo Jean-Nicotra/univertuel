@@ -71,33 +71,34 @@
 	----------------- caracteristiques du personnage ----------------
 	
 	<ul>etape 5
+
 		
-	{% if figure.caste == null %}
-	
-	{% elseif caracteristics[0].value == null %}
+	{% if figure.prohibited == null %}
+		
+	{% elseif figure.caracteristics[0].value == 0 %}
 		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
 	
-	{% else %}
-	<ul>
-	{% for caracteristic in caracteristics %}
-		<li><label>{{ caracteristic.caracteristic.name }}</label>  {{ caracteristic.value }}</li>
-	{% endfor %}
-	</ul>
+	{% elseif figure.caracteristics[0].value > 0 %}
+    	<ul>
+        	{% for caracteristic in figure.caracteristics %}
+        		<li><label>{{ caracteristic.caracteristic.name }}</label>{{ caracteristic.value }}</li>
+        	{% endfor %}
+    	</ul>
 	{% endif %}
 	</ul>
-	
+
 	----------------- attributs majeurs du personnage ----------------
 	
 	<ul>etape 6
 	
-	{% if figure.caracteristics[0].value == null %}
+	{% if figure.caracteristics[0].value == 0 %}
 	
-	{% elseif majorAttributes[0].value == null %}
+	{% elseif figure.majorAttributes[0].value == null %}
 		cliquer ici pour initialiser vos attributs majeurs<a href="{{ path('figure_edit_initial_major_attribute', {'id': figure.id }) }}">editer</a>
 	{% else %}
 	<ul>
-	{% for majorAttribute in majorAttributes %}
-		<li><label>{{ majorAttribute.majorAttribute.name }}</label>  {{ majorAttribute.value }}</li>
+	{% for majorAttribute in figure.majorAttributes %}
+		<li><label>{{ majorAttribute.majorAttribute.name }}</label>{{ majorAttribute.value }}</li>
 	{% endfor %}
 	</ul>
 	{% endif %}
@@ -109,7 +110,7 @@
 	
 	{% if figure.majorAttributes[0].value == null %}
 		
-	{% elseif minorAttributes[0].value == null %}
+	{% elseif figure.minorAttributes[0].value > 1 %}
 		cliquer ici pour initialiser vos attributs mineurs<a href="{{ path('figure_edit_initial_minor_attribute', {'id': figure.id }) }}">editer</a>
 	{% else %}	
 	<ul>
@@ -124,7 +125,7 @@
 	
 	<ul>etape 8
 	
-	{% if minorAttributes[0].value == null %}
+	{% if figure.majorAttributes[0].value == null %}
 	
 	{% elseif figure.nation == null %}
 		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="{{ path('prophecy_edit_initial_nation', {'id': figure.id}) }}">editer</a></li>
@@ -144,7 +145,9 @@
 	
 	<ul>etape 9
 	
-	{% for tendency in tendencies %}
+	
+	
+	{% for tendency in figure.tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
 		<li><label>cercles de tendance</label>{{ tendency.circles}}</li>
 	{% endfor %}
@@ -180,7 +183,7 @@
 	
 	<ul>	etape 12 : rajouter la magie
 	
-	{% for majorAttribute in majorAttributes %}
+	{% for majorAttribute in figure.majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
 		{% for skillCategory in skillCategories %}
 			{% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %} 

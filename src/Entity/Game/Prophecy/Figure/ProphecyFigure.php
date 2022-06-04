@@ -129,6 +129,12 @@ class ProphecyFigure implements FigureInterface
     private $caracteristics;
     
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureTendency", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $tendencies;
+    
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute", mappedBy="figure")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -822,6 +828,11 @@ class ProphecyFigure implements FigureInterface
     public function getMinorAttributes ()
     {
         return $this->minorAttributes;
+    }
+    
+    public function getTendencies()
+    {
+        return $this->tendencies;
     }
     
     public function __toString(): ?string

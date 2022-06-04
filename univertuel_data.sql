@@ -248,6 +248,34 @@ INSERT INTO `prophecy_skill_category` (`id`, `major_attribute_id`, `campaign_id`
 
 
 --
+-- Déchargement des données de la table `prophecy_skill`
+--
+
+INSERT INTO `prophecy_skill` (`id`, `skill_category_id`, `campaign_id`, `name`, `xp_increase`, `cost`, `reserved`, `free`, `forbidden`, `maximum_value`, `min_value`, `available`, `display`, `description`) VALUES
+(1, 1, NULL, 'armes articulées', 5, 1, 1, 0, 0, 10, 0, 1, 1, 'ddd'),
+(2, 1, NULL, 'armes contondantes', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'mmmmmmmm'),
+(3, 1, NULL, 'armes de choc', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'lk'),
+(4, 2, NULL, 'acrobatie', 5, 1, 0, 1, 0, 10, 0, 1, 0, 'zzz'),
+(5, 2, NULL, 'athletisme', 5, 1, 0, 1, 0, 10, 0, 1, 0, 'zzzzz'),
+(6, 2, NULL, 'equitation', 5, 1, 0, 1, 0, 10, 0, 1, 1, 'zzzzzz'),
+(7, 2, NULL, 'escalade', 5, 1, 0, 1, 0, 10, 0, 1, 0, 'zzzzzzzzzzzzzzzz'),
+(8, 3, NULL, 'castes', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'mmmmmm'),
+(9, 3, NULL, 'connaissance de la magie', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'mmmm'),
+(10, 3, NULL, 'connaissance des animaux', 5, 1, 0, 1, 0, 10, 0, 1, 0, 'eeeeeee'),
+(11, 4, NULL, 'alchimie', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'zzpopiofjk sdjl'),
+(12, 4, NULL, 'astrologie', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'popdifdjskf'),
+(13, 5, NULL, 'armes de siege', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'dsnk,fdfnklsklngk'),
+(14, 5, NULL, 'artisanat', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'mlldlf lksd k'),
+(15, 6, NULL, 'armes a projectile', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'lmdsmlfslflk'),
+(16, 6, NULL, 'attelages', 5, 1, 0, 1, 0, 10, 0, 1, 0, ':*ùù***dmlfkj slkfdkl'),
+(17, 7, NULL, 'baratin', 5, 1, 0, 1, 0, 10, 0, 1, 0, 'lllldlsfdml'),
+(18, 7, NULL, 'conte', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'dsdqd sq'),
+(19, 8, NULL, 'art de la scene', 5, 1, 0, 1, 0, 10, 0, 1, 0, 'dsd sds sqd s'),
+(20, 8, NULL, 'commandement', 5, 1, 1, 0, 0, 10, 0, 1, 0, 'sqsQQQ sQQ');
+
+-- --------------------------------------------------------
+
+--
 -- Déchargement des données de la table `prophecy_sphere`
 --
 
@@ -405,6 +433,15 @@ INSERT INTO `prophecy_weapon` (`id`, `carac_requirement1_id`, `carac_requirement
 	(18, 1, 5, NULL, 'hache a deux mains', 2, 15, 4, 'peu commun', 'peu commun', 115, 170, 6, 6, -2, 0, 'N/A', 'FOR*2+16+1D10', 'description'),
 	(19, 1, 5, NULL, 'hache double a deux mains', 2, 20, 5, 'tres rare', 'rare', 115, 170, 7, 6, -2, 0, 'N/A', 'FOR*2+17+1D10', 'description'),
 	(20, 1, 5, NULL, 'pioche de guerre', 2, 15, 5, 'rare', 'rare', 170, 200, 6, 6, -1, 0, 'armures divisees par 2', 'FOR*2+12+1D10', 'description');
+
+--
+-- Déchargement des données de la table `prophecy_tendency`
+--
+
+INSERT INTO `prophecy_tendency` (`id`, `campaign_id`, `name`, `max_circles`, `min_circles`, `min_value`, `maximum_value`, `description`) VALUES
+(1, NULL, 'dragon', 50, 0, 0, 5, 'fff'),
+(2, NULL, 'fatalité', 50, 0, 0, 5, 'k'),
+(3, NULL, 'homme', 50, 0, 0, 5, 'k');
 
 commit;
 	

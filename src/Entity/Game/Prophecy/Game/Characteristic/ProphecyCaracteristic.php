@@ -59,6 +59,9 @@ class ProphecyCaracteristic
         return (string) $this->name;
     }
     
+
+    
+    
     /**
      * @return mixed
      */

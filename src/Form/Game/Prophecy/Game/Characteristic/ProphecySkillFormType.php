@@ -26,6 +26,9 @@ class ProphecySkillFormType extends AbstractType
             ->add('xpIncrease', IntegerType::class, [
                 'label' => 'coût en expérience',
             ])
+            ->add('cost', IntegerType::class, [
+                'label' => 'cout',
+            ])
             ->add('reserved', CheckboxType::class, [
                 'label' => 'réservée',
                 'required' =>false
