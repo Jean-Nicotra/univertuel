@@ -3,8 +3,6 @@
 	
     {% block content_member %}
     
-
-    
     	{% if figure.isFinish == false %}
     		<p>la création du personnage n'est pas encore terminée</p>
 
@@ -79,11 +77,11 @@
 		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
 	
 	{% elseif figure.caracteristics[0].value > 0 %}
-    	<ul>
+    	
         	{% for caracteristic in figure.caracteristics %}
         		<li><label>{{ caracteristic.caracteristic.name }}</label>{{ caracteristic.value }}</li>
         	{% endfor %}
-    	</ul>
+    	
 	{% endif %}
 	</ul>
 
@@ -93,14 +91,14 @@
 	
 	{% if figure.caracteristics[0].value == 0 %}
 	
-	{% elseif figure.majorAttributes[0].value == null %}
+	{% elseif figure.majorAttributes[0].value == 0 %}
 		cliquer ici pour initialiser vos attributs majeurs<a href="{{ path('figure_edit_initial_major_attribute', {'id': figure.id }) }}">editer</a>
 	{% else %}
-	<ul>
+	
 	{% for majorAttribute in figure.majorAttributes %}
 		<li><label>{{ majorAttribute.majorAttribute.name }}</label>{{ majorAttribute.value }}</li>
 	{% endfor %}
-	</ul>
+	
 	{% endif %}
 	</ul>
 	
@@ -110,14 +108,14 @@
 	
 	{% if figure.majorAttributes[0].value == null %}
 		
-	{% elseif figure.minorAttributes[0].value > 1 %}
+	{% elseif figure.minorAttributes[0].value > 0%}
 		cliquer ici pour initialiser vos attributs mineurs<a href="{{ path('figure_edit_initial_minor_attribute', {'id': figure.id }) }}">editer</a>
 	{% else %}	
-	<ul>
+
 	{% for minorAttribute in minorAttributes %}
 		<li><label>{{ minorAttribute.minorAttribute.name }}</label>  {{ minorAttribute.value }}</li>
 	{% endfor %}
-	</ul>	
+
 	{% endif %}
 	</ul>
 	
@@ -145,12 +143,15 @@
 	
 	<ul>etape 9
 	
+	{% if figure.nation == null %}
 	
-	
+	{% elseif figure.tendencies[0].tendencyValue == 0 %}
+		<li><label>tendances</label>cliquer ici pour déterminer vos tendances<a href ="{{ path('prophecy_edit_initial_tendency', {'id': figure.id}) }}">edit</a></li>
 	{% for tendency in figure.tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
 		<li><label>cercles de tendance</label>{{ tendency.circles}}</li>
 	{% endfor %}
+	{% endif %}
 	</ul>
 	
 				{# PB Si certaines tendances sont a 0. il faut aborder differemment pour la creation
@@ -177,6 +178,11 @@
 	</ul>
 	
 	
+dracs de fer0
+dracs de bronze0
+dracs d'argent0
+dracs d'or0
+le dragon0
 	----------------- compétences du personnage ----------------
 	
 	
@@ -212,10 +218,39 @@
 	
 	----------------- expérience du personnage ----------------
 	<ul>experience
+dracs de fer0
+dracs de bronze0
+dracs d'argent0
+dracs d'or0
+le dragon0
 		<li>{{ figure.xperience }}</li>
 	</ul>	
     		
-    		
+   
+   	<ul>richesse
+   		{% for currency in figure.currencies %}
+		<li>{{ currency.currency.name }}{{ currency.value }}</li>
+		{% endfor %}
+	</ul>
+	
+	<ul>armes
+		<li> <a href ="">cliquez ici pour acquérir vos armes de base</a></li>
+	</ul>
 
+	<ul>armures
+		<li><a href ="">cliquez ici pour acquérir vos armures de base</a></li>
+	</ul>
+	
+	<ul>bouclier
+		<li> <a href ="">cliquez ici pour acquérir vos bouclier de base</a></li>
+	</ul>
+	
+	<ul>divers
+		<li><a href ="">cliquez ici pour acquérir un equipement divers de base</a></li>
+	</ul>
+	
+	 ----------------- validation du personnage ----------------
+	 
+	 <a href=""><button>valider le personnage</button></a>
 		
 {% endblock %}

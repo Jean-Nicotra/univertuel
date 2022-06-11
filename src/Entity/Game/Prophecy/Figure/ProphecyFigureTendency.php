@@ -40,6 +40,13 @@ class ProphecyFigureTendency
      * @ORM\Column(type="integer", nullable=true)
      */
     private $tendencyValue;
+    
+    
+    public function __construct()
+    {
+        $this->setCircles (0);
+        $this->setTendencyValue (0);
+    }
 
     public function getId(): ?int
     {

@@ -434,6 +434,8 @@ INSERT INTO `prophecy_weapon` (`id`, `carac_requirement1_id`, `carac_requirement
 	(19, 1, 5, NULL, 'hache double a deux mains', 2, 20, 5, 'tres rare', 'rare', 115, 170, 7, 6, -2, 0, 'N/A', 'FOR*2+17+1D10', 'description'),
 	(20, 1, 5, NULL, 'pioche de guerre', 2, 15, 5, 'rare', 'rare', 170, 200, 6, 6, -1, 0, 'armures divisees par 2', 'FOR*2+12+1D10', 'description');
 
+-- --------------------------------------------------------
+
 --
 -- Déchargement des données de la table `prophecy_tendency`
 --
@@ -443,5 +445,76 @@ INSERT INTO `prophecy_tendency` (`id`, `campaign_id`, `name`, `max_circles`, `mi
 (2, NULL, 'fatalité', 50, 0, 0, 5, 'k'),
 (3, NULL, 'homme', 50, 0, 0, 5, 'k');
 
+-- --------------------------------------------------------
+
+--
+-- Déchargement des données de la table `prophecy_advantage_category`
+--
+
+INSERT INTO `prophecy_advantage_category` (`id`, `campaign_id`, `name`) VALUES
+(1, NULL, 'communs'),
+(2, NULL, 'rares'),
+(3, NULL, 'enfants'),
+(4, NULL, 'anciens');
+
+
+-- --------------------------------------------------------
+--
+-- Déchargement des données de la table `prophecy_disadvantage`
+--
+
+INSERT INTO `prophecy_disadvantage` (`id`, `advantage_category_id`, `campaign_id`, `name`, `multiselect`, `buyable`, `initial_cost`, `description`) VALUES
+(1, 1, NULL, 'anomalie', 0, 1, 2, 'Tare de naissance, anomalie physique comme albinos ou tache de naissance disgracieuse ou difficulté d\'élocution.\r\nLe personnage se voit appliqué une difficulté augmentée de 3à toutes les actions sociales avec des étrangers ou des tentatives de séduction.'),
+(2, 1, NULL, 'complexe d\'infériorité', 0, 1, 3, 'En cas de situation de crise, le personnage voit sa difficulté augmentée de 5 à toutes les actions entreprises. Ensuite, le meneur de jeu peu également décider que le personnage est incapable d\'agir'),
+(3, 1, NULL, 'petite dette', 0, 1, 1, 'Personnage redevable d\'une somme d\'argent à un individu'),
+(4, 1, NULL, 'grande dette', 0, 1, 2, 'personnage doit une grosse somme à un individu'),
+(5, 1, NULL, 'echec', 0, 1, 3, 'Dans le passé, il a lamentablement échoué lors d\'une action, et cet échec hante le personnage. Chaque fois que le personnage se trouvera dans une situation similaire, il sera taxé d\'une doifficulté supplémentaire de 5.'),
+(6, 1, NULL, 'emotif', 0, 0, 3, 'difficulté augmentee de 5 lors des jets de volonté. commandement, intimidation et influence +2 contre ce personnage.'),
+(7, 1, NULL, 'ennemi', 0, 0, 3, 'ennemi juré'),
+(8, 1, NULL, 'faiblesse', 0, 0, 2, 'Le personnage ne peut pas résister à l\'appel d\'un phénomène particulier. A chaque fois qu\'il se trouve confronté à ce phénomène, il devra effectuer un test mental + volonté contre ine difficulté de 20'),
+(9, 1, NULL, 'fragilité', 0, 0, 2, 'jets de rétablissement, resistance aux poisons, alcool sont frappés d\'une difficluté augmentée de 5.'),
+(10, 1, NULL, 'interdit', 0, 0, 3, 'le joueur doit choisir un interdit de plus, pioché dans une autre classe, et pas trop proche du sien.'),
+(11, 1, NULL, 'maladie chronique bénigne', 0, 0, 1, 'maladie chronique c est la merde'),
+(12, 1, NULL, 'maladie chronique', 0, 0, 3, 'c\'est plutot la merde'),
+(13, 1, NULL, 'maladie chronique sévère', 0, 0, 5, 'c\'est grave la merde la'),
+(14, 1, NULL, 'malchance', 0, 0, 3, 'c\'est pas de bol'),
+(15, 1, NULL, 'manies', 0, 0, 1, 'cleptomane, grossier, collections étranges....'),
+(16, 1, NULL, 'obsessions', 0, 0, 2, 'obsédé par un objectif'),
+(17, 1, NULL, 'phobie mineure', 0, 0, 1, 'petite peur'),
+(18, 1, NULL, 'phobie', 0, 0, 3, 'peur , frayeurs'),
+(19, 1, NULL, 'phobie sévère', 0, 0, 5, 'totalement apatique dans cette situation'),
+(20, 1, NULL, 'serment', 0, 0, 2, 'a fait une promesse qu\'il tiendra'),
+(21, 2, NULL, 'amnesie', 0, 0, 3, 'perte de souvenirs'),
+(22, 1, NULL, 'appel de la bete', 0, 0, 5, 'devient brutal'),
+(23, 2, NULL, 'blessure', 0, 0, 5, 'ca craint du boudin'),
+(24, 2, NULL, 'dependance', 0, 0, 3, 'accroc a une substance'),
+(25, 2, NULL, 'deviance', 0, 0, 3, 'envies douteuses et derangeantes'),
+(26, 2, NULL, 'échec', 1, 0, 5, 'doifficulté supplémentaire de 10.Il est possible d\'accorder un seul jet de vol+mental contre une difficulté de 15 pour réduire malus à -5.'),
+(27, 2, NULL, 'ennemi', 1, 0, 5, 'ennemi impossible de s\'en debarasser'),
+(28, 2, NULL, 'incompetence en combat', 0, 0, 5, 'difficulte de 5 supplementaire pour toutes les competences d une categorie'),
+(29, 2, NULL, 'incompetence en mouvement', 0, 0, 5, 'difficulte +5 et max 10'),
+(30, 2, NULL, 'incompetence en theorie', 0, 0, 5, 'difficulte +5 et max 10'),
+(31, 2, NULL, 'incompetence en pratique', 0, 0, 55, 'difficulte +5 et max 10'),
+(32, 1, NULL, 'incompetence en technique', 0, 0, 5, 'difficulte +5 et max 10'),
+(33, 2, NULL, 'incompetence en manipulation', 0, 0, 5, 'difficulte +5 et max 10'),
+(34, 2, NULL, 'incompetence en communication', 0, 0, 5, 'difficulte +5 et max 10'),
+(35, 2, NULL, 'incompetence en influence', 0, 0, 5, 'difficulte +5 et max 10'),
+(36, 2, NULL, 'infirmité mineure', 0, 0, 1, 'disgracieux mais sans conséquence'),
+(37, 2, NULL, 'infirmité sévère', 0, 0, 3, 'difficulté augmentée de 5 en rapport avec l\'infirmité'),
+(38, 2, NULL, 'infirmité majeure', 0, 0, 5, 'difficulté augmentée de 10 en rapport avec l\'infirmité'),
+(39, 3, NULL, 'chetif', 0, 0, 5, 'difficulté avec attribut physique augmentée de 3'),
+(40, 3, NULL, 'curiosité', 0, 0, 3, 'curieux de tout'),
+(41, 3, NULL, 'illusions', 0, 0, 2, 'est convaincu qu\'une chose est vraie ou fausse'),
+(42, 3, NULL, 'insignifiant', 0, 0, 1, 'souvent ignoré ou mis à l\'écart lors des discussions ou des avis'),
+(43, 3, NULL, 'lassitude', 0, 0, 2, 'se lasse très vite et fait des caprices'),
+(44, 3, NULL, 'mensonges infantiles', 0, 0, 1, 'ment quznd ça l\'arrange'),
+(45, 4, NULL, 'cardiaque', 0, 0, 4, 'risque de mort reel'),
+(46, 4, NULL, 'edenté', 0, 0, 3, 'a perdu la majorité de ses dents, il bafouille -3 en communication et ne peut obtenir de clé parfaite en voix'),
+(47, 4, NULL, 'grincheux', 0, 0, 2, 'caractere grincheux, desagreable...'),
+(48, 4, NULL, 'impotent', 0, 0, 4, 'se deplace lentement actions physique +3 defficulté');
+
+
 commit;
+
+
 	

@@ -55,6 +55,12 @@ class ProphecyFigureDiscipline
     private $currentMana;
     
 
+    public function __construct()
+    {
+        $this->setValue(0);
+    }
+    
+    
     public function getId(): ?int
     {
         return $this->id;

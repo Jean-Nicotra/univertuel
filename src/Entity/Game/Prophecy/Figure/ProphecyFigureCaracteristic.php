@@ -44,8 +44,7 @@ class ProphecyFigureCaracteristic
     private $value;
     
     public function __construct()
-    {
-        
+    {  
         $this->setValue(0);
     }
 

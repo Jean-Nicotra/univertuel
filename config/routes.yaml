@@ -379,6 +379,10 @@ prophecy_figure_edit_initial_prohibited:
     path: /member/figure/{id}/prophecy-figure-edit-initial-prohibited
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialProhibited
     
+prophecy_edit_initial_tendency:
+    path: /member/figure/{id}/prophecy-figure-edit-initial-tendency
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialTendency
+    
 prophecy_figure_edit_initial_background:
     path: /member/figure/{id}/prophecy-figure-edit-initial-background
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialBackground

@@ -26,7 +26,7 @@ class ProphecyFigureCurrency
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="currencies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
@@ -41,6 +41,11 @@ class ProphecyFigureCurrency
      * @ORM\Column(type="integer", nullable=true)
      */
     private $value;
+    
+    public function __construct()
+    {
+        $this->setValue(0);
+    }
 
     public function getId(): ?int
     {

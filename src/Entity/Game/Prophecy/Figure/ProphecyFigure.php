@@ -177,6 +177,12 @@ class ProphecyFigure implements FigureInterface
     private $shields;
     
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $currencies;
+    
+    /**
      * Many Figures have many spells.
      * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Magic\ProphecySpell")
      * @ORM\JoinTable(name="prophecy_figures_spells",
@@ -254,7 +260,6 @@ class ProphecyFigure implements FigureInterface
      */
     private $background;
     
-    
     /**
      * @ORM\Column(type="string", nullable=true, length="120")
      *
@@ -266,6 +271,7 @@ class ProphecyFigure implements FigureInterface
      *
      */
     private $isFinish;
+   
     
 
     /**
@@ -348,6 +354,7 @@ class ProphecyFigure implements FigureInterface
         $this->caracteristics = new ArrayCollection();
         $this->minorAttributes = new ArrayCollection();
         $this->majorAttributes = new ArrayCollection();
+        $this->setXperience(70);
     }
     
     
@@ -833,6 +840,11 @@ class ProphecyFigure implements FigureInterface
     public function getTendencies()
     {
         return $this->tendencies;
+    }
+    
+    public function getCurrencies()
+    {
+        return $this->currencies;
     }
     
     public function __toString(): ?string

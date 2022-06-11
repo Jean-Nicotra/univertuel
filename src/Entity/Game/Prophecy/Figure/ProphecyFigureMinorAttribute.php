@@ -47,6 +47,11 @@ class ProphecyFigureMinorAttribute
      * @ORM\Column(type="integer", nullable=true)
      */
     private $currentValue;
+    
+    public function __construct()
+    {
+        $this->setValue(0);
+    }
 
     public function getId(): ?int
     {

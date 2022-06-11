@@ -47,6 +47,12 @@ class ProphecyFigureMajorAttribute
      */
     private $value;
 
+    
+    public function __construct()
+    {
+        $this->setValue(0);
+    }
+    
     /**
      * 
      * @return int|NULL
