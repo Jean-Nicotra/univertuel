@@ -33,6 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMinorAttributesFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureNationFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureProhibitedFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMTendenciesFormType;
 
 class FigureController extends AbstractController
 {
@@ -564,14 +565,15 @@ class FigureController extends AbstractController
         ]);
     }
     
-    /****** CREER ET CHANGER LE FORMULAIRE EDITION  ******/
+    /** ATTENTION $FREEPOINTS DANS LA CLASSE PROPHECYTENDENCY ILS FAUT AFFECTER LES BONNES VALEURS SELON LA TABLE NATION */
     public function figureEditInitialTendency(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        $form = $this->createForm(InitialiseProphecyFigureBackgroundFormType::class, $figure);
+        $form = $this->createForm(InitialiseProphecyFigureMTendenciesFormType::class, $figure);
         $form->handleRequest($request);
+        
         
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -584,7 +586,7 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_initial_tendencies.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
         ]);

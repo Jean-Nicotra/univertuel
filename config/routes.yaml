@@ -236,6 +236,10 @@ prophecy_create_caracteristic:
 prophecy_create_age:
     path: /{role}/campaign/{id}/prophecy/new-age
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAge
+    
+prophecy_create_modifier_age_caracteristic:
+    path: /{role}/campaign/{id}/prophecy/new-modifier-age-caracteristic
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newModifierAgeCaracteristic
 
 prophecy_create_disadvantage:
     path: /{role}/campaign/{id}/prophecy/new-disadvantage

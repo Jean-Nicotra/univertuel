@@ -1,0 +1,15 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+
+
+
+	
+{% block content_member %}
+	points de tendence libres {{ figure.freePoints }}
+
+	{{ form_start(form) }}
+	{{ form_widget (form)  }}
+	{{ form_end(form) }}
+	
+{% endblock %}
+	

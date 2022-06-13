@@ -35,6 +35,8 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecySkillFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundFormType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyModifierCaracteristicByAgeFormType;
 
 
 class CharacteristicController extends AbstractController
@@ -898,6 +900,73 @@ class CharacteristicController extends AbstractController
         }
         
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-wound')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
+    }
+    
+    public function newModifierAgeCaracteristic(Request $request, $role, $id)
+    {
+        $title = "Nouveau modificateur d'age";
+        $modifier = new ProphecyModifierByAge();
+        
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $modifier->setCampaign($campaign);
+        $route = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyModifierCaracteristicByAgeFormType::class, $modifier);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-modifier-age-caracteristic' )
+        {
+            $route = 'setup_prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($modifier);
+            $entityManager->flush();
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
+        }
+        
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-modifier-age-caracteristic')
         {
             return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
                 'form' =>$form->createView(),

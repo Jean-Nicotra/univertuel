@@ -144,9 +144,10 @@
 	<ul>etape 9
 	
 	{% if figure.nation == null %}
-	
+									
 	{% elseif figure.tendencies[0].tendencyValue == 0 %}
 		<li><label>tendances</label>cliquer ici pour déterminer vos tendances<a href ="{{ path('prophecy_edit_initial_tendency', {'id': figure.id}) }}">edit</a></li>
+	{% else %}
 	{% for tendency in figure.tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
 		<li><label>cercles de tendance</label>{{ tendency.circles}}</li>

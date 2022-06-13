@@ -514,6 +514,55 @@ INSERT INTO `prophecy_disadvantage` (`id`, `advantage_category_id`, `campaign_id
 (48, 4, NULL, 'impotent', 0, 0, 4, 'se deplace lentement actions physique +3 defficulté');
 
 
+-- --------------------------------------------------------
+--
+-- Déchargement des données de la table `prophecy_modifier_by_age`
+--
+
+INSERT INTO `prophecy_modifier_by_age` (`id`, `age_id`, `caracteristic_id`, `value`, `campaign_id`) VALUES
+(1, 1, 1, -2, NULL),
+(2, 2, 1, -1, NULL),
+(3, 3, 1, 0, NULL),
+(4, 4, 1, -1, NULL),
+(5, 5, 1, -2, NULL),
+(6, 1, 2, -2, NULL),
+(7, 2, 2, -1, NULL),
+(8, 3, 2, 0, NULL),
+(9, 4, 2, -1, NULL),
+(10, 5, 2, -1, NULL),
+(11, 1, 3, 0, NULL),
+(12, 2, 3, 0, NULL),
+(13, 3, 3, 0, NULL),
+(14, 4, 3, 1, NULL),
+(15, 5, 3, 1, NULL),
+(16, 1, 4, 0, NULL),
+(17, 2, 4, 0, NULL),
+(18, 3, 4, 0, NULL),
+(19, 4, 4, 1, NULL),
+(20, 5, 4, 1, NULL),
+(21, 1, 6, 1, NULL),
+(22, 2, 6, 1, NULL),
+(23, 3, 6, 0, NULL),
+(24, 4, 6, -1, NULL),
+(25, 5, 6, -1, NULL),
+(26, 1, 5, 0, NULL),
+(27, 2, 5, 0, NULL),
+(28, 3, 5, 0, NULL),
+(29, 4, 5, 0, NULL),
+(30, 5, 5, -1, NULL),
+(31, 1, 8, 2, NULL),
+(32, 2, 8, 1, NULL),
+(33, 3, 8, 0, NULL),
+(34, 4, 8, 0, NULL),
+(35, 5, 8, 1, NULL),
+(36, 1, 7, 1, NULL),
+(37, 2, 7, 0, NULL),
+(38, 3, 7, 0, NULL),
+(39, 4, 7, 1, NULL),
+(40, 5, 7, 1, NULL);
+
+
+
 commit;
 
 

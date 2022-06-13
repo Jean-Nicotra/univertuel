@@ -8,22 +8,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ___InitialiseProphecyFigureProhibitedFormType extends AbstractType
+class InitialiseProphecyFigureTendenciesFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $prohibiteds = $options['prohibiteds'];
-        
         $builder
-            ->add('prohibiteds', EntityType::class [
-            ])
-            
+            ->add('tendencies', CollectionType::class,
+                [
+                    'entry_type' => EditProphecyTendencyFormType::class,
+                    'allow_add' => true,
+                    
+                    'entry_options' => ['label' => false ]
+                ])
             ->add('valider', SubmitType::class)
-        ;
+        ;           
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -31,6 +30,5 @@ class ___InitialiseProphecyFigureProhibitedFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigure::class,
         ]);
-        $resolver->setRequired('prohibiteds');
     }
 }

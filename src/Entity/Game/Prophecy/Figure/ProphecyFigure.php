@@ -255,6 +255,11 @@ class ProphecyFigure implements FigureInterface
     private $prohibited;
     
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $freePoints;
+    
+    /**
      * @ORM\Column(type="text", nullable=true)
      *
      */
@@ -355,6 +360,7 @@ class ProphecyFigure implements FigureInterface
         $this->minorAttributes = new ArrayCollection();
         $this->majorAttributes = new ArrayCollection();
         $this->setXperience(70);
+        $this->setFreePoints(2);
     }
     
     
@@ -557,6 +563,22 @@ class ProphecyFigure implements FigureInterface
     public function setCurrentMana(int $value)
     {
         $this->currentMana = $value;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getFreePoints()
+    {
+        return $this->freePoints;
+    }
+    
+    /**
+     * @param mixed $freePoints
+     */
+    public function setFreePoints($freePoints)
+    {
+        $this->freePoints = $freePoints;
     }
 
     public function getReputation(): ?int

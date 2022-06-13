@@ -42,6 +42,8 @@ class ProphecyFigureTendency
     private $tendencyValue;
     
     
+    
+
     public function __construct()
     {
         $this->setCircles (0);
@@ -100,4 +102,7 @@ class ProphecyFigureTendency
 
         return $this;
     }
+    
+   
+    
 }
