@@ -393,7 +393,11 @@ prophecy_figure_edit_initial_background:
     
 prophecy_edit_initial_nation:
     path: /member/figure/{id}/figure-edit-initial-nation
-    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialNation 
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialNation
+    
+prophecy_edit_initial_disadvantages:
+    path: /member/figure/{id}/figure-edit-initial-disadvantages
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialDisadvantages
     
 formulaire:
     path: /form/{id}

@@ -33,7 +33,9 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMinorAttributesFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureNationFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureProhibitedFormType;
-use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureMTendenciesFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureTendenciesFormType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge;
+
 
 class FigureController extends AbstractController
 {
@@ -391,6 +393,7 @@ class FigureController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            $figure->setIsCaracteristicsChoosen(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
@@ -418,6 +421,7 @@ class FigureController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            $figure->setIsMajorAttributesChoosen(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
@@ -443,6 +447,7 @@ class FigureController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            $figure->setIsMinorAttributesChoosen(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
@@ -486,7 +491,9 @@ class FigureController extends AbstractController
     public function figureEditInitialAge(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
         $figure = $figureRepository->find($id);
+        $caracteristics = $figureCaracteristicRepository->findBy(['figure' => $figure]);
         
         $form = $this->createForm(InitialiseProphecyFigureAgeFormType::class, $figure);
         $form->handleRequest($request);
@@ -497,9 +504,34 @@ class FigureController extends AbstractController
             $entityManager->persist($figure);
             $entityManager->flush();
             
+            //after age select
+            $age = $figure->getAge();
+            $modifierRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge');
+            $modifiers = $modifierRepository->findBy(['age' => $age]);
+            foreach ($caracteristics as $caracteristic)
+            {
+                foreach ($modifiers as $modifier)
+                {
+                    if($modifier->getCaracteristic()->getName() == $caracteristic->getCaracteristic()->getName())
+                    {
+                        $value = $modifier->getValue();
+                        $caracteristic->setValue ($value);
+                        $entityManager->persist($figure);
+                        $entityManager->flush();
+                    }
+                }
+                
+            }
+            
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId(),
             ]);
+            /*
+            return $this->render('memberArea/figure/prophecy/test.html.twig', [
+                'figure' => $figure,
+                'modifiers' => $modifiers,
+            ]);
+            */
         }
         
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
@@ -525,6 +557,7 @@ class FigureController extends AbstractController
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId()
             ]);
+            
         }
         
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
@@ -571,12 +604,13 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        $form = $this->createForm(InitialiseProphecyFigureMTendenciesFormType::class, $figure);
+        $form = $this->createForm(InitialiseProphecyFigureTendenciesFormType::class, $figure);
         $form->handleRequest($request);
         
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            $figure->setIsTendenciesChoosen(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
@@ -589,6 +623,17 @@ class FigureController extends AbstractController
         return $this->render('memberArea/figure/prophecy/form_edit_figure_initial_tendencies.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
+        ]);
+    }
+    
+    public function figureEditInitialDisadvantages (Request $request, $id)
+    {
+        
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        return $this->redirectToRoute('prophecy_figure_view', [
+            'id' => $figure->getId(),
         ]);
     }
     

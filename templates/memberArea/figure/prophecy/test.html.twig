@@ -1,0 +1,11 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+	
+    {% block content_member %}
+    
+    {% for modif in modifiers %}
+    	{{ modif.caracteristic.name }}
+    {% endfor %}
+    
+    
+    {% endblock %}

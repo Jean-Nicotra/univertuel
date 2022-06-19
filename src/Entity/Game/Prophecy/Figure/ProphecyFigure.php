@@ -202,13 +202,20 @@ class ProphecyFigure implements FigureInterface
      */
     private $advantages;
     
+    
+    
     /**
-     * Many Figures have many disadvantages.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage")
-     * @ORM\JoinTable(name="prophecy_figures_disadvantages",
+     * Exemple de ManyToMany Simple
+     * ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage")
+     * ORM\JoinTable(name="prophecy_figures_disadvantages",
      *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="disadvantage_id", referencedColumnName="id")}
      *      )
+     */
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $disadvantages;
     
@@ -266,6 +273,30 @@ class ProphecyFigure implements FigureInterface
     private $background;
     
     /**
+     * @ORM\Column(type="boolean")
+     *
+     */
+    private $isMajorAttributesChoosen;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     */
+    private $isMinorAttributesChoosen;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     */
+    private $isCaracteristicsChoosen;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     */
+    private $isTendenciesChoosen;
+    
+    /**
      * @ORM\Column(type="string", nullable=true, length="120")
      *
      */
@@ -278,6 +309,80 @@ class ProphecyFigure implements FigureInterface
     private $isFinish;
    
     
+
+    /**
+     * @return mixed
+     */
+    public function getIsTendenciesChoosen(): ?bool
+    {
+        return $this->isTendenciesChoosen;
+    }
+
+    /**
+     * @param mixed $isTendenciesChoosen
+     */
+    public function setIsTendenciesChoosen($isTendenciesChoosen): self
+    {
+        $this->isTendenciesChoosen = $isTendenciesChoosen;
+        
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsMajorAttributesChoosen(): ?bool
+    {
+        return $this->isMajorAttributesChoosen;
+    }
+
+    /**
+     * @param mixed $isMajorAttributesChoosen
+     */
+    public function setIsMajorAttributesChoosen($isMajorAttributesChoosen): self
+    {
+        $this->isMajorAttributesChoosen = $isMajorAttributesChoosen;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * @return mixed
+     */
+    public function getIsMinorAttributesChoosen(): ?bool
+    {
+        return $this->isMinorAttributesChoosen;
+    }
+    
+    /**
+     * @param mixed $isMajorAttributesChoosen
+     */
+    public function setIsMinorAttributesChoosen($isMinorAttributesChoosen): self
+    {
+        $this->isMinorAttributesChoosen = $isMinorAttributesChoosen;
+        
+        return $this;
+    }
+    
+
+    /**
+     * @return mixed
+     */
+    public function getIsCaracteristicsChoosen(): ?bool
+    {
+        return $this->isCaracteristicsChoosen;
+    }
+
+    /**
+     * @param mixed $isCaracteristicsChoosen
+     */
+    public function setIsCaracteristicsChoosen($isCaracteristicsChoosen): self
+    {
+        $this->isCaracteristicsChoosen = $isCaracteristicsChoosen;
+        
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -361,6 +466,8 @@ class ProphecyFigure implements FigureInterface
         $this->majorAttributes = new ArrayCollection();
         $this->setXperience(70);
         $this->setFreePoints(2);
+        $this->setIsCaracteristicsChoosen(false);
+        $this->setIsMajorAttributesChoosen(false);
     }
     
     
@@ -711,10 +818,6 @@ class ProphecyFigure implements FigureInterface
         return $this;
     }
     
-    public function getDisadvantages()
-    {
-        return $this->disadvantages;
-    }
     
     public function addShield(ProphecyShield $shield)
     {
@@ -867,6 +970,11 @@ class ProphecyFigure implements FigureInterface
     public function getCurrencies()
     {
         return $this->currencies;
+    }
+    
+    public function getDisadvantages()
+    {
+        return $this->disadvantages;
     }
     
     public function __toString(): ?string

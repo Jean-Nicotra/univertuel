@@ -37,6 +37,7 @@
 		<li><label>age: </label>cliquer ici pour initialiser votre age<a href="{{ path('prophecy_figure_edit_initial_age', {'id': figure.id }) }}">editer</a></li>
 		{% else %}
 		<li><label>age: </label>{{ figure.age.name }}</li>
+    		
 		{% endif %}
 	</ul>	
 		----------------- caste du personnage --------------- 
@@ -73,14 +74,14 @@
 		
 	{% if figure.prohibited == null %}
 		
-	{% elseif figure.caracteristics[0].value == 0 %}
+	{% elseif figure.isCaracteristicsChoosen == false %}
 		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
 	
-	{% elseif figure.caracteristics[0].value > 0 %}
+	{% elseif figure.isCaracteristicsChoosen == true %}
     	
-        	{% for caracteristic in figure.caracteristics %}
-        		<li><label>{{ caracteristic.caracteristic.name }}</label>{{ caracteristic.value }}</li>
-        	{% endfor %}
+        {% for caracteristic in figure.caracteristics %}
+        	<li><label>{{ caracteristic.caracteristic.name }}</label>{{ caracteristic.value }}</li>
+        {% endfor %}    	
     	
 	{% endif %}
 	</ul>
@@ -89,15 +90,15 @@
 	
 	<ul>etape 6
 	
-	{% if figure.caracteristics[0].value == 0 %}
+	{% if figure.isCaracteristicsChoosen == false %}
 	
-	{% elseif figure.majorAttributes[0].value == 0 %}
+	{% elseif figure.isMajorAttributesChoosen == false %}
 		cliquer ici pour initialiser vos attributs majeurs<a href="{{ path('figure_edit_initial_major_attribute', {'id': figure.id }) }}">editer</a>
-	{% else %}
+	{% elseif figure.isMajorAttributesChoosen == true %}
 	
-	{% for majorAttribute in figure.majorAttributes %}
-		<li><label>{{ majorAttribute.majorAttribute.name }}</label>{{ majorAttribute.value }}</li>
-	{% endfor %}
+    	{% for majorAttribute in figure.majorAttributes %}
+    		<li><label>{{ majorAttribute.majorAttribute.name }}</label>{{ majorAttribute.value }}</li>
+    	{% endfor %}
 	
 	{% endif %}
 	</ul>
@@ -106,15 +107,15 @@
 	
 	<ul>etape 7
 	
-	{% if figure.majorAttributes[0].value == null %}
+	{% if figure.isMajorAttributesChoosen == false %}
 		
-	{% elseif figure.minorAttributes[0].value > 0%}
+	{% elseif figure.isMinorAttributesChoosen == false %}
 		cliquer ici pour initialiser vos attributs mineurs<a href="{{ path('figure_edit_initial_minor_attribute', {'id': figure.id }) }}">editer</a>
-	{% else %}	
+	{% elseif figure.isMinorAttributesChoosen == true %}	
 
-	{% for minorAttribute in minorAttributes %}
-		<li><label>{{ minorAttribute.minorAttribute.name }}</label>  {{ minorAttribute.value }}</li>
-	{% endfor %}
+    	{% for minorAttribute in minorAttributes %}
+    		<li><label>{{ minorAttribute.minorAttribute.name }}</label>  {{ minorAttribute.value }}</li>
+    	{% endfor %}
 
 	{% endif %}
 	</ul>
@@ -123,7 +124,7 @@
 	
 	<ul>etape 8
 	
-	{% if figure.majorAttributes[0].value == null %}
+	{% if figure.isMinorAttributesChoosen == false %}
 	
 	{% elseif figure.nation == null %}
 		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="{{ path('prophecy_edit_initial_nation', {'id': figure.id}) }}">editer</a></li>
@@ -145,9 +146,9 @@
 	
 	{% if figure.nation == null %}
 									
-	{% elseif figure.tendencies[0].tendencyValue == 0 %}
+	{% elseif figure.isTendenciesChoosen == false %}
 		<li><label>tendances</label>cliquer ici pour déterminer vos tendances<a href ="{{ path('prophecy_edit_initial_tendency', {'id': figure.id}) }}">edit</a></li>
-	{% else %}
+	{% elseif figure.isTendenciesChoosen == true %}
 	{% for tendency in figure.tendencies %}
 		<li><label>{{ tendency.tendency.name }}</label>{{ tendency.tendencyValue }}</li>
 		<li><label>cercles de tendance</label>{{ tendency.circles}}</li>
@@ -164,7 +165,16 @@
 	
 	
 	----------------- inconvenients du personnage ----------------
-	etape 10
+	<ul>etape 10
+	
+	{% if figure.isTendenciesChoosen == false %}
+	
+	{% else %}
+		<li><label>inconvénients</label>cliquer ici pour choisir vos inconvénients<a href="{{ path('prophecy_edit_initial_disadvantages', {'id': figure.id}) }}">editer</a></li>
+	
+	{% endif %}
+	
+	</ul>
 	
 	----------------- avantages du personnage ----------------
 	etape 11
