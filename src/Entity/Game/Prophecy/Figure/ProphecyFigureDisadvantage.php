@@ -32,10 +32,7 @@ class ProphecyFigureDisadvantage
      */
     private $disadvantage;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $comment;
+
 
     public function getId(): ?int
     {

@@ -37,6 +37,8 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyModifierCaracteristicByAgeFormType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantageFormType;
 
 
 class CharacteristicController extends AbstractController
@@ -983,4 +985,72 @@ class CharacteristicController extends AbstractController
             ]);
         }
     }
+    
+    public function newAgeDisadvantage(Request $request, $role, $id)
+    {
+        $title = "Nombre de désavantages en fonction de l'âge";
+        $modifier = new ProphecyAgeDisadvantage();
+        
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $modifier->setCampaign($campaign);
+        $route = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyAgeDisadvantageFormType::class, $modifier);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-age-disadvantage' )
+        {
+            $route = 'setup_prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($modifier);
+            $entityManager->flush();
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
+        }
+        
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-age-disadvantage')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
+    }
+    
 }

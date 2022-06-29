@@ -35,6 +35,9 @@ use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureNationFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureProhibitedFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureTendenciesFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureDisadvantagesFormType;
+use App\Entity\Game\Prophecy\Figure\ProphecyFigureDisadvantage;
+use App\Form\Game\Prophecy\Figure\EditProphecyDisadvantageFormType;
 
 
 class FigureController extends AbstractController
@@ -626,9 +629,46 @@ class FigureController extends AbstractController
         ]);
     }
     
+    //charger les categories selon l age et charger la liste dans le formulaire, et changer entitytype par choice
     public function figureEditInitialDisadvantages (Request $request, $id)
     {
         
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $age = $figure->getAge();
+        $ageDisadvantagesRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage');
+        $disadvantagesList = $ageDisadvantagesRepository->findBy(['age' => $age ]);
+
+        
+        $form = $this->createForm(EditProphecyDisadvantageFormType::class, $figure);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);
+    }
+    
+    
+    /*
+     * A FINIR
+     * 
+     */
+    public function figureGetInitialCurrencies($id)
+    {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
@@ -637,12 +677,14 @@ class FigureController extends AbstractController
         ]);
     }
     
+    
     public function figureEditInitialBackground(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
         $form = $this->createForm(InitialiseProphecyFigureBackgroundFormType::class, $figure);
+        $form = $this->createForm(EditProphecyDisadvantageFormType::class,$figuredisadvantage );
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())

@@ -206,16 +206,11 @@ class ProphecyFigure implements FigureInterface
     
     /**
      * Exemple de ManyToMany Simple
-     * ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage")
-     * ORM\JoinTable(name="prophecy_figures_disadvantages",
+     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage")
+     * @ORM\JoinTable(name="prophecy_figures_disadvantages",
      *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="disadvantage_id", referencedColumnName="id")}
      *      )
-     */
-    
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute", mappedBy="figure")
-     * @ORM\JoinColumn(nullable=true)
      */
     private $disadvantages;
     
@@ -468,6 +463,7 @@ class ProphecyFigure implements FigureInterface
         $this->setFreePoints(2);
         $this->setIsCaracteristicsChoosen(false);
         $this->setIsMajorAttributesChoosen(false);
+        $this->disadvantages = new ArrayCollection();
     }
     
     

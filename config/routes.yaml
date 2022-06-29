@@ -273,6 +273,11 @@ prophecy_create_wound:
     path: /{role}/campaign/{id}/prophecy/new-wound
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newWound      
     
+    
+prophecy_create_age_disadvantage:
+    path: /{role}/campaign/{id}/prophecy/new-age-disadvantage
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newAgeDisadvantage 
+    
 ## WORLD ##    
 prophecy_create_currency:
     path: /{role}/campaign/{id}/prophecy/new-currency
@@ -398,6 +403,10 @@ prophecy_edit_initial_nation:
 prophecy_edit_initial_disadvantages:
     path: /member/figure/{id}/figure-edit-initial-disadvantages
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialDisadvantages
+    
+prophecy_edit_initial_currencies:
+    path: /member/figure/{id}/figure-edit-initial-currencies
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureGetInitialCurrencies
     
 formulaire:
     path: /form/{id}

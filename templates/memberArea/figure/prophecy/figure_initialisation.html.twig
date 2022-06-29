@@ -164,7 +164,7 @@
 	
 	
 	
-	----------------- inconvenients du personnage ----------------
+	----------------- désavantages du personnage ----------------
 	<ul>etape 10
 	
 	{% if figure.isTendenciesChoosen == false %}
@@ -189,11 +189,6 @@
 	</ul>
 	
 	
-dracs de fer0
-dracs de bronze0
-dracs d'argent0
-dracs d'or0
-le dragon0
 	----------------- compétences du personnage ----------------
 	
 	
@@ -229,16 +224,12 @@ le dragon0
 	
 	----------------- expérience du personnage ----------------
 	<ul>experience
-dracs de fer0
-dracs de bronze0
-dracs d'argent0
-dracs d'or0
-le dragon0
 		<li>{{ figure.xperience }}</li>
 	</ul>	
     		
    
-   	<ul>richesse
+   	<ul>richesse 
+   	<li>cliquer ici pour générer votre richesse de départ<a href="{{ path('prophecy_edit_initial_currencies', {'id': figure.id}) }}">editer</a></li>
    		{% for currency in figure.currencies %}
 		<li>{{ currency.currency.name }}{{ currency.value }}</li>
 		{% endfor %}
