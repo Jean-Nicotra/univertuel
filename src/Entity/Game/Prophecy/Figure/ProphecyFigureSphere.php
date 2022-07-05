@@ -17,9 +17,10 @@ class ProphecyFigureSphere
      * @ORM\Column(type="integer")
      */
     private $id;
- 
+   
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * the figure object
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="spheres")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;

@@ -6,24 +6,23 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use App\Form\Game\Prophecy\Figure\EditProphecyFigureSkillFormType;
 
-class InitialiseProphecyFigureDisadvantagesFormType extends AbstractType
+
+class InitialiseProphecyFigureSkillFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        //$disadvantagesList = $options['disadvantagesList']; 
-        
         $builder
-        
-        ->add('disadvantages', CollectionType::class, [
-            'entry_type' => EditProphecyDisadvantageFormType::class,
+        ->add('skills', CollectionType::class, [
+            'entry_type' => EditProphecyFigureSkillFormType::class,
             'allow_add' => true,
+            'label' => 'competences',
             'entry_options' => ['label' => false ]
         ])
-        
+        ->add('valider', SubmitType::class)
         ;
     }
 

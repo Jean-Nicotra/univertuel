@@ -22,21 +22,23 @@ class EditProphecyDisadvantageFormType extends AbstractType
         
         $builder
         
+        
             ->add('disadvantages', EntityType::class, [
                 'class' => ProphecyDisadvantage::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
             ])
+  
             /*
         ->add('disadvantages', ChoiceType::class, [
             'label' => 'désavantages',
             'choices' => $disadvantagesList,
-            'choice_label' => 'name',
+            'choice_label' => 'category->getName()',
         ])
         */
             
-            ->add('valider', SubmitType::class)
+        ->add('valider', SubmitType::class)
 
         ;
     }

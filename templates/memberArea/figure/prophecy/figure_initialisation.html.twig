@@ -190,11 +190,17 @@
 	
 	
 	----------------- compétences du personnage ----------------
+	{#
+	{% if figure.isMinorAttributesChoosen == false %}
 	
-	
-	
-	<ul>	etape 12 : rajouter la magie
-	
+	{% elseif figure.nation == null %}
+		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="{{ path('prophecy_edit_initial_nation', {'id': figure.id}) }}">editer</a></li>
+	{% else %}
+		<li><label>pays d'origine</label>{{ figure.nation }}</li>
+	{% endif %}
+	#}
+	<ul>	etape 12 : 
+	<li>cliquer ici pour modifier vos competences de départ<a href="{{ path('prophecy_edit_initial_skills', {'id': figure.id}) }}">editer</a></li>
 	{% for majorAttribute in figure.majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
 		{% for skillCategory in skillCategories %}
@@ -211,6 +217,13 @@
 	</ul>
 	
 	
+		--------- compétences de magie du personnage ------------
+		<ul>
+			<li><li>cliquer ici pour modifier vos spheres de départ<a href="{{ path('prophecy_edit_initial_spheres', {'id': figure.id}) }}">editer</a></li></li>
+			{% for sphere in figure.spheres %}
+				{{ sphere.sphere.name }}{{ sphere.value }}
+			{% endfor %}
+		</ul>
 	
 	
 		----------------- renommée du personnage ----------------

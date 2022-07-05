@@ -408,6 +408,14 @@ prophecy_edit_initial_currencies:
     path: /member/figure/{id}/figure-edit-initial-currencies
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureGetInitialCurrencies
     
+prophecy_edit_initial_skills:
+    path: /member/figure/{id}/figure-edit-initial-skills
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialSkills
+    
+prophecy_edit_initial_spheres:
+    path: /member/figure/{id}/figure-edit-initial-spheres
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialSpheres 
+    
 formulaire:
     path: /form/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristicTest

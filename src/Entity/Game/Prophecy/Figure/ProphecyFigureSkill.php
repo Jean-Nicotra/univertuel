@@ -19,7 +19,8 @@ class ProphecyFigureSkill
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * the figure object
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="skills")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;

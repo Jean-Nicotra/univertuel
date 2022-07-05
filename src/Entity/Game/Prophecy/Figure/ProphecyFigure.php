@@ -147,6 +147,18 @@ class ProphecyFigure implements FigureInterface
     private $minorAttributes;
     
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $skills;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $spheres;
+    
+    /**
      * Many Figures have many weapons.
      * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Item\ProphecyWeapon")
      * @ORM\JoinTable(name="prophecy_figures_weapons",
@@ -268,6 +280,12 @@ class ProphecyFigure implements FigureInterface
     private $background;
     
     /**
+     * @ORM\Column(type="string", nullable=true, length="255")
+     *
+     */
+    private $disadvantagesComment;
+    
+    /**
      * @ORM\Column(type="boolean")
      *
      */
@@ -304,6 +322,22 @@ class ProphecyFigure implements FigureInterface
     private $isFinish;
    
     
+
+    /**
+     * @return mixed
+     */
+    public function getDisadvantagesComment()
+    {
+        return $this->disadvantagesComment;
+    }
+
+    /**
+     * @param mixed $disadvantagesComment
+     */
+    public function setDisadvantagesComment($disadvantagesComment)
+    {
+        $this->disadvantagesComment = $disadvantagesComment;
+    }
 
     /**
      * @return mixed
@@ -414,7 +448,7 @@ class ProphecyFigure implements FigureInterface
         
         return $this;
     }
-
+    
     /**
      * @return mixed
      */
@@ -464,6 +498,7 @@ class ProphecyFigure implements FigureInterface
         $this->setIsCaracteristicsChoosen(false);
         $this->setIsMajorAttributesChoosen(false);
         $this->disadvantages = new ArrayCollection();
+        $this->spheres = new ArrayCollection();
     }
     
     
@@ -971,6 +1006,16 @@ class ProphecyFigure implements FigureInterface
     public function getDisadvantages()
     {
         return $this->disadvantages;
+    }
+    
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+    
+    public function getSpheres()
+    {
+        return $this->spheres;
     }
     
     public function __toString(): ?string
