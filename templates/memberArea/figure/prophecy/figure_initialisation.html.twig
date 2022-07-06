@@ -9,9 +9,9 @@
     	{% endif %}
     		
     		
-    		Processus de creation du personnage
+    		Processus de creation du personnage. Une fois l'étape validée, il ne sera plus possible de revenir en arrière.
     		
-    	----------------- informations de base sur le personnage ----------------
+    	<p>----------------- informations de base sur le personnage ----------------</p>
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
 		<li><label>taille</label>{{ figure.size }}</li>
@@ -225,10 +225,12 @@
 			{% endfor %}
 		</ul>
 	
+		--------- privilèges de caste du personnage ------------
+		
 	
 		----------------- renommée du personnage ----------------
 	
-	etape 13
+
 	
 	<ul>renommée
 		<li>{{ figure.reputation }}</li>
@@ -240,8 +242,9 @@
 		<li>{{ figure.xperience }}</li>
 	</ul>	
     		
+    --------- équipement du personnage ------------
    
-   	<ul>richesse 
+   	<ul>étape 14   
    	<li>cliquer ici pour générer votre richesse de départ<a href="{{ path('prophecy_edit_initial_currencies', {'id': figure.id}) }}">editer</a></li>
    		{% for currency in figure.currencies %}
 		<li>{{ currency.currency.name }}{{ currency.value }}</li>

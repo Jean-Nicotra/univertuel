@@ -15,8 +15,13 @@ class EditProphecyFigureSphereFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-        ->add('value', IntegerType::class)
+        ->add('sphere', TextType::class, [
+            'label' => false, 'disabled' => true
+            
+        ])
+        ->add('value', IntegerType::class, [
+            'label' => false,
+        ])
         ;
     }
 

@@ -8,13 +8,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EditProphecyFigureSkillFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('value', IntegerType::class)
+        ->add('skill', TextType::class, [
+            'label' => false, 'disabled' => true
+            
+        ])
+        ->add('value', IntegerType::class, [
+            'label' => false,
+        ])
+        ;
             
     
 
