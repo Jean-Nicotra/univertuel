@@ -9,11 +9,12 @@
     <a href="{{ path('prophecy_figure_equipment', {'id': figure.id}) }}">équipement</a>
     <a href="{{ path('prophecy_figure_background', {'id': figure.id}) }}">historique</a>
     
+    {#
     	{% if figure.isFinish == false %}
     		<p>la création du personnage n'est pas encore terminée</p>
 
     	{% endif %}
-    		
+    #}		
         {% block figure_page %}
         
         {% endblock %}

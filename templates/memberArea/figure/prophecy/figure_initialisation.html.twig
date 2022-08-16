@@ -58,10 +58,12 @@
 	<ul>etape 4
 		{% if figure.caste == null %}
 		
-		{% elseif figure.prohibited == null %}
+		{% elseif figure.prohibiteds|length == 0 %}
 		<li><label>interdit: </label>cliquer ici pour initialiser l'interdit de caste<a href="{{ path('prophecy_figure_edit_initial_prohibited', {'id': figure.id}) }}">editer</a></li>
 		{% else %}
-		<li><label>interdit: </label>{{ figure.prohibited.name }}</li>
+			{% for prohibited in figure.prohibiteds %}
+		        <li><label>interdit: </label>{{ prohibited.prohibited.name }}</li>
+			{% endfor %}
 		{% endif %}
 	</ul>
 	
@@ -71,8 +73,7 @@
 	
 	<ul>etape 5
 
-		
-	{% if figure.prohibited == null %}
+	{% if figure.prohibiteds|length == 0 %}	
 		
 	{% elseif figure.isCaracteristicsChoosen == false %}
 		cliquer ici pour initialiser vos caracteristiques<a href="{{ path('figure_edit_initial_caracteristic', {'id': figure.id }) }}">editer</a>
@@ -83,8 +84,8 @@
         	<li><label>{{ caracteristic.caracteristic.name }}</label>{{ caracteristic.value }}</li>
         {% endfor %}    	
     	
-	{% endif %}
-	</ul>
+	{%
+endif %}	</ul>
 
 	----------------- attributs majeurs du personnage ----------------
 	
@@ -166,7 +167,7 @@
 	
 	----------------- désavantages du personnage ----------------
 	<ul>etape 10
-	
+	tendances choisies? {{ figure.isTendenciesChoosen }}
 	{% if figure.isTendenciesChoosen == false %}
 	
 	{% else %}
@@ -190,18 +191,14 @@
 	
 	
 	----------------- compétences du personnage ----------------
-	{#
-	{% if figure.isMinorAttributesChoosen == false %}
 	
-	{% elseif figure.nation == null %}
-		<li><label>pays d'origine</label>cliquer ici pour initialiser votre pays d'origine<a href="{{ path('prophecy_edit_initial_nation', {'id': figure.id}) }}">editer</a></li>
-	{% else %}
-		<li><label>pays d'origine</label>{{ figure.nation }}</li>
-	{% endif %}
-	#}
 	<ul>	etape 12 : 
-	<li>cliquer ici pour modifier vos competences de départ<a href="{{ path('prophecy_edit_initial_skills', {'id': figure.id}) }}">editer</a></li>
-	{% for majorAttribute in figure.majorAttributes %}
+	{% if figure.disadvantages == null %}
+	
+	{% elseif figure.disadvantages != null  %}
+		<li>cliquer ici pour modifier vos competences de départ<a href="{{ path('prophecy_edit_initial_skills', {'id': figure.id}) }}">editer</a></li>
+	{% else %}
+		{% for majorAttribute in figure.majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
 		{% for skillCategory in skillCategories %}
 			{% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %} 
@@ -213,16 +210,22 @@
 	    	{% endfor %}
 	    	{% endif %}
 		{% endfor %}
-	{% endfor %}
+	    {% endfor %}
+	{% endif %}
 	</ul>
 	
 	
 		--------- compétences de magie du personnage ------------
 		<ul>
-			<li><li>cliquer ici pour modifier vos spheres de départ<a href="{{ path('prophecy_edit_initial_spheres', {'id': figure.id}) }}">editer</a></li></li>
+		{% if figure.disadvantages == null %}
+		
+		{% elseif figure.disadvantages != null  %}
+			<li>cliquer ici pour modifier vos spheres de départ<a href="{{ path('prophecy_edit_initial_spheres', {'id': figure.id}) }}">editer</a></li>
+		{% else %}	
 			{% for sphere in figure.spheres %}
 				{{ sphere.sphere.name }}{{ sphere.value }}
 			{% endfor %}
+		{% endif %}
 		</ul>
 	
 		--------- privilèges de caste du personnage ------------
@@ -233,7 +236,13 @@
 
 	
 	<ul>renommée
+	{% if figure.disadvantages == null %}
+		
+		{% elseif figure.disadvantages != null  %}
+		<li>cliquer ici pour modifier votre réputation de départ<a href="{{ path('prophecy_edit_initial_reputation', {'id': figure.id}) }}">editer</a></li>
+		{% else %}	
 		<li>{{ figure.reputation }}</li>
+		{% endif %}
 	</ul>
 	
 	
@@ -269,6 +278,6 @@
 	
 	 ----------------- validation du personnage ----------------
 	 
-	 <a href=""><button>valider le personnage</button></a>
+	 <a href="{{ path('prophecy_figure_player_validation', {'id': figure.id}) }}">valider le personnage</a>
 		
 {% endblock %}

@@ -562,6 +562,23 @@ INSERT INTO `prophecy_modifier_by_age` (`id`, `age_id`, `caracteristic_id`, `val
 (40, 5, 7, 1, NULL);
 
 
+--
+-- Déchargement des données de la table `prophecy_book`
+--
+
+INSERT INTO `prophecy_book` (`id`, `game_id`, `name`, `description`) VALUES
+(1, 1, 'les compagnons de khy', 'supplément'),
+(2, 1, 'les ecailles de Brorne', 'supplément'),
+(3, 1, 'Les enfantys de Heyra', 'supplément'),
+(4, 1, 'Les forges de Kezyr', 'supplément'),
+(5, 1, 'Les foudres de Kroryn', 'supplément'),
+(6, 1, 'Les orphelins de Szyl', 'supplément'),
+(7, 1, 'Les secrets de Kalimshar', 'supplément'),
+(8, 1, 'Les versets d\'Ozyr', 'supplément'),
+(9, 1, 'Les voiles de Nenya', 'supplément'),
+(10, 1, 'Prophecy 2eme édition', 'livre de la seconde édition'),
+(11, 1, 'Les grands Dragons', 'supplément');
+
 
 commit;
 

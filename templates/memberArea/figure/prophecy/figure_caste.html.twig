@@ -12,10 +12,12 @@
     </ul>	
     
     ----------------- interdits du personnage ----------------
-    <ul>interdits
+    <ul>interdits LES INTERDITS NE SONT PAS ENCORE GERES
+        {#
         {% for prohibited in figure.prohibiteds %}
     		<li><p>nom : {{ prohibited.name }}</p><p>description : {{ prohibited.description }}</p></li>
     	{% endfor %}
+    	#}
     </ul>
     
     ----------------- bénéfices du personnage ----------------

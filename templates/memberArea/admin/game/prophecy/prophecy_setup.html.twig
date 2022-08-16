@@ -5,6 +5,10 @@
 {% endblock %}
 	
 {% block game_setup %}
+
+	<ul>Livres
+		<li><a href="{{ path('prophecy_create_book'     , {'role': 'admin'}) }}">ajouter un livre</a></li>
+	</ul>
 	 
 	<ul>Castes:
 		<li><a href="{{ path('prophecy_create_caste'     , {'role': 'admin', 'id': 0}) }}">castes</a></li>

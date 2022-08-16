@@ -41,6 +41,9 @@ use App\Form\Game\Prophecy\Figure\EditProphecyDisadvantageFormType;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureSkillFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureSpheresFormType;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureReputationType;
+use App\Entity\Game\Prophecy\Figure\ProphecyFigureProhibited;
+use App\Form\Game\Prophecy\Figure\AddProphecyFigureProhibitedFormType;
 
 
 class FigureController extends AbstractController
@@ -109,7 +112,6 @@ class FigureController extends AbstractController
         $figure = new ProphecyFigure();
         $figure->setOwner($user);
         $figure->setCampaign($campaign);
-        $figure->setIsFinish(false);
         //$figure->setXperience(70);	//MODIFIER AVEC POINTS DE DEPARTS EN FONCTION DE L AGE
         
         $form = $this->createForm(ProphecyCreateFigureFormType::class, $figure);
@@ -577,6 +579,10 @@ class FigureController extends AbstractController
         ]);
     }
     
+    
+    
+    //VOIR PLUTOT LA METHODE CI DESSOUS
+    /*
     public function figureEditInitialProhibited(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
@@ -608,6 +614,43 @@ class FigureController extends AbstractController
             'figure' => $figure,
         ]);
     }
+    */
+    
+    //A FINIR
+    public function figureEditInitialProhibited(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        $caste = $figure->getCaste();
+        
+        $prohibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
+        $prohibitedsList = $prohibitedRepository->findBy(['caste' => $caste]);
+        
+        $figureProhibited = new ProphecyFigureProhibited();
+        $figureProhibited->setFigure($figure);
+        
+        $form = $this->createForm(AddProphecyFigureProhibitedFormType::class, $figureProhibited, [
+            'prohibiteds' => $prohibitedsList,
+        ]);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figureProhibited);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);
+    }
+    
     
     /** ATTENTION $FREEPOINTS DANS LA CLASSE PROPHECYTENDENCY ILS FAUT AFFECTER LES BONNES VALEURS SELON LA TABLE NATION */
     public function figureEditInitialTendency(Request $request, $id)
@@ -651,9 +694,6 @@ class FigureController extends AbstractController
         $disadvantageRepository =  $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage');
         $disadvantagesList = new ArrayCollection();
         
-      
-        
-       
         $form = $this->createForm(EditProphecyDisadvantageFormType::class, $figure);
         $form->handleRequest($request);
         
@@ -769,7 +809,51 @@ class FigureController extends AbstractController
         ]);
     }
     
+    public function figureEditInitialReputation (Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $form = $this->createForm(InitialiseProphecyFigureReputationType::class, $figure);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);
+    }
     
+    //SERT A INDIQUER QUE L USER A VALIDE SON PERSONNAGE ET QU IL EST PRET A ETRE CONTROLE ET VALIDE PAR LE MJ A FINIR
+    public function figurePlayerValidation(Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        //pour tester si la fonction marche???
+        $figure->setXperience(20);
+
+        //valide le personnage pour le joueur
+        $figure->setIsFinish(true);
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($figure);
+        $entityManager->flush();
+        
+         return $this->redirectToRoute('prophecy_figure_view', [
+            'id' => $figure->getId(),
+        ]);
+        
+    }
     
     public function figureView ($id)
     {

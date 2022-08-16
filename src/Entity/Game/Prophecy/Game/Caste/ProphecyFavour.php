@@ -1,5 +1,9 @@
 <?php
-
+/********************************************************************************************
+ * 
+ * role : stock les valeurs de privileges de caste
+ * 
+ ********************************************************************************************/
 namespace App\Entity\Game\Prophecy\Game\Caste;
 
 use App\Repository\Game\Prophecy\Game\Caste\ProphecyFavourRepository;
@@ -39,6 +43,25 @@ class ProphecyFavour
      * @ORM\Column(type="text")
      */
     private $description;
+    
+    
+    private $origin;
+
+    /**
+     * @return mixed
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * @param mixed $origin
+     */
+    public function setOrigin($origin)
+    {
+        $this->origin = $origin;
+    }
 
     public function getId(): ?int
     {

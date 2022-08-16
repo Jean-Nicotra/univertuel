@@ -265,8 +265,16 @@ class ProphecyFigure implements FigureInterface
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited")
      * @ORM\JoinColumn(nullable=true)
-     */
+     *
     private $prohibited;
+    */
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureProhibited", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $prohibiteds;
+    
     
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -320,8 +328,30 @@ class ProphecyFigure implements FigureInterface
      *
      */
     private $isFinish;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     */
+    private $isValide;
    
     
+
+    /**
+     * @return mixed
+     */
+    public function getIsValide()
+    {
+        return $this->isValide;
+    }
+
+    /**
+     * @param mixed $isValide
+     */
+    public function setIsValide($isValide)
+    {
+        $this->isValide = $isValide;
+    }
 
     /**
      * @return mixed
@@ -497,8 +527,12 @@ class ProphecyFigure implements FigureInterface
         $this->setFreePoints(2);
         $this->setIsCaracteristicsChoosen(false);
         $this->setIsMajorAttributesChoosen(false);
+        $this->setIsMinorAttributesChoosen(false);
+        $this->setIsTendenciesChoosen(false);
         $this->disadvantages = new ArrayCollection();
         $this->spheres = new ArrayCollection();
+        $this->setIsFinish(false);
+        $this->setIsValide(false);
     }
     
     
@@ -957,10 +991,12 @@ class ProphecyFigure implements FigureInterface
         return $this;
     }
     
+    /*
     public function getProhibited(): ?ProphecyProhibited
     {
         return $this->prohibited;
     }
+    */
     
     public function addCaracteristic($figureCaracteristic)
     {
@@ -1016,6 +1052,11 @@ class ProphecyFigure implements FigureInterface
     public function getSpheres()
     {
         return $this->spheres;
+    }
+    
+    public function getProhibiteds()
+    {
+        return $this->prohibiteds;
     }
     
     public function __toString(): ?string

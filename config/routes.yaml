@@ -180,6 +180,12 @@ available_games:
 
 ####### PROPHECY #######  
 
+## BOOKS ##
+
+prophecy_create_book:
+    path: /{role}/prophecy/new-book
+    controller: App\Controller\Game\Prophecy\Game\BookController::addProphecyBook
+
 ## START STATS ##
 
 setup_prophecy:     
@@ -415,6 +421,14 @@ prophecy_edit_initial_skills:
 prophecy_edit_initial_spheres:
     path: /member/figure/{id}/figure-edit-initial-spheres
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialSpheres 
+    
+prophecy_edit_initial_reputation:
+    path: /member/figure/{id}/figure-edit-initial-reputation
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialReputation 
+    
+prophecy_figure_player_validation:
+    path: /member/figure/{id}/figure-player-validation
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figurePlayerValidation
     
 formulaire:
     path: /form/{id}
