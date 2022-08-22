@@ -23,6 +23,8 @@ use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyFormFavourType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic;
 use App\Form\Game\Prophecy\Game\Caste\ProphecyTechnicFormType;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyInitialCurrencies;
+use App\Form\Game\Prophecy\Game\Caste\ProphecyInitialCurrenciesFormType;
 
 
 class CasteController extends AbstractController
@@ -448,6 +450,73 @@ class CasteController extends AbstractController
         }
         
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-technic')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
+    }
+    
+    public function newInitialCurrencies (Request $request, $role, $id)
+    {
+        $title = "nouvel argent de départ";
+        $initialCurrency = new ProphecyInitialCurrencies();
+        
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $initialCurrency->setCampaign($campaign);
+        $route = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyInitialCurrenciesFormType::class, $initialCurrency);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-initial-currencies' )
+        {
+            $route = 'setup_prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($initialCurrency);
+            $entityManager->flush();
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
+        }
+        
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-initial-currencies')
         {
             return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
                 'form' =>$form->createView(),

@@ -44,6 +44,11 @@ use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureSpheresFormType;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureReputationType;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureProhibited;
 use App\Form\Game\Prophecy\Figure\AddProphecyFigureProhibitedFormType;
+use App\Form\Game\Prophecy\Figure\AddProphecyFigureDisadvantageFormType;
+use App\Entity\Game\Prophecy\Figure\ProphecyFigureAdvantage;
+use App\Form\Game\Prophecy\Figure\AddProphecyFigureAdvantageFormType;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyInitialCurrencies;
+use App\Entity\Game\Roll;
 
 
 class FigureController extends AbstractController
@@ -580,43 +585,6 @@ class FigureController extends AbstractController
     }
     
     
-    
-    //VOIR PLUTOT LA METHODE CI DESSOUS
-    /*
-    public function figureEditInitialProhibited(Request $request, $id)
-    {
-        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
-        $figure = $figureRepository->find($id);
-        $caste = $figure->getCaste();
-        
-        $prohibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
-        $prohibiteds = $prohibitedRepository->findBy(['caste' => $caste]);
-        
-        
-        $form = $this->createForm(InitialiseProphecyFigureProhibitedFormType::class, $figure, [
-            'prohibiteds' => $prohibiteds,
-        ]);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($figure);
-            $entityManager->flush();
-            
-            return $this->redirectToRoute('prophecy_figure_view', [
-                'id' => $figure->getId(),
-            ]);
-        }
-        
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
-            'form' =>$form->createView(),
-            'figure' => $figure,
-        ]);
-    }
-    */
-    
-    //A FINIR
     public function figureEditInitialProhibited(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
@@ -694,14 +662,17 @@ class FigureController extends AbstractController
         $disadvantageRepository =  $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage');
         $disadvantagesList = new ArrayCollection();
         
-        $form = $this->createForm(EditProphecyDisadvantageFormType::class, $figure);
+        $figureDisadvantage = new ProphecyFigureDisadvantage();
+        $figureDisadvantage->setFigure($figure);
+        
+        $form = $this->createForm(AddProphecyFigureDisadvantageFormType::class, $figureDisadvantage );
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($figure);
+            $entityManager->persist($figureDisadvantage);
             $entityManager->flush();
             
             return $this->redirectToRoute('prophecy_figure_view', [
@@ -716,19 +687,77 @@ class FigureController extends AbstractController
         
     }
     
+    public function figureEditInitialAdvantages (Request $request, $id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        
+        $advantageRepository =  $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage');
+        $advantagesList = new ArrayCollection();
+        
+        $figureAdvantage = new ProphecyFigureAdvantage();
+        $figureAdvantage->setFigure($figure);
+        
+        $form = $this->createForm(AddProphecyFigureAdvantageFormType::class, $figureAdvantage );
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figureAdvantage);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+            'form' =>$form->createView(),
+            'figure' => $figure,
+        ]);
+    }
     
     /*
      * A FINIR
      * 
      */
-    public function figureGetInitialCurrencies($id)
+    public function figureEditInitialCurrencies($id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
+        $caste = $figure->getCaste();
+        $initialCurrenciesRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyInitialCurrencies');
+        $initialCurrency = $initialCurrenciesRepository->findOneBy(['caste' => $caste]); 
+        
+        $currency = $initialCurrency->getCurrency();
+        $roll = new Roll(10, 8); 
+        $value = $roll->getSum();
+        
+        $figureCurrencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency');
+        $figureCurrency = $figureCurrencyRepository->findOneBy(['figure' => $figure, 'currency' => $currency ]);
+        $figureCurrency->setCurrency($currency);
+        $figureCurrency->setFigure($figure);
+        $figureCurrency->setValue($value);
+        $figure->setIsInitialCurrenciesGenerated(true);
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($figureCurrency);
+        $entityManager->flush();
+        
+        $entityManager->persist($figure);
+        $entityManager->flush();
+        
+        
+        //return $this->render('test.html.twig', ['currency' => $currency->getName(), 'value' => $value]);
+        
         return $this->redirectToRoute('prophecy_figure_view', [
             'id' => $figure->getId(),
         ]);
+        
     }
     
     public function figureEditInitialSkills(Request $request, $id)
@@ -907,11 +936,11 @@ class FigureController extends AbstractController
             //'majorAttributes' => $majorAttributes,
             'minorAttributes' => $minorAttributes,
             //'tendencies' => $tendencies,
-            'skills' => $skills,
+            //'skills' => $skills,
             'skillCategories' => $skillcategories,
             'wounds' => $wounds,
-            'disciplines' => $disciplines,
-            'spheres' => $spheres,
+            //'disciplines' => $disciplines,
+            //'spheres' => $spheres,
         ]);
     }
        

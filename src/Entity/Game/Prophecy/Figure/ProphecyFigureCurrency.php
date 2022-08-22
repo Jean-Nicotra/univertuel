@@ -87,4 +87,6 @@ class ProphecyFigureCurrency
 
         return $this;
     }
+    
+
 }

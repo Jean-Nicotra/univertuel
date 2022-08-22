@@ -27,6 +27,7 @@ class ProphecyCaste
      */
     private $description;
     
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
      * @ORM\JoinColumn(nullable=true)

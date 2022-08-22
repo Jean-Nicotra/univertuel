@@ -206,11 +206,16 @@ class ProphecyFigure implements FigureInterface
     
     /**
      * Many Figures have many advantages.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage")
-     * @ORM\JoinTable(name="prophecy_figures_advantages",
+     * ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage")
+     * ORM\JoinTable(name="prophecy_figures_advantages",
      *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="advantage_id", referencedColumnName="id")}
      *      )
+     */
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureAdvantage", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $advantages;
     
@@ -218,11 +223,16 @@ class ProphecyFigure implements FigureInterface
     
     /**
      * Exemple de ManyToMany Simple
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage")
-     * @ORM\JoinTable(name="prophecy_figures_disadvantages",
+     * ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage")
+     * ORM\JoinTable(name="prophecy_figures_disadvantages",
      *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="disadvantage_id", referencedColumnName="id")}
      *      )
+     */
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureDisadvantage", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $disadvantages;
     
@@ -318,6 +328,13 @@ class ProphecyFigure implements FigureInterface
     private $isTendenciesChoosen;
     
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     *
+     */
+    private $isInitialCurrenciesGenerated;
+    
+   
+    /**
      * @ORM\Column(type="string", nullable=true, length="120")
      *
      */
@@ -336,6 +353,22 @@ class ProphecyFigure implements FigureInterface
     private $isValide;
    
     
+
+    /**
+     * @return mixed
+     */
+    public function getIsInitialCurrenciesGenerated()
+    {
+        return $this->isInitialCurrenciesGenerated;
+    }
+
+    /**
+     * @param mixed $isInitialCurrenciesGenerated
+     */
+    public function setIsInitialCurrenciesGenerated($isInitialCurrenciesGenerated)
+    {
+        $this->isInitialCurrenciesGenerated = $isInitialCurrenciesGenerated;
+    }
 
     /**
      * @return mixed
@@ -367,6 +400,8 @@ class ProphecyFigure implements FigureInterface
     public function setDisadvantagesComment($disadvantagesComment)
     {
         $this->disadvantagesComment = $disadvantagesComment;
+        
+        return $this;
     }
 
     /**
@@ -533,6 +568,7 @@ class ProphecyFigure implements FigureInterface
         $this->spheres = new ArrayCollection();
         $this->setIsFinish(false);
         $this->setIsValide(false);
+        $this->setIsInitialCurrenciesGenerated(false);
     }
     
     
@@ -735,6 +771,8 @@ class ProphecyFigure implements FigureInterface
     public function setCurrentMana(int $value)
     {
         $this->currentMana = $value;
+        
+        return $this;
     }
     
     /**
@@ -751,6 +789,8 @@ class ProphecyFigure implements FigureInterface
     public function setFreePoints($freePoints)
     {
         $this->freePoints = $freePoints;
+        
+        return $this;
     }
 
     public function getReputation(): ?int
@@ -761,6 +801,8 @@ class ProphecyFigure implements FigureInterface
     public function setReputation (int $reputation): self
     {
         $this->reputation = $reputation;
+        
+        return $this;
     }
     
     public function addWeapon(ProphecyWeapon $weapon)
@@ -856,11 +898,6 @@ class ProphecyFigure implements FigureInterface
         }
         
         return $this;
-    }
-    
-    public function getAdvantages()
-    {
-        return $this->advantages;
     }
     
     public function addDisadvantage(ProphecyDisadvantage $disadvantage)
@@ -1043,6 +1080,12 @@ class ProphecyFigure implements FigureInterface
     {
         return $this->disadvantages;
     }
+    
+    public function getAdvantages()
+    {
+        return $this->advantages;
+    }
+    
     
     public function getSkills()
     {

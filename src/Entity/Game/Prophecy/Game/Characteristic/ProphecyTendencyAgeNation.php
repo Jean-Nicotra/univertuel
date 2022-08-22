@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity\Game\Prophecy\Game\Characteristic;
- 
+  
 use App\Repository\Game\Prophecy\Game\Characteristic\ProphecyTendencyAgeNationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Prophecy\Game\World\ProphecyNation;

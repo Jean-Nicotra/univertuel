@@ -213,6 +213,10 @@ prophecy_create_benefit:
 prophecy_create_status:
     path: /{role}/campaign/{id}/prophecy/new-status
     controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newStatus
+    
+prophecy_create_initial_currencies:
+    path: /{role}/campaign/{id}/prophecy/new-initial-currencies
+    controller: App\Controller\Game\Prophecy\Game\Caste\CasteController::newInitialCurrencies
 
 prophecy_create_prohibited:
     path: /{role}/campaign/{id}/prophecy/new-prohibited
@@ -410,9 +414,13 @@ prophecy_edit_initial_disadvantages:
     path: /member/figure/{id}/figure-edit-initial-disadvantages
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialDisadvantages
     
+prophecy_edit_initial_advantages:
+    path: /member/figure/{id}/figure-edit-initial-advantages
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialAdvantages
+    
 prophecy_edit_initial_currencies:
     path: /member/figure/{id}/figure-edit-initial-currencies
-    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureGetInitialCurrencies
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCurrencies
     
 prophecy_edit_initial_skills:
     path: /member/figure/{id}/figure-edit-initial-skills

@@ -44,7 +44,7 @@ class ProphecyFigureDisadvantage
         return $this->figure;
     }
 
-    public function setFigure(int $figure): self
+    public function setFigure($figure): self
     {
         $this->figure = $figure;
 

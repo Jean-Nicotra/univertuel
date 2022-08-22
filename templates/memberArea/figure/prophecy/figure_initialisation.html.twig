@@ -167,18 +167,29 @@ endif %}	</ul>
 	
 	----------------- désavantages du personnage ----------------
 	<ul>etape 10
-	tendances choisies? {{ figure.isTendenciesChoosen }}
+
 	{% if figure.isTendenciesChoosen == false %}
 	
 	{% else %}
-		<li><label>inconvénients</label>cliquer ici pour choisir vos inconvénients<a href="{{ path('prophecy_edit_initial_disadvantages', {'id': figure.id}) }}">editer</a></li>
-	
+		{% for i in range (0,3) %}
+			<li><label>inconvénients</label>cliquer ici pour choisir vos inconvénients<a href="{{ path('prophecy_edit_initial_disadvantages', {'id': figure.id}) }}">editer</a></li>
+		{% endfor %}
 	{% endif %}
 	
 	</ul>
 	
 	----------------- avantages du personnage ----------------
 	etape 11
+
+	{% if figure.disadvantages | length == 0 %}
+	
+	{% else %}
+		{% for i in range (0,3) %}
+			<li><label>avantages</label>cliquer ici pour choisir vos avantages<a href="{{ path('prophecy_edit_initial_advantages', {'id': figure.id}) }}">editer</a></li>
+		{% endfor %}
+	{% endif %}
+	
+	</ul>
 	
 	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
 	
@@ -253,11 +264,16 @@ endif %}	</ul>
     		
     --------- équipement du personnage ------------
    
-   	<ul>étape 14   
-   	<li>cliquer ici pour générer votre richesse de départ<a href="{{ path('prophecy_edit_initial_currencies', {'id': figure.id}) }}">editer</a></li>
-   		{% for currency in figure.currencies %}
-		<li>{{ currency.currency.name }}{{ currency.value }}</li>
+
+   	<ul>étape 14  
+   	{% if figure.getIsInitialCurrenciesGenerated == true %}
+   	    {% for currency in figure.currencies %}
+			<li>{{ currency.currency.name }}{{ currency.value }}</li>
 		{% endfor %}
+   	  	
+   	{% else %}
+   	<li>cliquer ici pour générer votre richesse de départ<a href="{{ path('prophecy_edit_initial_currencies', {'id': figure.id}) }}">editer</a></li>
+	{% endif %}
 	</ul>
 	
 	<ul>armes
