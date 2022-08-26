@@ -430,9 +430,33 @@ prophecy_edit_initial_spheres:
     path: /member/figure/{id}/figure-edit-initial-spheres
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialSpheres 
     
+prophecy_edit_initial_mages_spells:
+    path: /member/figure/{id}/{sphere}/figure-edit-initial-mages-spells
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialMagesSpells    
+    
+prophecy_edit_additional_initial_spells:
+    path: /member/figure/{id}/{sphere}/figure-edit-initial-additional-spells
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditAdditionalInitialSpells 
+    
+prophecy_edit_initial_favour:     
+    path: /member/figure/{id}/figure-add-favour
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialFavour
+    
 prophecy_edit_initial_reputation:
     path: /member/figure/{id}/figure-edit-initial-reputation
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialReputation 
+    
+prophecy_edit_initial_weapons:
+    path: /member/figure/{id}/figure-edit-initial-weapons
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialWeapons
+    
+prophecy_edit_initial_armors:
+    path: /member/figure/{id}/figure-edit-initial-armors
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialArmors 
+    
+prophecy_edit_initial_shields:
+    path: /member/figure/{id}/figure-edit-initial-shields
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialShields
     
 prophecy_figure_player_validation:
     path: /member/figure/{id}/figure-player-validation

@@ -64,7 +64,7 @@ class ProphecyAdvantage
 
     public function getName(): ?string
     {
-        return ucfirst($this->name);
+        return $this->name;
     }
 
     public function setName(string $name): self

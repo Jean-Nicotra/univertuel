@@ -60,4 +60,9 @@ class ProphecyFigureAdvantage
 
         return $this;
     }
+    
+    public function __toString()
+    {
+        return $this->advantage->getName();
+    }
 }

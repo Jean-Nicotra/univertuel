@@ -25,7 +25,7 @@
 		
 	<ul>sortileges
 	    {% for spell in figure.spells %}
-		    <li><p>nom : {{ spell.name }}</p><p>sphere: {{ spell.sphere }}</p><p>cout :{{ spell.manaCost }}</p></li>
+		    <li><p>nom : {{ spell.spell.name }}</p><p>sphere: {{ spell.spell.sphere }}</p><p>cout :{{ spell.spell.manaCost }}</p></li>
 	    {% endfor %}
 	</ul>		
 		

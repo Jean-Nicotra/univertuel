@@ -19,7 +19,8 @@ class ProphecyFigureSpell
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * the figure object
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="spells")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
@@ -57,5 +58,10 @@ class ProphecyFigureSpell
         $this->spell = $spell;
 
         return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->spell->getName();
     }
 }

@@ -228,7 +228,7 @@ endif %}	</ul>
 	
 		--------- compétences de magie du personnage ------------
 		<ul>
-		{% if figure.disadvantages == null %}
+		{% if figure.disadvantages is empty %}
 		
 		{% elseif figure.disadvantages != null  %}
 			<li>cliquer ici pour modifier vos spheres de départ<a href="{{ path('prophecy_edit_initial_spheres', {'id': figure.id}) }}">editer</a></li>
@@ -239,8 +239,30 @@ endif %}	</ul>
 		{% endif %}
 		</ul>
 	
+		------------- sortilèges du personnage -----------------
+		
+		ATTention : seuls les mages ont droit de choisir des sorts gratuitement, toutes les autres castes doivent les acheter
+		
+	
+		<ul>sortilèges
+            {% for sphere in figure.spheres %}
+            {% if (sphere.value > 0) and (figure.caste.name is same as "Mages")  %} 
+            		<li>cliquer ici pour choisir vos sortilèges de départ<a href="{{ path('prophecy_edit_initial_mages_spells', {'id': figure.id, 'sphere':sphere.id}) }}">editer</a></li>
+            	{% endif %} 
+            {% endfor %}
+            {% for sphere in figure.spheres %}
+            {% if (sphere.value > 0) %} 
+            		<li>cliquer ici pour acheter des sorts supplémentaires<a href="{{ path('prophecy_edit_additional_initial_spells', {'id': figure.id, 'sphere':sphere.id}) }}">editer</a></li>
+            	{% endif %} 
+            {% endfor %}	
+			
+		</ul>
+	
 		--------- privilèges de caste du personnage ------------
 		
+		<ul>
+			<li>cliquer ici pour ajouter des privilèges de caste à ton personnage<a href="{{ path('prophecy_edit_initial_favour', {'id': figure.id}) }}">editer</a></li>
+		</ul>
 	
 		----------------- renommée du personnage ----------------
 	
@@ -272,20 +294,20 @@ endif %}	</ul>
 		{% endfor %}
    	  	
    	{% else %}
-   	<li>cliquer ici pour générer votre richesse de départ<a href="{{ path('prophecy_edit_initial_currencies', {'id': figure.id}) }}">editer</a></li>
+   		<li>cliquer ici pour générer votre richesse de départ<a href="{{ path('prophecy_edit_initial_currencies', {'id': figure.id}) }}">editer</a></li>
 	{% endif %}
 	</ul>
 	
 	<ul>armes
-		<li> <a href ="">cliquez ici pour acquérir vos armes de base</a></li>
+		<li>cliquer ici pour vos armes de départ<a href="{{ path('prophecy_edit_initial_weapons', {'id': figure.id}) }}">editer</a></li>
 	</ul>
 
 	<ul>armures
-		<li><a href ="">cliquez ici pour acquérir vos armures de base</a></li>
+		<li>cliquer ici pour vos armes de départ<a href="{{ path('prophecy_edit_initial_armors', {'id': figure.id}) }}">editer</a></li>
 	</ul>
 	
 	<ul>bouclier
-		<li> <a href ="">cliquez ici pour acquérir vos bouclier de base</a></li>
+		<li>cliquer ici pour vos boucliers de départ<a href="{{ path('prophecy_edit_initial_shields', {'id': figure.id}) }}">editer</a></li>
 	</ul>
 	
 	<ul>divers

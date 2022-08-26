@@ -159,32 +159,20 @@ class ProphecyFigure implements FigureInterface
     private $spheres;
     
     /**
-     * Many Figures have many weapons.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Item\ProphecyWeapon")
-     * @ORM\JoinTable(name="prophecy_figures_weapons",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="weapon_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureWeapon", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $weapons;
     
     /**
-     * Many Figures have many armors.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Item\ProphecyArmor")
-     * @ORM\JoinTable(name="prophecy_figures_armors",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="armor_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureArmor", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $armors;
     
     /**
-     * Many Figures have many shields.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Item\ProphecyShield")
-     * @ORM\JoinTable(name="prophecy_figures_shields",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="shield_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureArmor", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $shields;
     
@@ -195,24 +183,12 @@ class ProphecyFigure implements FigureInterface
     private $currencies;
     
     /**
-     * Many Figures have many spells.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Magic\ProphecySpell")
-     * @ORM\JoinTable(name="prophecy_figures_spells",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="spell_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureSpell", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $spells;
     
-    /**
-     * Many Figures have many advantages.
-     * ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage")
-     * ORM\JoinTable(name="prophecy_figures_advantages",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="advantage_id", referencedColumnName="id")}
-     *      )
-     */
-    
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureAdvantage", mappedBy="figure")
      * @ORM\JoinColumn(nullable=true)
@@ -253,12 +229,8 @@ class ProphecyFigure implements FigureInterface
     private $technics;
     
     /**
-     * Many Figures have many favours.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour")
-     * @ORM\JoinTable(name="prophecy_figures_favours",
-     *      joinColumns={@ORM\JoinColumn(name="figure_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="favour_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureFavour", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $favours;
     
@@ -825,10 +797,6 @@ class ProphecyFigure implements FigureInterface
         return $this;
     }
     
-    public function getWeapons()
-    {
-        return $this->weapons;
-    }
     
     public function addArmor(ProphecyArmor $armor)
     {
@@ -850,10 +818,6 @@ class ProphecyFigure implements FigureInterface
         return $this;
     }
     
-    public function getArmors()
-    {
-        return $this->armors;
-    }
     
     public function addSpell(ProphecySpell $spell)
     {
@@ -873,11 +837,6 @@ class ProphecyFigure implements FigureInterface
         }
         
         return $this;
-    }
-    
-    public function getSpells()
-    {
-        return $this->spells;
     }
     
     public function addAdvantage(ProphecyAdvantage $advantage)
@@ -941,10 +900,6 @@ class ProphecyFigure implements FigureInterface
         return $this;
     }
     
-    public function getShields()
-    {
-        return $this->shields;
-    }
     
     public function addTehnic(ProphecyTechnic $technic)
     {
@@ -1097,9 +1052,29 @@ class ProphecyFigure implements FigureInterface
         return $this->spheres;
     }
     
+    public function getSpells()
+    {
+        return $this->spells;
+    }
+    
     public function getProhibiteds()
     {
         return $this->prohibiteds;
+    }
+    
+    public function getWeapons ()
+    {
+        return $this->weapons;
+    }
+    
+    public function getArmors ()
+    {
+        return $this->armors;
+    }
+    
+    public function getShields()
+    {
+        return $this->shields;
     }
     
     public function __toString(): ?string
