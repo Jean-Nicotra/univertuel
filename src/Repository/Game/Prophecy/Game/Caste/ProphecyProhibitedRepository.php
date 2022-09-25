@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 
 /**
  * @method ProphecyProhibited|null find($id, $lockMode = null, $lockVersion = null)
@@ -45,22 +47,22 @@ class ProphecyProhibitedRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return ProphecyProhibited[] Returns an array of ProphecyProhibited objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return ProphecyProhibited[] Returns an array of ProphecyProhibited objects
+      */
+    public function findByCasteCampaign($caste, $campaign): ?array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->Where('p.caste = :caste AND p.campaign  IS NULL')
+            ->orWhere('p.caste = :caste AND p.campaign = :campaign')
+            ->setParameter('caste', $caste)
+            ->setParameter('campaign', $campaign)
+            ->orderBy('p.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?ProphecyProhibited

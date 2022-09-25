@@ -171,7 +171,7 @@ class ProphecyFigure implements FigureInterface
     private $armors;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureArmor", mappedBy="figure")
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureShield", mappedBy="figure")
      * @ORM\JoinColumn(nullable=true)
      */
     private $shields;
@@ -274,6 +274,13 @@ class ProphecyFigure implements FigureInterface
      *
      */
     private $disadvantagesComment;
+   
+    
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     */
+    private $isProhibitedsChosen;
     
     /**
      * @ORM\Column(type="boolean")
@@ -299,6 +306,7 @@ class ProphecyFigure implements FigureInterface
      */
     private $isTendenciesChoosen;
     
+       
     /**
      * @ORM\Column(type="boolean", nullable=true)
      *
@@ -326,21 +334,7 @@ class ProphecyFigure implements FigureInterface
    
     
 
-    /**
-     * @return mixed
-     */
-    public function getIsInitialCurrenciesGenerated()
-    {
-        return $this->isInitialCurrenciesGenerated;
-    }
-
-    /**
-     * @param mixed $isInitialCurrenciesGenerated
-     */
-    public function setIsInitialCurrenciesGenerated($isInitialCurrenciesGenerated)
-    {
-        $this->isInitialCurrenciesGenerated = $isInitialCurrenciesGenerated;
-    }
+   
 
     /**
      * @return mixed
@@ -376,79 +370,6 @@ class ProphecyFigure implements FigureInterface
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIsTendenciesChoosen(): ?bool
-    {
-        return $this->isTendenciesChoosen;
-    }
-
-    /**
-     * @param mixed $isTendenciesChoosen
-     */
-    public function setIsTendenciesChoosen($isTendenciesChoosen): self
-    {
-        $this->isTendenciesChoosen = $isTendenciesChoosen;
-        
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIsMajorAttributesChoosen(): ?bool
-    {
-        return $this->isMajorAttributesChoosen;
-    }
-
-    /**
-     * @param mixed $isMajorAttributesChoosen
-     */
-    public function setIsMajorAttributesChoosen($isMajorAttributesChoosen): self
-    {
-        $this->isMajorAttributesChoosen = $isMajorAttributesChoosen;
-        
-        return $this;
-    }
-    
-    
-    /**
-     * @return mixed
-     */
-    public function getIsMinorAttributesChoosen(): ?bool
-    {
-        return $this->isMinorAttributesChoosen;
-    }
-    
-    /**
-     * @param mixed $isMajorAttributesChoosen
-     */
-    public function setIsMinorAttributesChoosen($isMinorAttributesChoosen): self
-    {
-        $this->isMinorAttributesChoosen = $isMinorAttributesChoosen;
-        
-        return $this;
-    }
-    
-
-    /**
-     * @return mixed
-     */
-    public function getIsCaracteristicsChoosen(): ?bool
-    {
-        return $this->isCaracteristicsChoosen;
-    }
-
-    /**
-     * @param mixed $isCaracteristicsChoosen
-     */
-    public function setIsCaracteristicsChoosen($isCaracteristicsChoosen): self
-    {
-        $this->isCaracteristicsChoosen = $isCaracteristicsChoosen;
-        
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -479,9 +400,19 @@ class ProphecyFigure implements FigureInterface
     /**
      * @param mixed $advantagePoints
      */
-    public function setAdvantagePoints($advantagePoints): self
+    public function setRemoveAdvantagePoints ($points): self
     {
-        $this->advantagePoints = $advantagePoints;
+        $this->advantagePoints -= $points;    
+        
+        return $this;
+    }
+    
+    /**
+     * @param mixed $advantagePoints
+     */
+    public function setAddAdvantagePoints ($points): self
+    {
+        $this->advantagePoints += $points;
         
         return $this;
     }
@@ -1077,6 +1008,153 @@ class ProphecyFigure implements FigureInterface
         return $this->shields;
     }
     
+    public function isAgeChosen(): ?bool
+    {
+        $isChosen = false;
+        if($this->getAge() != null)
+        {
+            $isChosen = true;
+        }
+        return $isChosen;
+    }
+    
+    public function isAugureChosen (): ?bool
+    {
+        $isChosen = false;
+        if($this->getOmen() != null)
+        {
+            $isChosen = true;
+        }
+        return $isChosen;
+    }
+    
+    public function isCasteChosen (): ?bool
+    {
+        $isChosen = false;
+        if($this->getCaste() != null)
+        {
+            $isChosen = true;
+        }
+        return $isChosen;
+    }
+    
+    
+    /**
+     * @return mixed
+     */
+    public function getIsProhibitedsChosen()
+    {
+        return $this->isProhibitedsChosen;
+    }
+    
+    /**
+     * @param mixed $isProhibitedsChosen
+     */
+    public function setIsProhibitedsChosen($isProhibitedsChosen)
+    {
+        $this->isProhibitedsChosen = $isProhibitedsChosen;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getIsCaracteristicsChoosen(): ?bool
+    {
+        return $this->isCaracteristicsChoosen;
+    }
+    
+    /**
+     * @param mixed $isCaracteristicsChoosen
+     */
+    public function setIsCaracteristicsChoosen($isCaracteristicsChoosen): self
+    {
+        $this->isCaracteristicsChoosen = $isCaracteristicsChoosen;
+        
+        return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getIsTendenciesChoosen(): ?bool
+    {
+        return $this->isTendenciesChoosen;
+    }
+    
+    /**
+     * @param mixed $isTendenciesChoosen
+     */
+    public function setIsTendenciesChoosen($isTendenciesChoosen): self
+    {
+        $this->isTendenciesChoosen = $isTendenciesChoosen;
+        
+        return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getIsMajorAttributesChoosen(): ?bool
+    {
+        return $this->isMajorAttributesChoosen;
+    }
+    
+    /**
+     * @param mixed $isMajorAttributesChoosen
+     */
+    public function setIsMajorAttributesChoosen($isMajorAttributesChoosen): self
+    {
+        $this->isMajorAttributesChoosen = $isMajorAttributesChoosen;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * @return mixed
+     */
+    public function getIsMinorAttributesChoosen(): ?bool
+    {
+        return $this->isMinorAttributesChoosen;
+    }
+    
+    /**
+     * @param mixed $isMajorAttributesChoosen
+     */
+    public function setIsMinorAttributesChoosen($isMinorAttributesChoosen): self
+    {
+        $this->isMinorAttributesChoosen = $isMinorAttributesChoosen;
+        
+        return $this;
+    }
+    
+    public function isNationChosen (): ?bool
+    {
+        $isChosen = false;
+        if($this->getNation() != null)
+        {
+            $isChosen = true;
+        }
+        return $isChosen;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getIsInitialCurrenciesGenerated()
+    {
+        return $this->isInitialCurrenciesGenerated;
+    }
+    
+    /**
+     * @param mixed $isInitialCurrenciesGenerated
+     */
+    public function setIsInitialCurrenciesGenerated($isInitialCurrenciesGenerated)
+    {
+        $this->isInitialCurrenciesGenerated = $isInitialCurrenciesGenerated;
+    }
+    
+    
     public function __toString(): ?string
     {
         return $this->getName();
@@ -1090,5 +1168,10 @@ class ProphecyFigure implements FigureInterface
 
     public function getCurrentPoints()
     {}
+    
+    public function decreaseXperience($value)
+    {
+        $this->xperience -= $value;
+    }
 
 }

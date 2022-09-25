@@ -7,20 +7,20 @@
 
 <ul>armes
 	{% for weapon in figure.weapons %}
-		<li><p>nom : {{ weapon.name }}</p>degats : <p>{{ weapon.damages }}</p></li>
+		<li><p>nom : {{ weapon.weapon.name }}</p>degats : <p>{{ weapon.weapon.damages }}</p></li>
 	{% endfor %}
 </ul>
 
 <ul>armures
 	{% for armor in figure.armors %}
-		<li><p>nom : {{ armor.name }}</p><p>protection : {{ armor.protection }}</p></li>
+		<li><p>nom : {{ armor.armor.name }}</p><p>protection : {{ armor.armor.protection }}</p></li>
 	{% endfor %}
 </ul>
 
 
 <ul>bouclier
 	{% for shield in figure.shields %}
-		<li><p>nom : {{ shield.name }}</p><p>protection : {{ shield.protection }}</p></li>
+		<li><p>nom : {{ shield.shield.name }}</p><p>protection : {{ shield.shield.protection }}</p></li>
 	{% endfor %}
 </ul>
 

@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Game\Prophecy\Game\Magic\ProphecySphere;
+use App\Entity\Game\Campaign;
 
 /**
  * @method ProphecySpell|null find($id, $lockMode = null, $lockVersion = null)
@@ -43,6 +45,20 @@ class ProphecySpellRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+    
+    
+    public function findBySphereCampaign($campaign,$sphere): ?array
+    {
+        return $this->createQueryBuilder('s')
+        ->Where('s.sphere = :sphere AND s.campaign  IS NULL')
+        ->orWhere('s.sphere = :sphere AND s.campaign = :campaign')
+        ->setParameter('sphere', $sphere)
+        ->setParameter('campaign', $campaign)
+        ->orderBy('s.name', 'ASC')
+        ->getQuery()
+        ->getResult()
+        ;
     }
 
     // /**

@@ -45,6 +45,21 @@ class ProphecyFavourRepository extends ServiceEntityRepository
         }
     }
 
+    
+    public function findByFavourCampaign($caste, $campaign): ?array
+    {
+        return $this->createQueryBuilder('f')
+        ->Where('f.caste = :caste AND f.campaign  IS NULL')
+        ->orWhere('f.caste = :caste AND f.campaign = :campaign')
+        ->setParameter('caste', $caste)
+        ->setParameter('campaign', $campaign)
+        ->orderBy('f.name', 'ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
+    
     // /**
     //  * @return ProphecyFavour[] Returns an array of prophecyFavour objects
     //  */

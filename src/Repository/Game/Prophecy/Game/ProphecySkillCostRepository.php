@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Repository\Game\Prophecy\Figure;
+namespace App\Repository\Game\Prophecy\Game;
 
-use App\Entity\Game\Prophecy\Figure\ProphecyFigureWeapon;
+use App\Entity\Game\Prophecy\Game\ProphecySkillCost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-  
+
 /**
- * @method ProphecyFigureWeapon|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProphecyFigureWeapon|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProphecyFigureWeapon[]    findAll()
- * @method ProphecyFigureWeapon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PrphecySkillCost|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PrphecySkillCost|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PrphecySkillCost[]    findAll()
+ * @method PrphecySkillCost[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProphecyFigureWeaponRepository extends ServiceEntityRepository
+class ProphecySkillCostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProphecyFigureWeapon::class);
+        parent::__construct($registry, ProphecySkillCost::class);
     }
-
+ 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(ProphecyFigureWeapon $entity, bool $flush = true): void
+    public function add(ProphecySkillCost $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class ProphecyFigureWeaponRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(ProphecyFigureWeapon $entity, bool $flush = true): void
+    public function remove(ProphecySkillCost $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class ProphecyFigureWeaponRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return ProphecyFigureWeapon[] Returns an array of ProphecyFigureWeapons objects
+    //  * @return ProphecySkillCost[] Returns an array of ProphecySkillCost objects
     //  */
     /*
     public function findByExampleField($value)
@@ -61,9 +61,9 @@ class ProphecyFigureWeaponRepository extends ServiceEntityRepository
         ;
     }
     */
-
+ 
     /*
-    public function findOneBySomeField($value): ?ProphecyFigureWeapon
+    public function findOneBySomeField($value): ?ProphecySkillCost
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

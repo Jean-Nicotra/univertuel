@@ -61,6 +61,8 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigureArmor;
 use App\Form\Game\Prophecy\Figure\AddProphecyFigureArmorFormType;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureShield;
 use App\Form\Game\Prophecy\Figure\AddProphecyFigureShieldFormType;
+use App\Entity\Game\Campaign;
+use App\Entity\Game\Prophecy\Game\ProphecySkillCost;
 
 
 class FigureController extends AbstractController
@@ -606,9 +608,11 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         $caste = $figure->getCaste();
+        $campaign = $figure->getCampaign();
+
         
         $prohibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
-        $prohibitedsList = $prohibitedRepository->findBy(['caste' => $caste]);
+        $prohibitedsList = $prohibitedRepository->findByCasteCampaign($caste, $campaign);
         
         $figureProhibited = new ProphecyFigureProhibited();
         $figureProhibited->setFigure($figure);
@@ -671,6 +675,8 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
+        $advantagePoints = 0;
+        
         $age = $figure->getAge();
         $ageDisadvantagesRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage');
         $ageDisadvantagesList = $ageDisadvantagesRepository->findBy(['age' => $age ]);
@@ -691,6 +697,11 @@ class FigureController extends AbstractController
             $entityManager->persist($figureDisadvantage);
             $entityManager->flush();
             
+            $advantagePoints = $figureDisadvantage->getDisadvantage()->getInitialCost();
+            $figure->setAddAdvantagePoints ($advantagePoints);
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId(),
             ]);
@@ -699,10 +710,13 @@ class FigureController extends AbstractController
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
+            'ageDisadvantagesList' => $ageDisadvantagesList
         ]);
         
     }
     
+    //general accessible a tous, enfants uniquement enfants et adolescents, venerables uniquement anciens et venerables
+    //
     public function figureEditInitialAdvantages (Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
@@ -723,6 +737,11 @@ class FigureController extends AbstractController
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figureAdvantage);
+            $entityManager->flush();
+            
+            $advantagePoints = $figureAdvantage->getAdvantage()->getInitialCost();
+            $figure->setRemoveAdvantagePoints ($advantagePoints);
+            $entityManager->persist($figure);
             $entityManager->flush();
             
             return $this->redirectToRoute('prophecy_figure_view', [
@@ -784,11 +803,27 @@ class FigureController extends AbstractController
         $form = $this->createForm(InitialiseProphecyFigureSkillFormType::class, $figure);       
         $form->handleRequest($request);
         
+        $costSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\ProphecySkillCost');
+        
         if ($form->isSubmitted() && $form->isValid())
         {
+            /*
+            $skills = $figure->getSkills();
+            foreach($skills as $skill)
+            {
+                if($skill > 0)
+                {
+                    //$costSkill = new ProphecySkillCost();
+                    //$cost = $costSkillRepository->findOneBy(['score' => $skill->getSkill()]);
+                }
+            }
+            */
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
+            
+            
             
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId(),
@@ -854,19 +889,25 @@ class FigureController extends AbstractController
         ]);
     }
     
+    //les sorts sont gratuits
     public function figureEditInitialMagesSpells (Request $request, $id, $sphere)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
+        $campaign = $figure->getCampaign();
          
         //pour alimenter la liste des choix
         $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
+        $spellRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
         $prophecySphere = $sphereRepository->find($sphere);
+        $spellsList = $spellRepository->findBySphereCampaign($campaign, $prophecySphere);
        
         $figureSpell = new ProphecyFigureSpell();
         $figureSpell->setFigure($figure);
         
-        $form = $this->createForm(AddProphecyFigureMageInitialSpellFormType::class, $figureSpell);
+        $form = $this->createForm(AddProphecyFigureMageInitialSpellFormType::class, $figureSpell, [
+            'spellsList' => $spellsList
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -887,19 +928,25 @@ class FigureController extends AbstractController
         
     }
     
+    //les sorts se paient
     public function figureEditAdditionalInitialSpells (Request $request, $id, $sphere)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
+        $campaign = $figure->getCampaign();
         
         //pour alimenter la liste des choix
         $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
+        $spellRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
         $prophecySphere = $sphereRepository->find($sphere);
+        $spellsList = $spellRepository->findBySphereCampaign($prophecySphere, $campaign);
         
         $figureSpell = new ProphecyFigureSpell();
         $figureSpell->setFigure($figure);
         
-        $form = $this->createForm(AddProphecyFigureMageInitialSpellFormType::class, $figureSpell);
+        $form = $this->createForm(AddProphecyFigureMageInitialSpellFormType::class, $figureSpell, [
+            'spellsList' => $spellsList
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -923,11 +970,18 @@ class FigureController extends AbstractController
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
+        $campaign = $figure->getCampaign();
+        $caste = $figure->getCaste();
         
         $figureFavour = new ProphecyFigureFavour();
         $figureFavour->setFigure($figure);
         
-        $form = $this->createForm(AddProphecyFigureInitialFavourFormType::class, $figureFavour);
+        $favourRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour');
+        $FavoursList = $favourRepository->findByFavourCampaign($caste, $campaign);
+        
+        $form = $this->createForm(AddProphecyFigureInitialFavourFormType::class, $figureFavour, [
+            'favoursList' => $FavoursList
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -980,6 +1034,8 @@ class FigureController extends AbstractController
         
         $figureWeapon = new ProphecyFigureWeapon();
         $figureWeapon->setFigure($figure);
+        
+        $figureWeapon = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWeapon');
         
         $form = $this->createForm(AddProphecyFigureWeaponFormType::class, $figureWeapon);
         $form->handleRequest($request);
@@ -1059,7 +1115,7 @@ class FigureController extends AbstractController
     
     
     //SERT A INDIQUER QUE L USER A VALIDE SON PERSONNAGE ET QU IL EST PRET A ETRE CONTROLE ET VALIDE PAR LE MJ A FINIR
-    public function figurePlayerValidation(Request $request, $id)
+    public function figurePlayerValidation($id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
@@ -1077,6 +1133,23 @@ class FigureController extends AbstractController
             'id' => $figure->getId(),
         ]);
         
+    }
+    
+    public function figureMasterValidation ($id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        //validation du personnage par le game master
+        $figure->setIsValide(true);
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($figure);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('prophecy_figure_view', [
+            'id' => $figure->getId(),
+        ]);
     }
     
     public function figureView ($id)
@@ -1136,6 +1209,184 @@ class FigureController extends AbstractController
             'wounds' => $wounds,
             //'disciplines' => $disciplines,
             //'spheres' => $spheres,
+        ]);
+    }
+    
+    public function figureDelete($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $figureMainRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Figure');
+        $mainFigure = $figureMainRepository->findOneBy(['figure' => $figure->getId(), 'campaign' => $figure->getCampaign()]);
+        $entityManager->remove($mainFigure);
+        
+        $figureAdvantageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureAdvantage');
+        $figureAdvantages = $figureAdvantageRepository->findBy(['figure' => $figure]);
+        foreach ($figureAdvantages as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureArmorRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureArmor');
+        $figureArmors = $figureArmorRepository->findBy(['figure' => $figure]);
+        foreach ($figureArmors as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
+        $figureCaracteristics = $figureCaracteristicRepository->findBy(['figure' => $figure]);
+        foreach ($figureCaracteristics as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureCurrencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCurrency');
+        $figureCurrencies = $figureCurrencyRepository->findBy(['figure' => $figure]);
+        foreach ($figureCurrencies as $element)
+        {
+            $entityManager->remove($element);
+        }
+              
+        $figureDisadvantageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureDisadvantage');
+        $figureDisadvantages =  $figureDisadvantageRepository->findBy(['figure' => $figure]);
+        foreach ($figureDisadvantages as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureDisciplineRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureDiscipline');
+        $figureDisciplines = $figureDisciplineRepository->findBy(['figure' => $figure]);
+        foreach ($figureDisciplines as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureFavourRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureFavour');
+        $figureFavours = $figureFavourRepository->findBy(['figure' => $figure]);
+        foreach ($figureFavours as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
+        $figureMajorAttributes = $figureMajorAttributeRepository->findBy(['figure' => $figure]);
+        foreach ($figureMajorAttributes as $element)
+        {
+            $entityManager->remove($element);
+        } 
+        
+        $figureMinorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMinorAttribute');
+        $figureMinorAttributes = $figureMinorAttributeRepository->findBy(['figure' => $figure]);
+        foreach ($figureMinorAttributes as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureProhibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureProhibited');
+        $figureProhibiteds = $figureProhibitedRepository->findBy(['figure' => $figure]);
+        foreach ($figureProhibiteds as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureShieldRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureShield');
+        $figureShields = $figureShieldRepository->findBy(['figure' => $figure]);
+        foreach ($figureShields as $element)
+        {
+            $entityManager->remove($element);
+        }
+        
+        $figureSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill');
+        $figureSkills = $figureSkillRepository->findBy(['figure' => $figure]);
+        foreach ($figureSkills as $element)
+        {
+            $entityManager->remove($element);
+        }    
+        
+        $figureSpellRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSpell');
+        $figureSpells = $figureSpellRepository->findBy(['figure' => $figure]);
+        foreach ($figureSpells as $element)
+        {
+            $entityManager->remove($element);
+        }   
+        
+        $figureSphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere');
+        $figureSpheres = $figureSphereRepository->findBy(['figure' => $figure]);
+        foreach ($figureSpheres as $element)
+        {
+            $entityManager->remove($element);
+        }   
+        
+        $figureTendencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureTendency');
+        $figureTendencies = $figureTendencyRepository->findBy(['figure' => $figure]);
+        foreach ($figureTendencies as $element)
+        {
+            $entityManager->remove($element);
+        } 
+        
+        $figureWeaponRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWeapon');
+        $figureWeapons = $figureWeaponRepository->findBy(['figure' => $figure]);
+        foreach ($figureWeapons as $element)
+        {
+            $entityManager->remove($element);
+        } 
+        
+        $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
+        $figureWounds = $figureWoundRepository->findBy(['figure' => $figure]);
+        foreach ($figureWounds as $element)
+        {
+            $entityManager->remove($element);
+        } 
+        
+        $logRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Log\Log');
+        $logs = $logRepository->findBy(['figure' => $figure]);
+        foreach ($figureWounds as $element)
+        {
+            $entityManager->remove($element);
+        } 
+        
+        $entityManager->remove($figure);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('member_homepage');
+    }
+    
+    public function figureTest ($id, Request $request)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        
+        $limitSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\ProphecyStartSkill');
+        $figureAge = $figure->getAge();
+        $limitSkill = $limitSkillRepository->findOneBy(['age' => $figureAge]);
+        $limit = $limitSkill->getValue();
+        
+        $form = $this->createForm(InitialiseProphecyFigureSkillFormType::class, $figure, ['limit' => $limit]);
+        $form->handleRequest($request);
+        
+        $costSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\ProphecySkillCost');
+        $skills = $figure->getSkills();
+        
+        $costSkill = new ProphecySkillCost();
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {          
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();                  
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
+            ]);
+        }
+        
+        return $this->render('test.html.twig' ,[
+            'form' =>$form->createView(),
+            'figure' => $figure,
         ]);
     }
        

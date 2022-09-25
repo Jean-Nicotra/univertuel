@@ -15,6 +15,10 @@ use App\Form\Game\Prophecy\Game\ProphecyXPIncreaseFormType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Game\Prophecy\Game\ProphecyStartCaracteristic;
 use App\Form\Game\Prophecy\Game\ProphecyStartCaracteristicsFormType;
+use App\Entity\Game\Prophecy\Game\ProphecySkillCost;
+use App\Form\Game\Prophecy\Game\ProphecySkillCostType;
+use App\Entity\Game\Prophecy\Game\ProphecyStartSkill;
+use App\Form\Game\Prophecy\Game\ProphecyStartSkillLimitFormType;
 
 class StatsInitController extends AbstractController
 {
@@ -163,6 +167,147 @@ class StatsInitController extends AbstractController
         }
         
         if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-start-caracteristics')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
+    }
+    
+    
+    /**
+     * role: 
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function newCostLevelup(Request $request, $role, $id)
+    {
+        $skillCost = new ProphecySkillCost();
+        $title = "caractéristiques de départ";
+        
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $skillCost->setCampaign($campaign);
+        $route = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecySkillCostType::class, $skillCost);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-cost-levelup' )
+        {
+            $route = 'setup_prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($skillCost);
+            $entityManager->flush();
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
+        }
+        
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-cost-levelup')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
+    }
+    
+    public function newInitialSkillLimit (Request $request, $role, $id)
+    {
+        $maxSkill = new ProphecyStartSkill();
+        $title = "limite du niveau de compétences de départ";
+        
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $maxSkill->setCampaign($campaign);
+        $route = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyStartSkillLimitFormType::class, $maxSkill);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/initial-skill-limit' )
+        {
+            $route = 'setup_prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($maxSkill);
+            $entityManager->flush();
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
+        }
+        
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/initial-skill-limit')
         {
             return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
                 'form' =>$form->createView(),

@@ -12,12 +12,12 @@
     </ul>	
     
     ----------------- interdits du personnage ----------------
-    <ul>interdits LES INTERDITS NE SONT PAS ENCORE GERES
-        {#
+    <ul>
+        
         {% for prohibited in figure.prohibiteds %}
-    		<li><p>nom : {{ prohibited.name }}</p><p>description : {{ prohibited.description }}</p></li>
+    		<li><p>nom : {{ prohibited.prohibited.name }}</p><p>description : {{ prohibited.prohibited.description }}</p></li>
     	{% endfor %}
-    	#}
+    	
     </ul>
     
     ----------------- bénéfices du personnage ----------------
@@ -37,7 +37,7 @@
     ----------------- privilèges du personnage ----------------
     <ul>privilèges
     	{% for favour in figure.favours %}
-    		<li><p>nom : {{ favour.name }}</p><p>description : {{ favour.description }}</p></li>
+    		<li><p>nom : {{ favour.favour.name }}</p><p>description : {{ favour.favour.description }}</p></li>
     	{% endfor %}
     </ul>
 		

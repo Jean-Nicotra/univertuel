@@ -35,6 +35,7 @@ class ProphecyStartSkill
      * @ORM\Column(type="integer")
      */
     private $value;
+    
 
     public function getId(): ?int
     {

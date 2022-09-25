@@ -5,6 +5,11 @@
 	
 	{% block content_campaign %}
 		{{ msg }}
+		<ul>
+		{% for figure in figures %}
+			<li><a href="{{ path('figure_find', {'id': figure.figure, 'game': figure.campaign.game.id}) }}">{{ figure.name }}</a></li>
+		{% endfor %}
+		</ul>
 	{% endblock %}
 		
 

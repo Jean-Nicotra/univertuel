@@ -9,13 +9,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Magic\ProphecySpell;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AddProphecyFigureMageInitialSpellFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
+        $spellsList = $options['spellsList'];
         
+        $builder
+            /*
             ->add('spell', EntityType::class, [
                 'label' => 'sortimlège',
                 'class' => ProphecySpell::class,
@@ -23,6 +26,13 @@ class AddProphecyFigureMageInitialSpellFormType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ])
+            */
+            ->add('spell', ChoiceType::class, [
+                'label' => 'spell',
+                'choices' => $spellsList,
+                'choice_label' => 'name',
+            ])
+            
             ->add('valider', SubmitType::class)
         ;
     }
@@ -32,5 +42,6 @@ class AddProphecyFigureMageInitialSpellFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigureSpell::class,
         ]);
+        $resolver->setRequired('spellsList');
     }
 }

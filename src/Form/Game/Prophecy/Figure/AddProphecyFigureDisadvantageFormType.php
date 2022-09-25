@@ -9,13 +9,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AddProphecyFigureDisadvantageFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //$ageDisadvantagesList = $options['ageDisadvantagesList'];
         $builder
-
+            
             ->add('disadvantage', EntityType::class, [
                 'label' => 'désavantage',
                 'class' => ProphecyDisadvantage::class,
@@ -23,6 +25,13 @@ class AddProphecyFigureDisadvantageFormType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ])
+            /*
+            >add('disadvantage', ChoiceType::class, [
+                'label' => 'désavantage',
+                'choices' => $prohibiteds,
+                'choice_label' => 'name',
+            ])
+            */
             
             ->add('valider', SubmitType::class )
         ;
@@ -33,5 +42,6 @@ class AddProphecyFigureDisadvantageFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigureDisadvantage::class,
         ]);
+        //$resolver->setRequired('ageDisadvantagesList');
     }
 }

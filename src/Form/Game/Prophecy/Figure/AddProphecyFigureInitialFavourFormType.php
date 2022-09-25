@@ -9,19 +9,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AddProphecyFigureInitialFavourFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $favoursList = $options['favoursList'];
+        
         $builder
-     
-            ->add('favour', EntityType::class, [
-                'label' => 'privilège',
-                'class' => ProphecyFavour::class,
+
+            ->add('favour', ChoiceType::class, [
+                'label' => 'interdit',
+                'choices' => $favoursList,
                 'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
             ])
             ->add('valider', SubmitType::class)
         ;
@@ -32,5 +33,6 @@ class AddProphecyFigureInitialFavourFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigureFavour::class,
         ]);
+        $resolver->setRequired('favoursList');
     }
 }

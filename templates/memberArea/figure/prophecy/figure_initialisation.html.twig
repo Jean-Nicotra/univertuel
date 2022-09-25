@@ -7,7 +7,7 @@
     		<p>la création du personnage n'est pas encore terminée</p>
 
     	{% endif %}
-    		
+    		<a href="{{ path('prophecy_figure_delete', {'id': figure.id}) }}" onclick="if(!confirm('Are you sure ?')) { return false; }" >supprimer le personnage</a>
     		
     		Processus de creation du personnage. Une fois l'étape validée, il ne sera plus possible de revenir en arrière.
     		
@@ -184,6 +184,7 @@ endif %}	</ul>
 	{% if figure.disadvantages | length == 0 %}
 	
 	{% else %}
+		<p>points d'avantages disponibles : {{ figure.advantagePoints }}</p>
 		{% for i in range (0,3) %}
 			<li><label>avantages</label>cliquer ici pour choisir vos avantages<a href="{{ path('prophecy_edit_initial_advantages', {'id': figure.id}) }}">editer</a></li>
 		{% endfor %}
@@ -247,12 +248,12 @@ endif %}	</ul>
 		<ul>sortilèges
             {% for sphere in figure.spheres %}
             {% if (sphere.value > 0) and (figure.caste.name is same as "Mages")  %} 
-            		<li>cliquer ici pour choisir vos sortilèges de départ<a href="{{ path('prophecy_edit_initial_mages_spells', {'id': figure.id, 'sphere':sphere.id}) }}">editer</a></li>
+            		<li>cliquer ici pour choisir vos sortilèges de départ<a href="{{ path('prophecy_edit_initial_mages_spells', {'id': figure.id, 'sphere': sphere.sphere.id}) }}">editer</a></li>
             	{% endif %} 
             {% endfor %}
             {% for sphere in figure.spheres %}
             {% if (sphere.value > 0) %} 
-            		<li>cliquer ici pour acheter des sorts supplémentaires<a href="{{ path('prophecy_edit_additional_initial_spells', {'id': figure.id, 'sphere':sphere.id}) }}">editer</a></li>
+            		<li>cliquer ici pour acheter des sorts supplémentaires<a href="{{ path('prophecy_edit_additional_initial_spells', {'id': figure.id, 'sphere': sphere.sphere.id}) }}">editer</a></li>
             	{% endif %} 
             {% endfor %}	
 			
@@ -312,6 +313,12 @@ endif %}	</ul>
 	
 	<ul>divers
 		<li><a href ="">cliquez ici pour acquérir un equipement divers de base</a></li>
+	</ul>
+	
+	--------- fonction test ------------
+	
+	<ul>TEST
+		<li>cliquer ici pour TESTER CETTE FONCTION DE TEST<a href="{{ path('prophecy_test', {'id': figure.id}) }}">TEST</a></li>
 	</ul>
 	
 	 ----------------- validation du personnage ----------------

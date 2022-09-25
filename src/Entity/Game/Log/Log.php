@@ -4,6 +4,8 @@ namespace App\Entity\Game\Log;
 
 use App\Repository\Game\Log\LogRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Game\Figure;
+use App\Entity\Game\Campaign;
 
 /**
  * @ORM\Entity(repositoryClass=LogRepository::class)
@@ -16,19 +18,22 @@ class Log
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Figure")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Campaign")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $campaign;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Log\LogCategory")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $category;
 
@@ -42,36 +47,36 @@ class Log
         return $this->id;
     }
 
-    public function getFigure(): ?int
+    public function getFigure(): ?Figure
     {
         return $this->figure;
     }
 
-    public function setFigure(int $figure): self
+    public function setFigure(Figure $figure): self
     {
         $this->figure = $figure;
 
         return $this;
     }
 
-    public function getCampaign(): ?int
+    public function getCampaign(): ?Campaign
     {
         return $this->campaign;
     }
 
-    public function setCampaign(int $campaign): self
+    public function setCampaign(Campaign $campaign): self
     {
         $this->campaign = $campaign;
 
         return $this;
     }
 
-    public function getCategory(): ?int
+    public function getCategory(): ?LogCategory
     {
         return $this->category;
     }
 
-    public function setCategory(int $category): self
+    public function setCategory(LogCategory $category): self
     {
         $this->category = $category;
 

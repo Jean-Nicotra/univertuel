@@ -199,6 +199,14 @@ prophecy_create_xp_increase:
 prophecy_create_start_caracteristics:
     path: /{role}/campaign/{id}/prophecy/new-start-caracteristics
     controller: App\Controller\Game\Prophecy\Game\StatsInitController::newStartCaracteristics
+    
+prophecy_create_cost_levelup:
+    path: /{role}/campaign/{id}/prophecy/new-cost-levelup
+    controller: App\Controller\Game\Prophecy\Game\StatsInitController::newCostLevelup
+    
+prophecy_initial_skill_limit:
+    path: /{role}/campaign/{id}/prophecy/initial-skill-limit
+    controller: App\Controller\Game\Prophecy\Game\StatsInitController:newInitialSkillLimit
         
     
 ## CASTE ##
@@ -349,6 +357,9 @@ prophecy_figure_caracteristics:
     
 #route a definir avec clement qui doit etre commune, accès au  premier onglet du personnage    
     
+prophecy_figure_delete:
+    path: member/figure/{id}/figure-delete
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureDelete
 
 prophecy_figure_view:
     path: /member/figure/{id}/view
@@ -462,10 +473,17 @@ prophecy_figure_player_validation:
     path: /member/figure/{id}/figure-player-validation
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figurePlayerValidation
     
+prophecy_figure_master_validation:
+    path: /member/figure/{id}/figure-master-validation
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureMasterValidation
+    
+
+    
 formulaire:
     path: /form/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristicTest
-    
-    
-#delete_figure:        
+
+prophecy_test:
+    path: /member/figure/{id}/figure-test
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureTest       
     

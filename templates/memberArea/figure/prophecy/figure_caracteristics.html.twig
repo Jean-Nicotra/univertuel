@@ -4,8 +4,9 @@
 {% if figure.isValide == false %}
 	<p>le processus de création du personnage est terminé mais le maître de jeu ne l'a pas encore validé</p>
 	
-{% if app.user.id == figure.campaign.owner.id %}
-		<a href=""><button>valider le personnage</button></a>
+{% if app.user.id == figure.campaign.owner.id  and figure.isValide == false %}
+		<p>le processus de création du personnage est terminé mais le maître de jeu ne l'a pas encore validé</p>
+		<a href="{{ path('prophecy_figure_master_validation', {'id': figure.id}) }}"><button>valider le personnage</button></a>
 {% endif %}
 	
 {% endif %}
@@ -18,7 +19,6 @@
 		<li><label>augure de naissance: </label>{{ figure.omen.name }}</li>
 		<li><label>age: </label>{{ figure.age.name }}</li>
 		<li><label>pays d'origine</label>{{ figure.nation }}</li>
-		<li><label>caste: </label>{{ figure.caste.name }}</li>
 	</ul>	
 	
 	----------------- caracteristiques du personnage ----------------

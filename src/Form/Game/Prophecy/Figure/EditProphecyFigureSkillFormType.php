@@ -9,11 +9,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Webmozart\Assert\Assert;
+use Symfony\Component\Validator\Constraints\LessThan;
 
 class EditProphecyFigureSkillFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $limit = $options['limit'];
+        
         $builder
         ->add('skill', TextType::class, [
             'label' => false, 'disabled' => true
@@ -21,6 +25,11 @@ class EditProphecyFigureSkillFormType extends AbstractType
         ])
         ->add('value', IntegerType::class, [
             'label' => false,
+            'attr' => [
+                'class' => 'inputSkill',
+                'lastvalue' => 0,
+                'maxValue' => $limit,
+                ],
         ])
         ;
             
@@ -34,5 +43,7 @@ class EditProphecyFigureSkillFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigureSkill::class,
         ]);
+        
+        $resolver->setRequired('limit');
     }
 }

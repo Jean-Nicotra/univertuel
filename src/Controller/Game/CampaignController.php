@@ -225,7 +225,15 @@ class CampaignController extends AbstractController
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
         $campaign = $campaignRepository->find($id);
         
-        return $this->render('memberArea/campaign/campaign_figures.html.twig', ['campaign' => $campaign, 'msg' => 'section faite pour la liste des personnages de la campagne']);
+        $figuresRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Figure');
+        $figures = $figuresRepository->findBy(['campaign' => $campaign]);
+        
+        return $this->render('memberArea/campaign/campaign_figures.html.twig', [
+            'campaign' => $campaign, 
+            'msg' => 'section faite pour la liste des personnages de la campagne',
+            'figures' => $figures
+            
+        ]);
     }
     
 }

@@ -1,5 +1,6 @@
 {% extends 'memberArea/homepage.html.twig' %}
 
+
 	
     {% block content_member %}
     
@@ -8,7 +9,7 @@
     <a href="{{ path('prophecy_figure_magic', {'id': figure.id}) }}">magie</a>
     <a href="{{ path('prophecy_figure_equipment', {'id': figure.id}) }}">équipement</a>
     <a href="{{ path('prophecy_figure_background', {'id': figure.id}) }}">historique</a>
-    
+    <a href="{{ path('prophecy_figure_delete', {'id': figure.id}) }}" onclick="if(!confirm('Are you sure ?')) { return false; }" >supprimer le personnage</a>
     {#
     	{% if figure.isFinish == false %}
     		<p>la création du personnage n'est pas encore terminée</p>

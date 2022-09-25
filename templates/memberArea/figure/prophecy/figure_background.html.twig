@@ -9,14 +9,14 @@
 
 <ul>inconvénients
 	{% for disadvantage in figure.disadvantages %}
-		<li><p>nom : {{ disadvantage.name }}</p></li>
+		<li><p>nom : {{ disadvantage.disadvantage.name }}</p><p>description : {{ disadvantage.disadvantage.description }}</p></li>
 	{% endfor %}
 </ul>
 
 
 <ul>avantages
 	{% for advantage in figure.advantages %}
-		<li><p>nom : {{ advantage.name }}</p></li>
+		<li><p>nom : {{ advantage.advantage.name }}</p><p>description : {{ advantage.advantage.description }}</p></li>
 	{% endfor %}
 </ul>
 

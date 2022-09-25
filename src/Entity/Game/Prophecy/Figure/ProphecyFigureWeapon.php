@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Prophecy\Game\Item\ProphecyWeapon;
 
 /**
- * @ORM\Entity(repositoryClass=ProphecyFigureWeaponsRepository::class)
+ * @ORM\Entity(repositoryClass=ProphecyFigureWeaponRepository::class)
  */
 class ProphecyFigureWeapon
 {

@@ -1,18 +1,15 @@
-var sidenav = document.getElementById("mySidenav");
-var openBtn = document.getElementById("openBtn");
-var closeBtn = document.getElementById("closeBtn");
 
-openBtn.onclick = openNav;
-closeBtn.onclick = closeNav;
-
-/* Set the width of the side navigation to 250px */
-function openNav() 
+function modif()
 {
-  sidenav.classList.add("active");
+alert("salut");  
 }
 
-/* Set the width of the side navigation to 0 */
-function closeNav() 
+
+
+
+var list = document.getElementsByClassName('inputSkill');
+alert(list.length);
+for(var i = 0 ; i < list.length ; i++)
 {
-  sidenav.classList.remove("active");
+list[i].addEventListener('change', modif)
 }
