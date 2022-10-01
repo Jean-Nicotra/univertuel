@@ -6,32 +6,32 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigure;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyArmor;
 
-class InitialiseProphecyFigureReputationType extends AbstractType
-{
+class InitialiseProphecyFigureArmorFormType extends AbstractType
+{ 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
- 
-            ->add('reputation', IntegerType::class, [
-                'attr' =>[
-                'lastvalue' => 0,
-                'maxValue' => 10,
-                    ]
-            ])
-            ->add('xperience', TextType::class, [
-                'disabled' => false,
-                'label' => false,
-                'attr' => [
-                    'class' => 'notVisible',
+        //->add('comment', TextareaType::class)
+        ->add('armors', CollectionType::class,
+            [
+                'entry_type' => AddProphecyFigureArmorFormType::class,
+                'allow_add' => true,
+                'label' => 'armure',
+                'entry_options' => [
+                    'label' => false 
                 ]
             ])
+   
             
             ->add('valider', SubmitType::class)
-            
+
         ;
     }
 

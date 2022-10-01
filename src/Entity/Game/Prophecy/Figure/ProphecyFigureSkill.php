@@ -81,4 +81,14 @@ class ProphecyFigureSkill
 
         return $this;
     }
+    
+    public function __toString()
+    {
+        return $this->getSkill()->getName();
+    }
+    
+    public function getCategory()
+    {
+        return $this->getSkill()->getSkillCategory();
+    }
 }

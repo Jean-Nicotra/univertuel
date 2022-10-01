@@ -19,7 +19,7 @@ class ProphecyFigureFavour
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="favours")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;

@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+      <link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+      <style>
+      	.notVisible
+      	{
+      		display:none;
+      	}
+      </style>
+{% endblock %}
+
+
+
+
+
+
+{% block body %}
+
+<div id="main_layout">
+
+	{% include 'header.html.twig' %}
+	
+	{% block main_content %}
+	
+	Initialisation de la réputation de votre personnage
+	
+		<p>experience restante</p> <p id="xp"></p>
+
+	{{ form(form) }}
+
+
+	
+	
+	
+	{% endblock %}
+	
+	{% include 'footer.html.twig' %}
+
+</div>
+<script>
+
+
+function initialisation()
+{
+	let reputation = document.getElementById('initialise_prophecy_figure_reputation_reputation');
+
+    let lastValue = reputation.getAttribute('lastvalue');
+    let value = reputation.getAttribute('value');
+    reputation.setAttribute('lastvalue', value); 
+
+}
+
+
+window.addEventListener('load', initialisation);
+
+
+function modif()
+{
+	let xperience = parseInt(document.getElementById("initialise_prophecy_figure_reputation_xperience").value);
+	let maxValue = parseInt(this.getAttribute('maxvalue'));
+	let value = parseInt(this.value);
+	let lastValue = parseInt(this.getAttribute('lastvalue'));
+	let raise = maxValue - value; 
+	
+	if(raise < 0)
+	{
+		let res = maxValue-value;
+		alert("vous avez atteint la valeur maximale autorisée a la creation");
+		this.value -= 1;
+	}
+	
+	
+	if(value < 0)
+	{
+		alert("vous ne pouvez descendre en dessous de 0");
+		this.value = 0;
+	}
+
+	//augmentation d'une competence
+	else if(xperience-value > 0 && value > lastValue)
+	{
+		xperience = parseInt(xperience)-parseInt(value);	
+		document.getElementById("initialise_prophecy_figure_reputation_xperience").value = xperience;
+		lastValue++;
+		this.setAttribute('lastvalue', lastValue);
+		document.getElementById("xp").innerHTML = document.getElementById("initialise_prophecy_figure_reputation_xperience").value
+	}
+	
+	//diminution d'une competence
+	else if (xperience-value > 0 && value < lastValue)
+	{
+		xperience = parseInt(xperience) + parseInt(lastValue);
+		document.getElementById("initialise_prophecy_figure_reputation_xperience").value = xperience;
+		lastValue--;
+		this.setAttribute('lastvalue', lastValue); 
+		document.getElementById("xp").innerHTML = document.getElementById("initialise_prophecy_figure_reputation_xperience").value
+	}
+	
+	//depassement de l'experience disponible
+	if(xperience-value < 0)
+	{
+		alert("vous n'avez pas assez de points d'experience");
+		this.value -= 1;	
+	}
+
+}
+
+
+let reputation = document.getElementById('initialise_prophecy_figure_reputation_reputation');
+reputation.addEventListener('change', modif);
+															
+document.getElementById("xp").innerHTML = document.getElementById("initialise_prophecy_figure_reputation_xperience").value
+
+
+
+</script>
+
+
+{% endblock %}

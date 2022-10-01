@@ -63,6 +63,7 @@ use App\Entity\Game\Prophecy\Figure\ProphecyFigureShield;
 use App\Form\Game\Prophecy\Figure\AddProphecyFigureShieldFormType;
 use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\ProphecySkillCost;
+use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureArmorFormType;
 
 
 class FigureController extends AbstractController
@@ -728,7 +729,7 @@ class FigureController extends AbstractController
         
         $figureAdvantage = new ProphecyFigureAdvantage();
         $figureAdvantage->setFigure($figure);
-        
+         
         $form = $this->createForm(AddProphecyFigureAdvantageFormType::class, $figureAdvantage );
         $form->handleRequest($request);
         
@@ -800,39 +801,37 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        $form = $this->createForm(InitialiseProphecyFigureSkillFormType::class, $figure);       
+        $limitSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\ProphecyStartSkill');
+        $figureAge = $figure->getAge();
+        $limitSkill = $limitSkillRepository->findOneBy(['age' => $figureAge]);
+        $limit = $limitSkill->getValue();
+        
+        $skillCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
+        $skillCategories = $skillCategoryRepository->findAll();
+        
+        $form = $this->createForm(InitialiseProphecyFigureSkillFormType::class, $figure, ['limit' => $limit]);
         $form->handleRequest($request);
         
         $costSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\ProphecySkillCost');
+        $skills = $figure->getSkills();
+        
+        $costSkill = new ProphecySkillCost();
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            /*
-            $skills = $figure->getSkills();
-            foreach($skills as $skill)
-            {
-                if($skill > 0)
-                {
-                    //$costSkill = new ProphecySkillCost();
-                    //$cost = $costSkillRepository->findOneBy(['score' => $skill->getSkill()]);
-                }
-            }
-            */
-            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($figure);
             $entityManager->flush();
-            
-            
             
             return $this->redirectToRoute('prophecy_figure_view', [
                 'id' => $figure->getId(),
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_skills.html.twig' ,[
             'form' =>$form->createView(),
             'figure' => $figure,
+            'skillCategories' => $skillCategories,
         ]);
     }
     
@@ -1021,7 +1020,7 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_reputation.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
         ]);
@@ -1034,8 +1033,6 @@ class FigureController extends AbstractController
         
         $figureWeapon = new ProphecyFigureWeapon();
         $figureWeapon->setFigure($figure);
-        
-        $figureWeapon = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWeapon');
         
         $form = $this->createForm(AddProphecyFigureWeaponFormType::class, $figureWeapon);
         $form->handleRequest($request);
@@ -1065,7 +1062,11 @@ class FigureController extends AbstractController
         $figureArmor = new ProphecyFigureArmor();
         $figureArmor->setFigure($figure);
         
+        $armorRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyArmor');
+        $armors = $armorRepository->findAll();
+        
         $form = $this->createForm(AddProphecyFigureArmorFormType::class, $figureArmor);
+
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -1079,9 +1080,10 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_armor.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
+            'armors' => $armors
         ]);
     }
     
@@ -1365,6 +1367,9 @@ class FigureController extends AbstractController
         $limitSkill = $limitSkillRepository->findOneBy(['age' => $figureAge]);
         $limit = $limitSkill->getValue();
         
+        $skillCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
+        $skillCategories = $skillCategoryRepository->findAll();
+        
         $form = $this->createForm(InitialiseProphecyFigureSkillFormType::class, $figure, ['limit' => $limit]);
         $form->handleRequest($request);
         
@@ -1384,9 +1389,10 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('test.html.twig' ,[
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_skills.html.twig' ,[
             'form' =>$form->createView(),
             'figure' => $figure,
+            'skillCategories' => $skillCategories,
         ]);
     }
        

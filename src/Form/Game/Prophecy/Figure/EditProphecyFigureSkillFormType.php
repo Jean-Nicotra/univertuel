@@ -20,7 +20,8 @@ class EditProphecyFigureSkillFormType extends AbstractType
         
         $builder
         ->add('skill', TextType::class, [
-            'label' => false, 'disabled' => true
+            'label' => false, 
+            'disabled' => true,
             
         ])
         ->add('value', IntegerType::class, [

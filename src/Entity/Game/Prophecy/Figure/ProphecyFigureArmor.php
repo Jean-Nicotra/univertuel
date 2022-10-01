@@ -20,7 +20,7 @@ class ProphecyFigureArmor
     
     /**
      * the figure object
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="weapons")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="armors")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;

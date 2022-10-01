@@ -24,11 +24,9 @@
 	
 	{% block main_content %}
 	
-
+	Initialisation des compétences de votre personnage
 	
-	mettre ici le code a tester
-	
-		<p>experience restante <p id="xp"></p></p>
+		<p>experience restante</p> <p id="xp"></p>
 {#		
 {{ form_widget(form.skills[7].skill) }}			{# affiche le nom #}
 {# {{ form_widget(form.skills[0]) }} #}	{# affiche le nom et le champ input #}
@@ -81,6 +79,22 @@
 
 </div>
 <script>
+
+
+function initialisation()
+{
+	let elts = document.getElementsByClassName('inputSkill');
+
+	for(let i = 0 ; i < elts.length ; i++)
+    {
+    	let lastValue = elts[i].getAttribute('lastvalue');
+    	let value = elts[i].getAttribute('value');
+    	elts[i].setAttribute('lastvalue', value); 
+    }
+}
+
+
+window.addEventListener('load', initialisation);
 
 
 function modif()

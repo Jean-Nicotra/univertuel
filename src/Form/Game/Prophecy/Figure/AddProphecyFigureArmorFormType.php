@@ -11,25 +11,27 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Game\Prophecy\Game\Item\ProphecyArmor;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureArmor;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AddProphecyFigureArmorFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('comment', TextType::class)
-            ->add('armor', EntityType::class, [
-                'label' => 'arme',
-                'class' => ProphecyArmor::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
+        
+        ->add('comment', TextareaType::class)
+        ->add('armor', EntityType::class, [
+            'label' => 'arme',
+            'class' => ProphecyArmor::class,
+            'choice_label' => 'name',
+            'multiple' => false,
+            'expanded' => false,
             ])
-            ->add('valider', SubmitType::class)
+   
+        ->add('valider', SubmitType::class)
         ;
     }
-
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

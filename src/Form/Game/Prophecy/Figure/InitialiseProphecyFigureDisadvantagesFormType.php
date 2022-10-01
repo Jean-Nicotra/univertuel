@@ -20,10 +20,12 @@ class InitialiseProphecyFigureDisadvantagesFormType extends AbstractType
         $builder
         
         ->add('disadvantages', CollectionType::class, [
-            'entry_type' => EditProphecyFigureDisadvantagesFormType::class,
+            'entry_type' => EditProphecyDisadvantageFormType::class,
             'allow_add' => true,
             'allow_delete' => true,
-            'entry_options' => ['label' => false ]
+            'entry_options' => [
+                'label' => false 
+            ]
         ])
         
         ->add('valider', SubmitType::class)

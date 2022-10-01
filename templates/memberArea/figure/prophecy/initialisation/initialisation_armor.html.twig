@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+      <link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+      <style>
+      	.notVisible
+      	{
+      		display:none;
+      	}
+      </style>
+{% endblock %}
+
+
+
+
+
+
+{% block body %}
+
+<div id="main_layout">
+
+	{% include 'header.html.twig' %}
+	
+	{% block main_content %}
+	
+	Initialisation de l'armure de votre personnage
+	
+
+
+	{{ form(form) }}
+	<ul id="armors_list">
+	
+	{%  set count = 0 %}
+	{% for armor in armors %}
+		
+		
+		<li id="{{ count }}" nom ="{{ armor.name }}" valeur="{{ armor.villagePrice }}" protection="{{ armor.protection }}" pénalité="{{ armor.movePenalty }}" >{{ armor.name }}</li>
+	
+		{% set count = count+1 %}
+	{% endfor %}
+	
+	</ul>
+
+	<div id="armor_description">
+		<p>armure</p>
+		<p>categorie</p>
+		<p>poids</p>
+		<p>prix en ville</p>
+		<p>prix en village</p>
+		<p>protection</p>
+		<p>pénalité de mouvement</p>
+		<p>matériaux</p>
+		<p>description</p>
+	</div>
+	
+	{% endblock %}
+	
+	{% include 'footer.html.twig' %}
+
+</div>
+<script>
+
+function selected ()
+{
+	
+	let index = this.selectedIndex;
+	alert('selectedIndex ' +index);
+    let armorList = document.getElementById('armors_list');
+    let armors = armorList.getElementsByTagName('li');
+    alert("nombre d armures "+armors.length);
+    
+    
+}
+
+function Armor = new Armor(id, )
+{
+
+}
+
+
+
+let select = document.querySelector('select');
+select.addEventListener('change', selected);
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
