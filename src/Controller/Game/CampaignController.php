@@ -17,6 +17,19 @@ use App\Entity\Platform\Message\Thread;
 use App\Entity\User\User;
 use App\Entity\Platform\Message\Message;
 use App\Form\Game\Campaign\SendCampaignInvitationFormType;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyArmor;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyCarrier;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyInitialCurrencies;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyStatus;
+use App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage;
 
 
 class CampaignController extends AbstractController
@@ -48,6 +61,47 @@ class CampaignController extends AbstractController
         $campaign = new Campaign();
         $campaign->setOwner($user);
         
+        $benefitRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit');
+        $benefits = $benefitRepository->findBy(['campaign' => null]);
+        
+        $carrierRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyCarrier');
+        $carriers = $carrierRepository->findBy(['campaign' => null]);
+        
+        $casteRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste');
+        $castes = $casteRepository->findBy(['campaign' => null]);
+        
+        $favourRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyFavour');
+        $favours = $favourRepository->findBy(['campaign' => null]);
+        
+        $initialCurrenciesRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyInitialCurrencies');
+        $initialCurrencies = $initialCurrenciesRepository->findBy(['campaign' => null]);
+        
+        $prophibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
+        $prohibiteds = $prophibitedRepository->findBy(['campaign' => null]);
+        
+        $statusRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyStatus');
+        $statusList = $statusRepository->findBy(['campaign' => null]);
+        
+        $technicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic');
+        $technics = $technicRepository->findBy(['campaign' => null]);
+        
+        $advantageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage');
+        $advantages = $advantageRepository->findBy(['campaign' => null]);
+        
+        $advantageCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory');
+        $advantageCategories = $advantageCategoryRepository->findBy(['campaign' => null]);
+
+        $ageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge');
+        $ages = $ageRepository->findBy(['campaign' => null]);
+        
+        $ageDisadvantageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage');
+        $ageDisadvantages = $ageDisadvantageRepository->findBy(['campaign' => null]);
+        
+        $armorRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyArmor');
+        $armors = $armorRepository->findBy(['campaign' => null]);
+        
+        
+        
         $form = $this->createForm(CampaignFormType::class, $campaign);
         $form->handleRequest($request);
         
@@ -56,6 +110,127 @@ class CampaignController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($campaign);
             $entityManager->flush();
+            
+            //caste
+            foreach ($benefits as $benefit)
+            {
+                $newBenefit = new ProphecyBenefit();
+                $newBenefit = clone $benefit;
+                $newBenefit->setCampaign($campaign);
+                $entityManager->persist($newBenefit);
+                $entityManager->flush();
+            }
+            
+            foreach ($Carriers as $carrier)
+            {
+                $newCarrier = new ProphecyCarrier();
+                $newCarrier = clone $carrier;
+                $newCarrier->setCampaign($campaign);
+                $entityManager->persist($newCarrier);
+                $entityManager->flush();
+            }
+            
+            foreach ($castes as $caste)
+            {
+                $newCaste = new ProphecyCaste();
+                $newCaste = clone $caste;
+                $newCaste->setCampaign($campaign);
+                $entityManager->persist($newCaste);
+                $entityManager->flush();
+            }
+            
+            foreach ($favours as $favour)
+            {
+                $newFavour = new ProphecyFavour();
+                $newFavour = clone $favour;
+                $newFavour->setCampaign($campaign);
+                $entityManager->persist($newFavour);
+                $entityManager->flush();
+            }
+            
+            foreach ($initialCurrencies as $initialCurrency)
+            {
+                $newInitialCurrency = new ProphecyInitialCurrencies();
+                $newInitialCurrency = clone $initialCurrency;
+                $newInitialCurrency->setCampaign($campaign);
+                $entityManager->persist($newInitialCurrency);
+                $entityManager->flush();
+            }
+            
+            foreach ($prohibiteds as $prohibited)
+            {
+                $newProhibited = new ProphecyProhibited();
+                $newProhibited = clone $prohibited;
+                $newProhibited->setCampaign($campaign);
+                $entityManager->persist($newProhibited);
+                $entityManager->flush();
+            }
+            
+            foreach ($statusList as $status)
+            {
+                $newStatus = new ProphecyStatus();
+                $newStatus = clone $status;
+                $newStatus->setCampaign($campaign);
+                $entityManager->persist($newStatus);
+                $entityManager->flush();
+            }
+            
+            foreach ($technics as $technic)
+            {
+                $newTechnic = new ProphecyTechnic();
+                $newTechnic = clone $technic;
+                $newTechnic->setCampaign($campaign);
+                $entityManager->persist($newTechnic);
+                $entityManager->flush();
+            }
+            
+            //characteristic
+            foreach ($advantages as $advantage)
+            {
+                $newAdvantage = new ProphecyAdvantage();
+                $newAdvantage = clone $advantage;
+                $newAdvantage->setCampaign($campaign);
+                $entityManager->persist($newAdvantage);
+                $entityManager->flush();
+            }
+            
+            foreach ($advantageCategories as $advantageCategory)
+            {
+                $newAdvantageCategory = new ProphecyAdvantageCategory();
+                $newAdvantageCategory = clone $advantageCategory;
+                $newAdvantageCategory->setCampaign($campaign);
+                $entityManager->persist($newAdvantageCategory);
+                $entityManager->flush();
+            }
+            
+            foreach ($ages as $age)
+            {
+                $newAge = new ProphecyAge();
+                $newAge = clone $age;
+                $newAge->setCampaign($campaign);
+                $entityManager->persist($newAge);
+                $entityManager->flush();
+            }
+            
+            foreach ($ageDisadvantages as $ageDisadvantage)
+            {
+                $newAgeDisadvantage = new ProphecyAgeDisadvantage();
+                $newAgeDisadvantage = clone $ageDisadvantage;
+                $newAgeDisadvantage->setCampaign($campaign);
+                $entityManager->persist($newAgeDisadvantage);
+                $entityManager->flush();
+            }
+            
+            //item
+            foreach ($armors as $armor)
+            {
+                $newArmor = new ProphecyArmor();
+                $newArmor = clone $armor;
+                $newArmor->setCampaign($campaign);
+                $entityManager->persist($newArmor);
+                $entityManager->flush();
+            }
+            
             
             return $this->redirectToRoute('member_homepage');
         }
