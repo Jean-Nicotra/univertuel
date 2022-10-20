@@ -64,6 +64,7 @@ use App\Form\Game\Prophecy\Figure\AddProphecyFigureShieldFormType;
 use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\ProphecySkillCost;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureArmorFormType;
+use App\Form\Game\Prophecy\Figure\EditProphecyFigureSkillByMasterFormType;
 
 
 class FigureController extends AbstractController
@@ -85,7 +86,7 @@ class FigureController extends AbstractController
      * @param ProphecyFigure $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newFigure(Request $request, $id)
+    public function newFigure(Request $request,$id, $thread )
     {
         $user = $this->getUser();        
         $interfaceFigure = new Figure();
@@ -268,8 +269,12 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
+        
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign = $campaignRepository->find($id);
+        
         $skillCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
-        $skillcategories = $skillCategoryRepository->findAll();
+        $skillcategories = $skillCategoryRepository->findBy(['campaign' => $campaign]);
         
         //add caracteristics to figure's view
         $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
@@ -289,7 +294,10 @@ class FigureController extends AbstractController
         
         //add skills to figure's view
         $figureSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill');
-        $skills = $figureSkillRepository->findBy(['figure' => $figure]);
+        $skills = $figureSkillRepository->findBy([
+            'figure' => $figure,
+            'isDisplay' => true,
+        ]);
         
         //add spheres to figure's view
         $figureSphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureSphere');
@@ -1394,6 +1402,41 @@ class FigureController extends AbstractController
             'figure' => $figure,
             'skillCategories' => $skillCategories,
         ]);
+    }
+    
+    public function figureMasterEditFigureSkills($id, Request $request)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        $campaignId = $figure->getCampaign()->getId();
+        
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\campaign');
+        $campaign = $campaignRepository->find($campaignId);
+        
+        $skillCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
+        $skillCategories = $skillCategoryRepository->findBy(['campaign' => 18]);
+        
+        $form = $this->createForm(EditProphecyFigureSkillByMasterFormType::class, $figure);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId(),
+            ]);
+        }
+        
+        return $this->render('memberArea/figure/prophecy/form_master_edit_figure_skills.html.twig' ,[
+            'form' =>$form->createView(),
+            'figure' => $figure,
+            'skillCategories' => $skillCategories,
+            
+        ]);
+        
     }
        
 }

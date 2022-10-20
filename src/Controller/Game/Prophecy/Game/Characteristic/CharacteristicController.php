@@ -39,6 +39,7 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyModifierCaracteristicByAgeFormType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantageFormType;
+use App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill;
 
 
 class CharacteristicController extends AbstractController
@@ -785,7 +786,11 @@ class CharacteristicController extends AbstractController
         $skill = new ProphecySkill();
         
         $campaign = null;
+        $figures = null;
+        
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figureSkill = new ProphecyFigureSkill();
         if($id == 0)
         {
             $campaign = null;
@@ -794,6 +799,7 @@ class CharacteristicController extends AbstractController
         else
         {
             $campaign = $campaignRepository->find($id);
+            $figures = $figureRepository->findBy(['campaign' => $campaign]);
         }
         $skill->setCampaign($campaign);
         $route = null;
@@ -823,6 +829,21 @@ class CharacteristicController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($skill);
             $entityManager->flush();
+            $isDisplay = true;
+            if($skill->getForbidden() == true)
+            {
+                $isDisplay = false;
+            }
+            
+            foreach ($figures as $figure)
+            {
+                $figureSkill = new ProphecyFigureSkill();
+                $figureSkill->setFigure($figure);
+                $figureSkill->setSkill($skill);
+                $figureSkill->setIsDisplay($isDisplay);
+                $em->persist($figureSkill);
+                $em->flush($figureSkill);
+            }
             
             //return to admin create content Prophecy if ok
             return $this->redirectToRoute($route, ['id' => $id]);

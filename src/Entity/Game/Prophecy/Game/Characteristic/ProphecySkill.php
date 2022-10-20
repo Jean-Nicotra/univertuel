@@ -74,11 +74,6 @@ class ProphecySkill
     /**
      * @ORM\Column(type="boolean")
      */
-    private $available;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
     private $display;
     
     /**
@@ -226,18 +221,6 @@ class ProphecySkill
     public function setMinValue(int $minValue): self
     {
         $this->minValue = $minValue;
-
-        return $this;
-    }
-
-    public function getAvailable(): ?bool
-    {
-        return $this->available;
-    }
-
-    public function setAvailable(bool $available): self
-    {
-        $this->available = $available;
 
         return $this;
     }

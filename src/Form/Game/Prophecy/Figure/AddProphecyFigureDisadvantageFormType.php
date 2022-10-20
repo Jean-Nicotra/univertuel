@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AddProphecyFigureDisadvantageFormType extends AbstractType
 {
@@ -32,6 +33,9 @@ class AddProphecyFigureDisadvantageFormType extends AbstractType
                 'choice_label' => 'name',
             ])
             */
+            ->add('comment', TextType::class, [
+                'required' => false,
+            ])
             
             ->add('valider', SubmitType::class )
         ;

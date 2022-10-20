@@ -36,9 +36,33 @@ class ProphecyFigureSkill
      */
     private $value;
     
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDisplay;
+    
+    /**
+     * @return mixed
+     */
+    public function getIsDisplay()
+    {
+        return $this->isDisplay;
+    }
+
+    /**
+     * @param mixed $isDisplay
+     */
+    public function setIsDisplay($isDisplay)
+    {
+        $this->isDisplay = $isDisplay;
+        
+        return $this;
+    }
+
     public function __construct()
     {
         $this->setValue(0);
+        $this->setIsDisplay(false);
     }
 
     public function getId(): ?int

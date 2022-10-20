@@ -154,6 +154,10 @@ campaign_add_component:
 campaign_figures:
     path: member/campaign/{id}/figures
     controller: App\Controller\Game\CampaignController:findFigures
+    
+prophecy_figure_skill_master_edition:
+    path: member/campaign/figure/{id}/edit-skills
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureMasterEditFigureSkills
        
 ########## ADMIN ##########
 new_game:
@@ -343,7 +347,7 @@ prophecy_create_spell:
 ## FIGURE ##
 
 prophecy_new_figure:
-    path: /member/figure/new-figure{id}
+    path: /member/figure/new-figure{id}/{thread}
     controller:  App\Controller\Game\Prophecy\Figure\FigureController:newFigure
     
 prophecy_figure_caracteristics:
@@ -476,7 +480,7 @@ prophecy_figure_player_validation:
 prophecy_figure_master_validation:
     path: /member/figure/{id}/figure-master-validation
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureMasterValidation
-    
+
 
     
 formulaire:

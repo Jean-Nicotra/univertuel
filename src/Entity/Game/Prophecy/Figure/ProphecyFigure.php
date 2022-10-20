@@ -467,6 +467,7 @@ class ProphecyFigure implements FigureInterface
         $this->setIsMajorAttributesChoosen(false);
         $this->setIsMinorAttributesChoosen(false);
         $this->setIsTendenciesChoosen(false);
+        $this->setIsProhibitedsChosen(false);
         $this->disadvantages = new ArrayCollection();
         $this->spheres = new ArrayCollection();
         $this->setIsFinish(false);

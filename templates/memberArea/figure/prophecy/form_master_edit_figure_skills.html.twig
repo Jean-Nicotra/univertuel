@@ -1,0 +1,134 @@
+{% extends 'memberArea/homepage.html.twig' %}
+
+{% block stylesheets %}
+      <link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+      <style>
+      	.notVisible
+      	{
+      		display:none;
+      	}
+      </style>
+{% endblock %}
+	
+    {% block content_member %}
+    
+    <p>experience restante</p> <p id="xp"></p>
+    
+    {{ form_start(form) }} 
+
+{% set count = -1 %}
+
+<div>	
+	{% for majorAttribute in figure.majorAttributes %}
+		<ul>{{ majorAttribute.majorAttribute.name }} 
+			{% for skillCategory in skillCategories %}
+				{% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %}
+					<ol>{{ skillCategory.name }}
+						{% for skill in figure.skills %}
+        			         {% if skill.skill.skillCategory.name is same as (skillCategory.name) %} 
+        			         {% set count = count + 1 %}	
+        						<li>{{ form_widget(form.skills[count]) }}</li>
+        			         {% endif %} 
+	    	            {% endfor %} 
+		   
+				{% endif %}	
+				<ol>
+			{% endfor %}	
+			</ul>
+	{% endfor %}
+
+ </div>	
+{{ form_widget(form.valider) }}
+{{ form_widget(form.xperience) }} 
+
+ {{ form_end(form) }} 
+   
+   
+   
+<script>
+
+function initialisation()
+{
+	let elts = document.getElementsByClassName('inputSkill');
+
+	for(let i = 0 ; i < elts.length ; i++)
+    {
+    	let lastValue = elts[i].getAttribute('lastvalue');
+    	let value = elts[i].getAttribute('value');
+    	alert("value "+value); 
+    	//elts[i].setAttribute('lastvalue', value);
+    	document.getElementsByClassName('inputSkill')[i].setAttribute('lastvalue', value);
+    	alert(document.getElementsByClassName('inputSkill')[i].getAttribute('lastValue'));
+    }
+}
+
+
+window.addEventListener('load', initialisation);
+
+
+function modif()
+{
+	let xperience = document.getElementById("edit_prophecy_figure_skill_by_master_form_xperience").value;
+	//let maxValue = this.getAttribute('maxvalue');
+	let value = this.value;
+	let lastValue = this.getAttribute('lastvalue');
+	
+	//if(value > maxValue)
+	//{
+		//alert("vous avez atteint la valeur maximale autorisée a la creation");
+		//this.value -= 1;
+	//}
+	
+	if(value < 0)
+	{
+		alert("vous ne pouvez descendre en dessous de 0");
+		this.value = 0;
+	}
+
+	//augmentation d'une competence
+	else if(xperience-value > 0 && value > lastValue)
+	{
+		xperience = parseInt(xperience)-parseInt(value);	
+		document.getElementById("edit_prophecy_figure_skill_by_master_form_xperience").value = xperience;
+		lastValue++;
+		this.setAttribute('lastvalue', lastValue);
+		document.getElementById("xp").innerHTML = document.getElementById("edit_prophecy_figure_skill_by_master_form_xperience").value
+	}
+	
+	//diminution d'une competence
+	else if (xperience-value > 0 && value < lastValue)
+	{
+		xperience = parseInt(xperience) + parseInt(lastValue);
+		document.getElementById("edit_prophecy_figure_skill_by_master_form_xperience").value = xperience;
+		lastValue--;
+		this.setAttribute('lastvalue', lastValue); 
+		document.getElementById("xp").innerHTML = document.getElementById("edit_prophecy_figure_skill_by_master_form_xperience").value
+	}
+	
+	//depassement de l'experience disponible
+	if(xperience-value < 0)
+	{
+		alert("vous n'avez pas assez d'experience");
+		this.value -= 1;	
+	}
+}
+
+
+let elts = document.getElementsByClassName('inputSkill');
+for(let i = 0 ; i < elts.length ; i++)
+{
+	elts[i].addEventListener('change', modif);
+}
+
+document.getElementById("xp").innerHTML = document.getElementById("edit_prophecy_figure_skill_by_master_form_xperience").value
+
+
+
+</script>   
+   
+    
+    {% endblock %}
+    
+    
+  

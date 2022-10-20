@@ -31,6 +31,11 @@ class ProphecyFigureDisadvantage
      * @ORM\JoinColumn(nullable=false)
      */
     private $disadvantage;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $comment;
 
 
 

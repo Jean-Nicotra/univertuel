@@ -30,6 +30,21 @@ use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantageCategory;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendencyAgeNation;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyShield;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyWeapon;
+use App\Entity\Game\Prophecy\Game\Item\ProphecyWeaponCategory;
+use App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline;
+use App\Entity\Game\Prophecy\Game\Magic\ProphecySphere;
 
 
 class CampaignController extends AbstractController
@@ -61,6 +76,7 @@ class CampaignController extends AbstractController
         $campaign = new Campaign();
         $campaign->setOwner($user);
         
+        //castes
         $benefitRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyBenefit');
         $benefits = $benefitRepository->findBy(['campaign' => null]);
         
@@ -85,6 +101,7 @@ class CampaignController extends AbstractController
         $technicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyTechnic');
         $technics = $technicRepository->findBy(['campaign' => null]);
         
+        //characteristic
         $advantageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAdvantage');
         $advantages = $advantageRepository->findBy(['campaign' => null]);
         
@@ -97,10 +114,58 @@ class CampaignController extends AbstractController
         $ageDisadvantageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage');
         $ageDisadvantages = $ageDisadvantageRepository->findBy(['campaign' => null]);
         
+        $majorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
+        $majorAttributes = $majorAttributeRepository->findBy(['campaign' => null]);
+        
+        $minorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute');
+        $minorAttributes = $minorAttributeRepository->findBy(['campaign' => null]);
+        
+        $modifierByAgeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyModifierByAge');
+        $modifiersByAge = $modifierByAgeRepository->findBy(['campaign' => null]);
+        
+        $omenRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen');
+        $omens = $omenRepository->findBy(['campaign' => null]);
+        
+        $skillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill');
+        $skills = $skillRepository->findBy(['campaign' => null]);
+        
+        $skillCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
+        $skillCategories = $skillCategoryRepository->findBy(['campaign' => null]);
+        
+        $tendencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency');
+        $tendencies = $tendencyRepository->findBy(['campaign' => null]);
+        
+        $tendencyAgeNationRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendencyAgeNation');
+        $tendenciesAgeNation = $tendencyAgeNationRepository->findBy(['campaign' => null]);
+        
+        $woundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound');
+        $wounds = $woundRepository->findBy(['campaign' => null]);
+        
+        //item
         $armorRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyArmor');
         $armors = $armorRepository->findBy(['campaign' => null]);
         
+        $armorCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyArmorCategory');
+        $armorCategories = $armorCategoryRepository->findBy(['campaign' => null]);
         
+        $shieldRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyShield');
+        $shields = $shieldRepository->findBy(['campaign' => null]);
+        
+        $weaponRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyWeapon');
+        $weapons = $weaponRepository->findBy(['campaign' => null]);
+        
+        $weaponCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Item\ProphecyWeaponCategory');
+        $weaponCategories = $weaponCategoryRepository->findBy(['campaign' => null]);
+        
+        //magic
+        $disciplineRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline');
+        $disciplines = $weaponCategoryRepository->findBy(['campaign' => null]);
+        
+        $spellRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
+        $spells = $spellRepository->findBy(['campaign' => null]);
+        
+        $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
+        $spheres = $spellRepository->findBy(['campaign' => null]);
         
         $form = $this->createForm(CampaignFormType::class, $campaign);
         $form->handleRequest($request);
@@ -121,7 +186,7 @@ class CampaignController extends AbstractController
                 $entityManager->flush();
             }
             
-            foreach ($Carriers as $carrier)
+            foreach ($carriers as $carrier)
             {
                 $newCarrier = new ProphecyCarrier();
                 $newCarrier = clone $carrier;
@@ -221,6 +286,96 @@ class CampaignController extends AbstractController
                 $entityManager->flush();
             }
             
+            foreach ($majorAttributes as $majorAttribute)
+            {
+                $newMajorAttribute = new ProphecyMajorAttribute();
+                $newMajorAttribute = clone $majorAttribute;
+                $newMajorAttribute->setCampaign($campaign);
+                $entityManager->persist($newMajorAttribute);
+                $entityManager->flush();
+            }
+            
+            foreach ($minorAttributes as $minorAttribute)
+            {
+                $newMinorAttribute = new ProphecyMinorAttribute();
+                $newMinorAttribute = clone $minorAttribute;
+                $newMinorAttribute->setCampaign($campaign);
+                $entityManager->persist($newMinorAttribute);
+                $entityManager->flush();
+            }
+            
+            foreach ($minorAttributes as $minorAttribute)
+            {
+                $newMinorAttribute = new ProphecyMinorAttribute();
+                $newMinorAttribute = clone $minorAttribute;
+                $newMinorAttribute->setCampaign($campaign);
+                $entityManager->persist($newMinorAttribute);
+                $entityManager->flush();
+            }
+            
+            foreach ($modifiersByAge as $modifier)
+            {
+                $newModifier = new ProphecyModifierByAge();
+                $newModifier = clone $modifier;
+                $newModifier->setCampaign($campaign);
+                $entityManager->persist($newModifier);
+                $entityManager->flush();
+            }
+            
+            foreach ($omens as $omen)
+            {
+                $newOmen = new ProphecyOmen();
+                $newOmen = clone $omen;
+                $newOmen->setCampaign($campaign);
+                $entityManager->persist($newOmen);
+                $entityManager->flush();
+            }
+            
+            foreach ($skills as $skill)
+            {
+                $newSkill = new ProphecySkill();
+                $newSkill = clone $skill;
+                $newSkill->setCampaign($campaign);
+                $entityManager->persist($newSkill);
+                $entityManager->flush();
+            }
+            
+            foreach ($skillCategories as $category)
+            {
+                $newSkillCategory = new ProphecySkillCategory();
+                $newSkillCategory = clone $category;
+                $newSkillCategory->setCampaign($campaign);
+                $entityManager->persist($newSkillCategory);
+                $entityManager->flush();
+            }
+            
+            foreach ($tendencies as $tendency)
+            {
+                $newTendency = new ProphecyTendency();
+                $newTendency = clone $tendency;
+                $newTendency->setCampaign($campaign);
+                $entityManager->persist($newTendency);
+                $entityManager->flush();
+            }
+            
+            foreach ($tendenciesAgeNation as $tendencyAgeNation)
+            {
+                $newTendencyAgeNation = new ProphecyTendencyAgeNation();
+                $newTendencyAgeNation = clone $tendencyAgeNation;
+                $newTendencyAgeNation->setCampaign($campaign);
+                $entityManager->persist($newTendencyAgeNation);
+                $entityManager->flush();
+            }
+            
+            foreach ($wounds as $wound)
+            {
+                $newWound = new ProphecyWound();
+                $newWound = clone $wound;
+                $newWound->setCampaign($campaign);
+                $entityManager->persist($newWound);
+                $entityManager->flush();
+            }
+            
             //item
             foreach ($armors as $armor)
             {
@@ -231,6 +386,68 @@ class CampaignController extends AbstractController
                 $entityManager->flush();
             }
             
+            foreach ($armorCategories as $armorCategory)
+            {
+                $newArmorCategory = new ProphecyArmorCategory();
+                $newArmorCategory = clone $armorCategory;
+                $newArmorCategory->setCampaign($campaign);
+                $entityManager->persist($newArmorCategory);
+                $entityManager->flush();
+            }
+            
+            foreach ($shields as $shield)
+            {
+                $newShield = new ProphecyShield();
+                $newShield = clone $shield;
+                $newShield->setCampaign($campaign);
+                $entityManager->persist($newShield);
+                $entityManager->flush();
+            }
+            
+            foreach ($weapons as $weapon)
+            {
+                $newWeapon = new ProphecyWeapon();
+                $newWeapon = clone $weapon;
+                $newWeapon->setCampaign($campaign);
+                $entityManager->persist($newWeapon);
+                $entityManager->flush();
+            }
+            
+            foreach ($weaponCategories as $category)
+            {
+                $newWeaponCategory = new ProphecyWeaponCategory();
+                $newWeaponCategory = clone $category;
+                $newWeaponCategory->setCampaign($campaign);
+                $entityManager->persist($newWeaponCategory);
+                $entityManager->flush();
+            }
+            
+            foreach ($disciplines as $discipline)
+            {
+                $newDiscipline = new ProphecyDiscipline();
+                $newDiscipline = clone $discipline;
+                $newDiscipline->setCampaign($campaign);
+                $entityManager->persist($newDiscipline);
+                $entityManager->flush();
+            }
+            
+            foreach ($spells as $spell)
+            {
+                $newDiscipline = new ProphecyDiscipline();
+                $newDiscipline = clone $discipline;
+                $newDiscipline->setCampaign($campaign);
+                $entityManager->persist($newDiscipline);
+                $entityManager->flush();
+            }
+            
+            foreach ($spheres as $sphere)
+            {
+                $newSphere = new ProphecySphere();
+                $newSphere = clone $sphere;
+                $newSphere->setCampaign($campaign);
+                $entityManager->persist($newSphere);
+                $entityManager->flush();
+            }
             
             return $this->redirectToRoute('member_homepage');
         }
@@ -357,24 +574,39 @@ class CampaignController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $message->setReceiver($thread->getReceiver());
+
+            $message->setMessage("");
             
-            //id is used in route to identifie campaign
-            $link = $this->generateUrl($route, [
-                'id' => $id
-            ]);
             
-            $message->setMessage
-            (
-                "voici le lien, clique et crée ton personnage : ". "<a href=".$link.">lien<a>"
-            );
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
             $em->persist($thread);
             $em->flush();
+
+            if($thread->getId()>0)
+            {
+                $th = $thread->getId();
+            }
+            
+            //id is used in route to identifie campaign
+            $link = $this->generateUrl($route, [
+                'id' => $id,
+                'thread' => $th,
+                //thread to destroy when figure will be created
+                
+            ]);
+            $message->setMessage
+            (
+                "voici le lien, clique et crée ton personnage : ". "<a href=".$link.">lien<a>"
+                );
+            
+            $em->persist($message);
+            $em->persist($thread);
+            $em->flush();
             
             return $this->redirectToRoute('campaign', [
-                'id' => $id
+                'id' => $id,
             ]);
         }
         return $this->render('memberArea/campaign/form_send_campaign_invitation.html.twig',[

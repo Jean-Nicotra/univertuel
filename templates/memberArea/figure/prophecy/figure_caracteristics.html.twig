@@ -11,7 +11,7 @@
 	
 {% endif %}
  
-	----------------- informations de base sur le personnage ----------------
+	----------------- informations de base sur le personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
 		<li><label>taille</label>{{ figure.size }}</li>
@@ -21,7 +21,7 @@
 		<li><label>pays d'origine</label>{{ figure.nation }}</li>
 	</ul>	
 	
-	----------------- caracteristiques du personnage ----------------
+	----------------- caracteristiques du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 
 	<ul>
 	{% for caracteristic in caracteristics %}
@@ -29,7 +29,7 @@
 	{% endfor %}
 	</ul>
 
-	----------------- attributs majeurs du personnage ----------------
+	----------------- attributs majeurs du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	
 	<ul>
 	{% for majorAttribute in majorAttributes %}
@@ -37,7 +37,7 @@
 	{% endfor %}
 	</ul>
 	
-	----------------- attributs mineurs du personnage ----------------
+	----------------- attributs mineurs du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	
 	<ul>
 	{% for minorAttribute in minorAttributes %}
@@ -53,7 +53,7 @@
 	{% endif %}
 	#}
 	
-	----------------- tendences du personnage ----------------
+	----------------- tendences du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	
 	
 	
@@ -72,15 +72,15 @@
 	
 	
 	
-	----------------- inconvenients du personnage ----------------
+	----------------- inconvenients du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 		
 	
-	----------------- avantages du personnage ----------------
+	----------------- avantages du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	
 	
 	{# ATTENTION, SOUCIS AVEC LE MAX wounds il ne correspond pas au max du personnage. IL MANQUE UNE TABLE POUR LE MAX CAMCILE PAR CARACTERISTIQUE #}
 	
-	----------------- blessures du personnage ----------------
+	----------------- blessures du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	<ul>
 	{% for wound in wounds %}
 		<li><label>{{ wound.wound.name }}</label><label>{{ wound.wound.damages }}</label><label>{{ wound.wound.maxWounds }}</label><label>{{ wound.wound.malus }}</label>{{ wound.value }}</li>
@@ -88,24 +88,24 @@
 	</ul>
 	
 	
-	----------------- compétences du personnage ----------------
+	----------------- compétences du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} <a href="{{ path('prophecy_figure_skill_master_edition', {'id': figure.id}) }}">editer</a> {% endif %}
 	<ul>	
 	{% for majorAttribute in majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
-		{% for skillCategory in skillCategories %}
-			{% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %} 
-				{{ skillCategory.name }}
-			{% for skill in skills %}
-		    	{% if skill.skill.skillCategory.name is same as (skillCategory.name) %}
-					<li><label> {{ skill.skill.name }}</label>{{ skill.value }}<label></li>
-		    	{% endif %}
-	    	{% endfor %}
-	    	{% endif %}
+		 {% for skillCategory in skillCategories %} 
+		  {% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %} 
+		     {{ skillCategory.name }} 
+		         {% for skill in skills %}
+			         {% if skill.skill.skillCategory.name is same as (skillCategory.name) %} 
+						<li><label> {{ skill.skill.name }}</label>{{ skill.value }}<label></li>
+			         {% endif %} 
+	    	    {% endfor %} 
+	        {% endif %} 
 		{% endfor %}
 	{% endfor %}
 	</ul>
 	
-		----------------- renommée du personnage ----------------
+		----------------- renommée du personnage ----------------{% if app.user.id == figure.owner.id  %} edition du pro {% elseif app.user.id == figure.campaign.owner.id %} edition MD {% endif %}
 	
 	<ul>renommée
 		<li>{{ figure.reputation }}</li>
