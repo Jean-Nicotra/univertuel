@@ -65,6 +65,7 @@ use App\Entity\Game\Campaign;
 use App\Entity\Game\Prophecy\Game\ProphecySkillCost;
 use App\Form\Game\Prophecy\Figure\InitialiseProphecyFigureArmorFormType;
 use App\Form\Game\Prophecy\Figure\EditProphecyFigureSkillByMasterFormType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWounds;
 
 
 class FigureController extends AbstractController
@@ -91,46 +92,47 @@ class FigureController extends AbstractController
         $user = $this->getUser();        
         $interfaceFigure = new Figure();
         
-        //figureCaracteristics
-        $caracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic');
-        $caracteristics = $caracteristicRepository->findAll();
-        
-        //figureMajorAttribute
-        $majorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
-        $majorAttributes = $majorAttributeRepository->findAll();
-
-        //figureMinorAttribute
-        $minorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute');
-        $minorAttributes = $minorAttributeRepository->findAll();
-        
-        //figureTendency
-        $tendencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency');
-        $tendencies = $tendencyRepository->findAll();
-        
-        //figureSkill
-        $skillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill');
-        $skills = $skillRepository->findAll();
-        
-        //figureWound
-        $woundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound');
-        $wounds = $woundRepository->findAll();
-        
-        //figureDiscipline
-        $disciplineRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline');
-        $disciplines = $disciplineRepository->findAll();
-        
-        //figureSphere
-        $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
-        $spheres = $sphereRepository->findAll();
-        
-        //figureCurrency
-        $currencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyCurrency');
-        $currencies = $currencyRepository->findAll();
-        
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
         $campaign = $campaignRepository->find($id);
         $figure = new ProphecyFigure();
+        
+        //figureCaracteristics
+        $caracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyCaracteristic');
+        $caracteristics = $caracteristicRepository->findBy(['campaign' => $campaign]);
+        
+        //figureMajorAttribute
+        $majorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMajorAttribute');
+        $majorAttributes = $majorAttributeRepository->findBy(['campaign' => $campaign]);
+
+        //figureMinorAttribute
+        $minorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyMinorAttribute');
+        $minorAttributes = $minorAttributeRepository->findBy(['campaign' => $campaign]);
+        
+        //figureTendency
+        $tendencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyTendency');
+        $tendencies = $tendencyRepository->findBy(['campaign' => $campaign]);
+        
+        //figureSkill
+        $skillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkill');
+        $skills = $skillRepository->findBy(['campaign' => $campaign]);
+        
+        //figureWound
+        $woundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound');
+        $wounds = $woundRepository->findBy(['campaign' => $campaign]);
+        
+        //figureDiscipline
+        $disciplineRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecyDiscipline');
+        $disciplines = $disciplineRepository->findBy(['campaign' => $campaign]);
+        
+        //figureSphere
+        $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
+        $spheres = $sphereRepository->findBy(['campaign' => $campaign]);
+        
+        //figureCurrency
+        $currencyRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\World\ProphecyCurrency');
+        $currencies = $currencyRepository->findBy(['campaign' => $campaign]);
+        
         $figure->setOwner($user);
         $figure->setCampaign($campaign);
         //$figure->setXperience(70);	//MODIFIER AVEC POINTS DE DEPARTS EN FONCTION DE L AGE
@@ -197,7 +199,7 @@ class FigureController extends AbstractController
             {
                 $figureWound = new ProphecyFigureWound();
                 $figureWound->setFigure($figure);
-                $figureWound->setWound($wound);
+                $figureWound->setWound(null);
                 $em->persist($figureWound);
                 $em->flush($figureWound);
             }
@@ -386,18 +388,74 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
+        $form =  $this->createForm(InitialiseProphecyFigureBackgroundFormType::class, $figure );
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figure);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('prophecy_figure_view', [
+                'id' => $figure->getId()
+            ]);
+        }
+        
         return $this->render('memberArea/figure/prophecy/figure_background.html.twig', [
             'figure' => $figure,
         ]);
     }
 
+    
+    public function figureEditInitialWounds($id)
+    {
+        $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
+        $figure = $figureRepository->find($id);
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign_id = $figure->getCampaign()->getId();
+        $campaign = $campaignRepository->find($campaign_id);
+        //$res = $figure->getCaracteristics()->getCaracteristic()->getName('resistance')->getValue();
+        //$vol = $figure->getCaracteristics()->getCaracteristic()->getName('volonte')->getValue();
+        $sum = 12;
+        
+        $woundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWounds');
+        //$wounds = $woundRepository->findBy(['campaign' => $campaign]);
+        $wounds = $woundRepository->findByMinMax($sum,$campaign);
+        //$wounds = $woundRepository->findAll(); 
+        $figureWoundRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureWound');
+        $figureWounds = $figureWoundRepository->findBy(['figure' => $figure]);        
+        $i = 0;
+
+        foreach ($figureWounds as $figureWound)
+        {
+            $figureWound->setWound($wounds[$i]);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($figureWound);
+            $entityManager->flush();
+            $i++;
+        }
+        
+        return $this->render('memberArea/figure/prophecy/test.html.twig', [
+            'figure' => $figure, 
+        ]);
+    }
    
     public function figureEditInitialOmen(Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
+        $campaign_id = $figure->getCampaign()->getId();
         
-        $form =  $this->createForm(InitialiseProphecyFigureOmenFormType::class, $figure );
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign = $campaignRepository->find($campaign_id);
+        
+        $omenRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen');
+        $omenList = $omenRepository->findBy(['campaign' => $campaign]); 
+        
+        $form =  $this->createForm(InitialiseProphecyFigureOmenFormType::class, $figure, [
+            'omenList' => $omenList,
+        ] );
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -433,7 +491,11 @@ class FigureController extends AbstractController
         $figure = $figureRepository->find($id);
         $figureCaracteristics = $figureCaracteristicRepository->findByFigure(['figure' => $figure]);
         
-        $form =  $this->createForm(InitialiseProphecyFigureCaracteristicsFormType::class, $figure );
+        $startValues = [7,6,6,5,5,4,4,3];
+        
+        $form =  $this->createForm(InitialiseProphecyFigureCaracteristicsFormType::class, $figure, [
+        ] );
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -452,7 +514,8 @@ class FigureController extends AbstractController
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
             'form' =>$form->createView(), 
             'figure' => $figure, 
-            'figureCaracteristics' => $figureCaracteristics
+            'figureCaracteristics' => $figureCaracteristics,
+            'startValues' => $startValues,
         ]);    
     }
     
@@ -460,9 +523,13 @@ class FigureController extends AbstractController
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
+        $figureMajorAttributeRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureMajorAttribute');
+        $figureMajorAttributes = $figureMajorAttributeRepository->findByFigure(['figure' => $figure]);
         
         $form = $this->createForm(InitialiseProphecyFigureMajorAttributesFormType::class, $figure );
         $form->handleRequest($request);
+        
+        $startValues = [5,4,4,3];
         
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -479,6 +546,7 @@ class FigureController extends AbstractController
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
+            'startValues' => $startValues,
         ]);
     }
     
@@ -489,6 +557,8 @@ class FigureController extends AbstractController
         
         $form = $this->createForm(InitialiseProphecyFigureMinorAttributesFormType::class, $figure );
         $form->handleRequest($request);
+        
+        $startValues = [5,4,4,3];
         
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -505,6 +575,7 @@ class FigureController extends AbstractController
         return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
+            'startValues' => $startValues,
         ]);
     }
     
@@ -513,7 +584,16 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        $form = $this->createForm(InitialiseProphecyFigureCasteFormType::class, $figure);
+        $campaign_id = $figure->getCampaign()->getId();
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign = $campaignRepository->find($campaign_id);
+        
+        $casteRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste');
+        $castes = $casteRepository->findBy(['campaign' => $campaign]);
+        
+        $form = $this->createForm(InitialiseProphecyFigureCasteFormType::class, $figure, [
+            'castes' => $castes,
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -538,9 +618,19 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figureCaracteristicRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigureCaracteristic');
         $figure = $figureRepository->find($id);
+
+        $campaign_id = $figure->getCampaign()->getId();
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        $campaign = $campaignRepository->find($campaign_id);
+        
+        $ageRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge');
+        $ages = $ageRepository->findBy(['campaign' => $campaign]); 
+                
         $caracteristics = $figureCaracteristicRepository->findBy(['figure' => $figure]);
         
-        $form = $this->createForm(InitialiseProphecyFigureAgeFormType::class, $figure);
+        $form = $this->createForm(InitialiseProphecyFigureAgeFormType::class, $figure, [
+            'ages' => $ages,
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -605,7 +695,7 @@ class FigureController extends AbstractController
             
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_nation.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
         ]);
@@ -621,7 +711,8 @@ class FigureController extends AbstractController
 
         
         $prohibitedRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Caste\ProphecyProhibited');
-        $prohibitedsList = $prohibitedRepository->findByCasteCampaign($caste, $campaign);
+        //$prohibitedsList = $prohibitedRepository->findByCasteCampaign($caste, $campaign);
+        $prohibitedsList = $prohibitedRepository->findBy(['campaign' => $campaign, 'caste' => $caste]);
         
         $figureProhibited = new ProphecyFigureProhibited();
         $figureProhibited->setFigure($figure);
@@ -716,7 +807,7 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_disadvantages.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
             'ageDisadvantagesList' => $ageDisadvantagesList
@@ -730,8 +821,7 @@ class FigureController extends AbstractController
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
-        
-        
+              
         $advantageRepository =  $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecyDisadvantage');
         $advantagesList = new ArrayCollection();
         
@@ -758,7 +848,7 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_disadvantages.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
         ]);
@@ -809,13 +899,18 @@ class FigureController extends AbstractController
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
+        $campaign = $figure->getCampaign(); 
+        
         $limitSkillRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\ProphecyStartSkill');
         $figureAge = $figure->getAge();
-        $limitSkill = $limitSkillRepository->findOneBy(['age' => $figureAge]);
+        $limitSkill = $limitSkillRepository->findOneBy([
+            'age' => $figureAge,
+            'campaign' => $campaign,
+        ]);
         $limit = $limitSkill->getValue();
         
         $skillCategoryRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Characteristic\ProphecySkillCategory');
-        $skillCategories = $skillCategoryRepository->findAll();
+        $skillCategories = $skillCategoryRepository->findBy(['campaign' => $campaign]);
         
         $form = $this->createForm(InitialiseProphecyFigureSkillFormType::class, $figure, ['limit' => $limit]);
         $form->handleRequest($request);
@@ -837,6 +932,7 @@ class FigureController extends AbstractController
         }
         
         return $this->render('memberArea/figure/prophecy/initialisation/initialisation_skills.html.twig' ,[
+        //return $this->render('memberArea/figure/prophecy/test.html.twig' ,[
             'form' =>$form->createView(),
             'figure' => $figure,
             'skillCategories' => $skillCategories,
@@ -870,13 +966,18 @@ class FigureController extends AbstractController
     }
     
     
-    /* PB PB PB PB */
     public function figureEditInitialSpheres (Request $request, $id)
     {
         $figureRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Figure\ProphecyFigure');
         $figure = $figureRepository->find($id);
         
-        $form = $this->createForm(InitialiseProphecyFigureSpheresFormType::class, $figure);
+        $campaign = $figure->getCampaign();
+        
+        $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
+        $spheres = $sphereRepository->findBy(['campaign' => $campaign]);
+
+        $form = $this->createForm(InitialiseProphecyFigureSpheresFormType::class, $figure, [
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
@@ -890,9 +991,10 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_spheres.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
+            'spheres' => $spheres,
         ]);
     }
     
@@ -907,8 +1009,12 @@ class FigureController extends AbstractController
         $sphereRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySphere');
         $spellRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
         $prophecySphere = $sphereRepository->find($sphere);
-        $spellsList = $spellRepository->findBySphereCampaign($campaign, $prophecySphere);
-       
+        //$spellsList = $spellRepository->findBySphereCampaign($campaign, $prophecySphere);
+        $spellsList = $spellRepository->findBy([
+            'campaign' => $campaign,
+            'sphere' => $prophecySphere,
+        ]);
+        
         $figureSpell = new ProphecyFigureSpell();
         $figureSpell->setFigure($figure);
         
@@ -928,7 +1034,7 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_spells.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
         ]);
@@ -947,6 +1053,10 @@ class FigureController extends AbstractController
         $spellRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Prophecy\Game\Magic\ProphecySpell');
         $prophecySphere = $sphereRepository->find($sphere);
         $spellsList = $spellRepository->findBySphereCampaign($prophecySphere, $campaign);
+        //$spellsList = $spellRepository->findBy([
+        //    'campaign' => $campaign,
+        //    'sphere' => $prophecySphere,
+        //]);
         
         $figureSpell = new ProphecyFigureSpell();
         $figureSpell->setFigure($figure);
@@ -967,7 +1077,7 @@ class FigureController extends AbstractController
             ]);
         }
         
-        return $this->render('memberArea/figure/prophecy/form_edit_figure_caracteristic.html.twig', [
+        return $this->render('memberArea/figure/prophecy/initialisation/initialisation_spells.html.twig', [
             'form' =>$form->createView(),
             'figure' => $figure,
         ]);
@@ -1216,7 +1326,7 @@ class FigureController extends AbstractController
             //'tendencies' => $tendencies,
             //'skills' => $skills,
             'skillCategories' => $skillcategories,
-            'wounds' => $wounds,
+            //'wounds' => $wounds,
             //'disciplines' => $disciplines,
             //'spheres' => $spheres,
         ]);

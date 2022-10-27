@@ -2,28 +2,35 @@
 
 namespace App\Form\Game\Prophecy\Game\Characteristic;
 
-use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWounds;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use App\Entity\Game\Campaign;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
 
-class ProphecyWoundFormType extends AbstractType
+class ProphecyWoundsFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'blessure',
-            ])
 
-            ->add('malus', IntegerType::class, [
-                'label' => 'malus',
+            ->add('wound', EntityType::class, [
+                'class' => ProphecyWound::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
             ])
+            ->add('minsum', IntegerType::class, [
+                'required' => true,
+            ])
+            ->add('maxsum', IntegerType::class, [
+                'required' => true,
+            ])
+            ->add('wounds', IntegerType::class)
+
             ->add('valider', SubmitType::class)
         ;
     }
@@ -31,7 +38,7 @@ class ProphecyWoundFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProphecyWound::class,
+            'data_class' => ProphecyWounds::class,
         ]);
     }
 }

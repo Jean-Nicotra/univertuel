@@ -5,6 +5,9 @@ namespace App\Entity\Game\Prophecy\Figure;
 use App\Repository\Game\Prophecy\Figure\ProphecyFigureWoundRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWounds;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ProphecyFigureWoundRepository::class)
@@ -19,21 +22,17 @@ class ProphecyFigureWound
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigure", inversedBy="wounds")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figure;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWound")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWounds")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $wound;
+    private $wounds;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $value;
 
     public function getId(): ?int
     {
@@ -52,27 +51,17 @@ class ProphecyFigureWound
         return $this;
     }
 
-    public function getWound(): ?ProphecyWound
+    public function getWounds(): ?ProphecyWounds
     {
-        return $this->wound;
+        return $this->wounds;
     }
 
-    public function setWound(ProphecyWound $wound): self
+    public function setWound(ProphecyWounds $wounds): self
     {
-        $this->wound = $wound;
+        $this->wounds = $wounds;
 
         return $this;
     }
+       
 
-    public function getValue(): ?int
-    {
-        return $this->value;
-    }
-
-    public function setValue(int $value): self
-    {
-        $this->value = $value;
-
-        return $this;
-    }
 }

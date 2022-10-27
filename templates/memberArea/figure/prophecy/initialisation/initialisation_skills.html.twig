@@ -27,26 +27,24 @@
 	Initialisation des compétences de votre personnage
 	
 		<p>experience restante</p> <p id="xp"></p>
-{#		
-{{ form_widget(form.skills[7].skill) }}			{# affiche le nom #}
-{# {{ form_widget(form.skills[0]) }} #}	{# affiche le nom et le champ input #}
-{# {{ form_widget(form.skills[0].value) }} #}	{# affiche le champ input 
-{{ form_widget(form.valider) }}
-{{ form_widget(form.xperience) }}
-#}
+
 
 {{ form_start(form) }}
 
-{% set count = -1 %}
+{% set count = 0 %}
+nb de competences : {{ figure.skills | length }}
 {% for majorAttribute in figure.majorAttributes %}
 		{{ majorAttribute.majorAttribute.name }} 
 		{% for skillCategory in skillCategories %}
 			{% if skillCategory.majorAttribute.name is same as (majorAttribute.majorAttribute.name) %} 
 				{{ skillCategory.name }}
 			{% for skill in figure.skills %}
-		    	{% if skill.skill.skillCategory.name is same as (skillCategory.name) %}
-					{% set count = count + 1 %}					
-{{ form_widget(form.skills[count]) }}
+		    	{% if skill.skill.skillCategory.name is same as (skillCategory.name) %}				
+		    	{# {{ form_widget(form.skills[count]) }}  #}
+		    	{{ form_widget(form.skills[count]) }}
+		    		{% if count < figure.skills | length %}
+                    {% set count = count + 1 %}
+                    {% endif %}	
 		    	{% endif %}
 	    	{% endfor %}
 	    	{% endif %}
@@ -57,20 +55,7 @@
 {{ form_widget(form.xperience) }}
 
 {{ form_end(form) }}
-	{#
-
-	<form name="initialise_prophecy_figure_skill_form" method="post">
-		<div id="initialise_prophecy_figure_skill_form">
-			<div><label class="required">competences</label><div id="initialise_prophecy_figure_skill_form_skills" data-prototype="&lt;div&gt;&lt;div id=&quot;initialise_prophecy_figure_skill_form_skills___name__&quot;&gt;&lt;div&gt;&lt;input type=&quot;text&quot; id=&quot;initialise_prophecy_figure_skill_form_skills___name___skill&quot; name=&quot;initialise_prophecy_figure_skill_form[skills][__name__][skill]&quot; disabled=&quot;disabled&quot; required=&quot;required&quot; /&gt;&lt;/div&gt;&lt;div&gt;&lt;input type=&quot;number&quot; id=&quot;initialise_prophecy_figure_skill_form_skills___name___value&quot; name=&quot;initialise_prophecy_figure_skill_form[skills][__name__][value]&quot; required=&quot;required&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;"><div><div id="initialise_prophecy_figure_skill_form_skills_0"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_0_skill" name="initialise_prophecy_figure_skill_form[skills][0][skill]" disabled="disabled" required="required" value="armes articulées" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_0_value" name="initialise_prophecy_figure_skill_form[skills][0][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_1"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_1_skill" name="initialise_prophecy_figure_skill_form[skills][1][skill]" disabled="disabled" required="required" value="armes contondantes" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_1_value" name="initialise_prophecy_figure_skill_form[skills][1][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_2"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_2_skill" name="initialise_prophecy_figure_skill_form[skills][2][skill]" disabled="disabled" required="required" value="armes de choc" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_2_value" name="initialise_prophecy_figure_skill_form[skills][2][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_3"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_3_skill" name="initialise_prophecy_figure_skill_form[skills][3][skill]" disabled="disabled" required="required" value="acrobatie" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_3_value" name="initialise_prophecy_figure_skill_form[skills][3][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_4"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_4_skill" name="initialise_prophecy_figure_skill_form[skills][4][skill]" disabled="disabled" required="required" value="athletisme" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_4_value" name="initialise_prophecy_figure_skill_form[skills][4][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_5"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_5_skill" name="initialise_prophecy_figure_skill_form[skills][5][skill]" disabled="disabled" required="required" value="equitation" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_5_value" name="initialise_prophecy_figure_skill_form[skills][5][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_6"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_6_skill" name="initialise_prophecy_figure_skill_form[skills][6][skill]" disabled="disabled" required="required" value="escalade" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_6_value" name="initialise_prophecy_figure_skill_form[skills][6][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_7"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_7_skill" name="initialise_prophecy_figure_skill_form[skills][7][skill]" disabled="disabled" required="required" value="castes" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_7_value" name="initialise_prophecy_figure_skill_form[skills][7][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_8"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_8_skill" name="initialise_prophecy_figure_skill_form[skills][8][skill]" disabled="disabled" required="required" value="connaissance de la magie" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_8_value" name="initialise_prophecy_figure_skill_form[skills][8][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_9"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_9_skill" name="initialise_prophecy_figure_skill_form[skills][9][skill]" disabled="disabled" required="required" value="connaissance des animaux" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_9_value" name="initialise_prophecy_figure_skill_form[skills][9][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_10"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_10_skill" name="initialise_prophecy_figure_skill_form[skills][10][skill]" disabled="disabled" required="required" value="alchimie" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_10_value" name="initialise_prophecy_figure_skill_form[skills][10][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_11"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_11_skill" name="initialise_prophecy_figure_skill_form[skills][11][skill]" disabled="disabled" required="required" value="astrologie" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_11_value" name="initialise_prophecy_figure_skill_form[skills][11][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_12"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_12_skill" name="initialise_prophecy_figure_skill_form[skills][12][skill]" disabled="disabled" required="required" value="armes de siege" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_12_value" name="initialise_prophecy_figure_skill_form[skills][12][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_13"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_13_skill" name="initialise_prophecy_figure_skill_form[skills][13][skill]" disabled="disabled" required="required" value="artisanat" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_13_value" name="initialise_prophecy_figure_skill_form[skills][13][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_14"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_14_skill" name="initialise_prophecy_figure_skill_form[skills][14][skill]" disabled="disabled" required="required" value="armes a projectile" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_14_value" name="initialise_prophecy_figure_skill_form[skills][14][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_15"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_15_skill" name="initialise_prophecy_figure_skill_form[skills][15][skill]" disabled="disabled" required="required" value="attelages" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_15_value" name="initialise_prophecy_figure_skill_form[skills][15][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_16"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_16_skill" name="initialise_prophecy_figure_skill_form[skills][16][skill]" disabled="disabled" required="required" value="baratin" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_16_value" name="initialise_prophecy_figure_skill_form[skills][16][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_17"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_17_skill" name="initialise_prophecy_figure_skill_form[skills][17][skill]" disabled="disabled" required="required" value="conte" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_17_value" name="initialise_prophecy_figure_skill_form[skills][17][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_18"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_18_skill" name="initialise_prophecy_figure_skill_form[skills][18][skill]" disabled="disabled" required="required" value="art de la scene" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_18_value" name="initialise_prophecy_figure_skill_form[skills][18][value]" required="required" value="0" /></div></div></div><div><div id="initialise_prophecy_figure_skill_form_skills_19"><div><input type="text" id="initialise_prophecy_figure_skill_form_skills_19_skill" name="initialise_prophecy_figure_skill_form[skills][19][skill]" disabled="disabled" required="required" value="commandement" /></div><div><input type="number" id="initialise_prophecy_figure_skill_form_skills_19_value" name="initialise_prophecy_figure_skill_form[skills][19][value]" required="required" value="0" /></div></div></div></div></div><div><button type="submit" id="initialise_prophecy_figure_skill_form_valider" name="initialise_prophecy_figure_skill_form[valider]">Valider</button></div><input type="hidden" id="initialise_prophecy_figure_skill_form__token" name="initialise_prophecy_figure_skill_form[_token]" value="CgF0xgmTs2L0h2l8wk3GUa1Umu9alE6dDsICHwBjW48" />
-		</div>
-	</form>
-	
-	
-	{% for skill in skills %}
-		{{ skill.skill.name }}
-	{% endfor %}
-	#}
-	
+		
 	
 	
 	{% endblock %}
@@ -79,7 +64,7 @@
 
 </div>
 <script>
-
+/* ATTENTION, ON A OUBLIE DE GERER LA LIMITE DE SKILL A LA CREATION QUI DEPEND DE L AGE */
 
 function initialisation()
 {

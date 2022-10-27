@@ -18,8 +18,8 @@ class InitialiseProphecyFigureArmorFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        //->add('comment', TextareaType::class)
-        ->add('armors', CollectionType::class,
+
+            ->add('armors', CollectionType::class,
             [
                 'entry_type' => AddProphecyFigureArmorFormType::class,
                 'allow_add' => true,
@@ -28,7 +28,6 @@ class InitialiseProphecyFigureArmorFormType extends AbstractType
                     'label' => false 
                 ]
             ])
-   
             
             ->add('valider', SubmitType::class)
 

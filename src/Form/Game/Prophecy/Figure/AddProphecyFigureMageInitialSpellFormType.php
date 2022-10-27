@@ -18,15 +18,7 @@ class AddProphecyFigureMageInitialSpellFormType extends AbstractType
         $spellsList = $options['spellsList'];
         
         $builder
-            /*
-            ->add('spell', EntityType::class, [
-                'label' => 'sortimlège',
-                'class' => ProphecySpell::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-            ])
-            */
+
             ->add('spell', ChoiceType::class, [
                 'label' => 'spell',
                 'choices' => $spellsList,

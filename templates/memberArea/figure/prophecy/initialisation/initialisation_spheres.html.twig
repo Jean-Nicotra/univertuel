@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+      <link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+      <style>
+      	.notVisible
+      	{
+      		display:none;
+      	}
+      </style>
+{% endblock %}
+
+
+
+
+
+
+{% block body %}
+
+<div id="main_layout">
+
+	{% include 'header.html.twig' %}
+	
+	{% block main_content %}
+	
+	Initialisation des sphères de magie de votre personnage
+	
+		XP<p id="xp"></p>
+
+{{ form_start(form) }}
+
+{% set count = 0 %}
+
+<ul>
+{% for item in figure.spheres %}
+    <li>{{ form_widget(form.spheres[count]) }} <button>{{ item.sphere.name }}</button><p>{{ item.sphere.description }}</p></li>
+    {% if count < figure.spheres|length %}
+        {% set count = count+1 %}
+    {% endif %}
+
+{% endfor %}
+</ul>
+
+{{ form_widget(form.xperience) }}
+{{ form_widget(form.valider) }}
+
+
+{{ form_end(form) }}
+
+
+	
+	{% endblock %}
+	
+	{% include 'footer.html.twig' %}
+
+</div>
+<script>
+
+
+function initialisation()
+{
+	let elts = document.getElementsByClassName('inputSphere');
+
+	for(let i = 0 ; i < elts.length ; i++)
+    {
+    	let lastValue = elts[i].getAttribute('lastvalue');
+    	let value = elts[i].getAttribute('value');
+    	elts[i].setAttribute('lastvalue', value);
+    }
+}
+window.addEventListener('load', initialisation);
+
+function modif()
+{
+	let xperience = document.getElementById("initialise_prophecy_figure_spheres_form_xperience").value;
+	let maxValue = parseInt(this.getAttribute('maxvalue'));
+	let value = this.value;
+	let lastValue = parseInt (this.getAttribute('lastvalue'));
+	
+	if(value > maxValue)
+	{
+		alert('cas 1');
+		alert("vous avez atteint la valeur maximale autorisée a la creation");
+		this.value -= 1;
+	}
+	
+	if(value < 0)
+	{
+		alert('cas 2');
+		alert("vous ne pouvez descendre en dessous de 0");
+		this.value = 0;
+	}
+
+	//augmentation d'une competence
+	if(parseInt(xperience) > 0 && parseInt(value) > parseInt(lastValue) )
+	{
+		alert('cas 3');
+		xperience = parseInt(xperience)-parseInt(value);	
+		document.getElementById("initialise_prophecy_figure_spheres_form_xperience").value = xperience;
+		lastValue++;
+		this.setAttribute('lastvalue', lastValue);
+		document.getElementById("xp").innerHTML = document.getElementById("initialise_prophecy_figure_spheres_form_xperience").value
+	}
+	
+	//diminution d'une competence
+	if (parseInt(xperience)-parseInt(value) > 0 && parseInt(value) < parseInt(lastValue))
+	{
+		alert('cas 4');
+		alert("experience  - value "+  xperience-value);
+		xperience = parseInt(xperience) + parseInt(lastValue);
+		document.getElementById("initialise_prophecy_figure_spheres_form_xperience").value = xperience;
+		lastValue--;
+		this.setAttribute('lastvalue', lastValue); 
+		document.getElementById("xp").innerHTML = document.getElementById("initialise_prophecy_figure_spheres_form_xperience").value
+	}
+	
+	//depassement de l'experience disponible
+	if(parseInt(xperience)-parseInt(value) < 0)
+	{
+		alert('cas 5');
+		alert("vous n'avez pas assez d'experience");
+		this.value -= 1;	
+	}
+	alert(" lastvalue "+lastValue);
+}
+
+let elts = document.getElementsByClassName('inputSphere');
+for(let i = 0 ; i < elts.length ; i++)
+{
+	elts[i].addEventListener('change', modif);
+}
+
+document.getElementById("xp").innerHTML = document.getElementById("initialise_prophecy_figure_spheres_form_xperience").value
+
+
+
+</script>
+
+
+{% endblock %}

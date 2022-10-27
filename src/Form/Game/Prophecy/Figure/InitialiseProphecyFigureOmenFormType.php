@@ -9,20 +9,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyOmen;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class InitialiseProphecyFigureOmenFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $omenList = $options['omenList'];
+        
         $builder
-            ->add('omen', EntityType::class,
-                [
-                    'label' => 'augure',
-                    'class' => ProphecyOmen::class,
-                    'choice_label' => 'name',
-                    'multiple' => false,
-                    'expanded' => false,         
-                ])
+
+            ->add('omen', ChoiceType::class, [
+                'label' => 'interdit',
+                'choices' => $omenList,
+                'choice_label' => 'name',
+        ])
             ->add('valider', SubmitType::class)
         ;           
     }
@@ -32,5 +33,6 @@ class InitialiseProphecyFigureOmenFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigure::class,
         ]);
+        $resolver->setRequired('omenList');
     }
 }

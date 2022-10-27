@@ -26,13 +26,7 @@ class AddProphecyFigureDisadvantageFormType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ])
-            /*
-            >add('disadvantage', ChoiceType::class, [
-                'label' => 'désavantage',
-                'choices' => $prohibiteds,
-                'choice_label' => 'name',
-            ])
-            */
+
             ->add('comment', TextType::class, [
                 'required' => false,
             ])

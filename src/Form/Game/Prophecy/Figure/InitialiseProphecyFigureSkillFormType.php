@@ -25,7 +25,7 @@ class InitialiseProphecyFigureSkillFormType extends AbstractType
             'label' => 'competences',
             'entry_options' => [
                 'label' => false, 
-                'limit' => $limit 
+                'limit' => $limit, 
             ],
             
         ])

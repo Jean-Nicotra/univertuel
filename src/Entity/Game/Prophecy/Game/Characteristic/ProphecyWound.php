@@ -24,16 +24,6 @@ class ProphecyWound
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $damages;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $maxWounds;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $malus;
@@ -57,30 +47,6 @@ class ProphecyWound
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDamages(): ?string
-    {
-        return $this->damages;
-    }
-
-    public function setDamages(string $damages): self
-    {
-        $this->damages = $damages;
-
-        return $this;
-    }
-
-    public function getMaxWounds(): ?int
-    {
-        return $this->maxWounds;
-    }
-
-    public function setMaxWounds(int $maxWounds): self
-    {
-        $this->maxWounds = $maxWounds;
 
         return $this;
     }

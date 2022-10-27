@@ -9,17 +9,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Caste\ProphecyCaste;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class InitialiseProphecyFigureCasteFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $castes = $options['castes'];
+        
         $builder
-            ->add('caste', EntityType::class, [
-                'class' => ProphecyCaste::class,
+            ->add('caste', ChoiceType::class, [
                 'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
+                'label' => 'caste',
+                'choices' => $castes,
+
             ])
             ->add('valider', SubmitType::class)
 
@@ -31,5 +34,6 @@ class InitialiseProphecyFigureCasteFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigure::class,
         ]);
+        $resolver->setRequired('castes');
     }
 }

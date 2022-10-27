@@ -14,6 +14,7 @@ class EditProphecyFigureSphereFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $limit = 14;
         $builder
         ->add('sphere', TextType::class, [
             'label' => false, 'disabled' => true
@@ -21,6 +22,11 @@ class EditProphecyFigureSphereFormType extends AbstractType
         ])
         ->add('value', IntegerType::class, [
             'label' => false,
+            'attr' => [
+                'class' => 'inputSphere',
+                'lastvalue' => 0,
+                'maxValue' => $limit,
+            ],
         ])
         ;
     }

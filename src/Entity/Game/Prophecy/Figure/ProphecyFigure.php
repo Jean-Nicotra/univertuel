@@ -257,6 +257,12 @@ class ProphecyFigure implements FigureInterface
      */
     private $prohibiteds;
     
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Game\Prophecy\Figure\ProphecyFigureWound", mappedBy="figure")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $wounds;
+    
     
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -335,6 +341,24 @@ class ProphecyFigure implements FigureInterface
     
 
    
+
+    /**
+     * 
+     */
+    public function getWounds()
+    {
+        return $this->wounds;
+    }
+
+    /**
+     * 
+     */
+    public function setWounds($wounds)
+    {
+        $this->wounds = $wounds;
+        
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -461,6 +485,7 @@ class ProphecyFigure implements FigureInterface
         $this->caracteristics = new ArrayCollection();
         $this->minorAttributes = new ArrayCollection();
         $this->majorAttributes = new ArrayCollection();
+        $this->wounds = new ArrayCollection();
         $this->setXperience(70);
         $this->setFreePoints(2);
         $this->setIsCaracteristicsChoosen(false);
@@ -487,7 +512,7 @@ class ProphecyFigure implements FigureInterface
     /**
      * @return mixed
      */
-    public function getSize(): ?int
+    public function getSize(): ?string
     {
         return $this->size;
     }
@@ -503,7 +528,7 @@ class ProphecyFigure implements FigureInterface
     /**
      * @param mixed $weight
      */
-    public function setWeight(int $weight): self
+    public function setWeight(string $weight): self
     {
         $this->weight = $weight;
         
@@ -513,7 +538,7 @@ class ProphecyFigure implements FigureInterface
     /**
      * @param mixed $size
      */
-    public function setSize(int $size): self
+    public function setSize(string $size): self
     {
         $this->size = $size;
         

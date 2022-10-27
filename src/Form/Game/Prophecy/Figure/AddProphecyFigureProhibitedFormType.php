@@ -22,7 +22,9 @@ class AddProphecyFigureProhibitedFormType extends AbstractType
             'choices' => $prohibiteds,
             'choice_label' => 'name',
         ])
-            ->add('comment', TextType::class)
+            ->add('comment', TextType::class, [
+                'required' => false,
+            ])
             
             ->add('valider', SubmitType::class)
 

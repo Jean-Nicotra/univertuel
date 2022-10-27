@@ -295,6 +295,10 @@ prophecy_create_wound:
     path: /{role}/campaign/{id}/prophecy/new-wound
     controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newWound      
     
+prophecy_create_wounds:
+    path: /{role}/campaign/{id}/prophecy/new-wounds
+    controller: App\Controller\Game\Prophecy\Game\Characteristic\CharacteristicController::newWounds 
+    
     
 prophecy_create_age_disadvantage:
     path: /{role}/campaign/{id}/prophecy/new-age-disadvantage
@@ -481,8 +485,10 @@ prophecy_figure_master_validation:
     path: /member/figure/{id}/figure-master-validation
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureMasterValidation
 
+prophecy_edit_initial_wounds:
+    path: /member/figure/{id}/figure-edit-initial-wounds
+    controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialWounds
 
-    
 formulaire:
     path: /form/{id}
     controller: App\Controller\Game\Prophecy\Figure\FigureController:figureEditInitialCaracteristicTest

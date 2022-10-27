@@ -40,6 +40,8 @@ use App\Form\Game\Prophecy\Game\Characteristic\ProphecyModifierCaracteristicByAg
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantage;
 use App\Form\Game\Prophecy\Game\Characteristic\ProphecyAgeDisadvantageFormType;
 use App\Entity\Game\Prophecy\Figure\ProphecyFigureSkill;
+use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyWounds;
+use App\Form\Game\Prophecy\Game\Characteristic\ProphecyWoundsFormType;
 
 
 class CharacteristicController extends AbstractController
@@ -939,6 +941,81 @@ class CharacteristicController extends AbstractController
             ]);
         }
     }
+    
+    
+    /**
+     * role: display the form to create max wounds for a figure in Prophecy game
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function newWounds(Request $request, $role, $id)
+    {
+        $title = "seuils de blessures maximales";
+        $wounds = new ProphecyWounds();
+        
+        $campaign = null;
+        $campaignRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Campaign');
+        if($id == 0)
+        {
+            $campaign = null;
+        }
+        
+        else
+        {
+            $campaign = $campaignRepository->find($id);
+        }
+        $wounds->setCampaign($campaign);
+        $route = null;
+        
+        $gameRepository = $this->getDoctrine()->getRepository('App\Entity\Game\Game');
+        $games = $gameRepository->findAll();
+        
+        $form = $this->createForm(ProphecyWoundsFormType::class, $wounds);
+        
+        //return to admin create content Prophecy if ok
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-wounds' )
+        {
+            $route = 'setup_prophecy';
+            
+        }
+        
+        //return to campaign owner create content Prophecy if ok
+        else
+        {
+            $route = 'campaign';
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($wounds);
+            $entityManager->flush();
+            
+            //return to admin create content Prophecy if ok
+            return $this->redirectToRoute($route, ['id' => $id]);
+        }
+        
+        if($request->getPathInfo() == '/admin/campaign/'.$id.'/prophecy/new-wounds')
+        {
+            return $this->render('memberArea/admin/game/prophecy/create_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'games' => $games,
+            ]);
+        }
+        else
+        {
+            return $this->render('memberArea/campaign/prophecy/campaign_form_component.html.twig', [
+                'form' =>$form->createView(),
+                'title' => $title,
+                'campaign' => $campaign,
+            ]);
+        }
+    }
+    
     
     public function newModifierAgeCaracteristic(Request $request, $role, $id)
     {

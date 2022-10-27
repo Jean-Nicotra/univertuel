@@ -9,20 +9,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Game\Prophecy\Game\Characteristic\ProphecyAge;
+use Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class InitialiseProphecyFigureAgeFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $ages = $options['ages'];
+        
         $builder
-            ->add('age', EntityType::class, [
-                'class' => ProphecyAge::class,
+            ->add('age', ChoiceType::class, [
+                'label' => 'age',
                 'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
+                'choices' => $ages,
             ])
+            
             ->add('valider', SubmitType::class)
-
         ;
     }
 
@@ -31,5 +34,7 @@ class InitialiseProphecyFigureAgeFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProphecyFigure::class,
         ]);
+        
+        $resolver->setRequired('ages');
     }
 }

@@ -14,8 +14,6 @@
     	<p>----------------- informations de base sur le personnage ----------------</p>
 	<ul>
 		<li><label>nom: </label>{{ figure.name }}</li>
-		<li><label>taille</label>{{ figure.size }}</li>
-		<li><label>poids</label>{{ figure.weight }}</li>
 	</ul>
 		
 		----------------- augure du personnage ----------------
@@ -196,8 +194,11 @@ endif %}	</ul>
 	
 	----------------- blessures du personnage ----------------
 	<ul>
-	{% for wound in wounds %}
-		<li><label>{{ wound.wound.name }}</label><label>{{ wound.wound.damages }}</label><label>{{ wound.wound.maxWounds }}</label><label>{{ wound.wound.malus }}</label>{{ wound.value }}</li>
+		<li><label>tendances</label>cliquer ici pour déterminer vos tendances<a href ="{{ path('prophecy_edit_initial_wounds', {'id': figure.id}) }}">edit</a></li> 
+    {% for wounds in figure.wounds %}
+		<li><label>{{ wounds.wounds.wound.name }}</label><label>{{ wounds.wounds.wounds }}</label>
+		<label>malus</label>{{ wounds.wounds.wound.malus }}
+		</li>
 	{% endfor %}
 	</ul>
 	
@@ -315,6 +316,11 @@ endif %}	</ul>
 		<li><a href ="">cliquez ici pour acquérir un equipement divers de base</a></li>
 	</ul>
 	
+	
+	--------- historique personnage ------------
+	<ul>
+		<li>cliquer ici pour créer le background du personnage<a href="{{ path('prophecy_figure_edit_initial_background', {'id': figure.id}) }}">editer</a></li>
+	</ul>
 	--------- fonction test ------------
 	
 	<ul>TEST

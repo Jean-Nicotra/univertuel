@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+      <link href="{{ asset('style/base_template.css') }}" rel="stylesheet" media="all" >   
+      {#<link rel='stylesheet' media='screen and (min-width: 701px)' href='medium.css' />#}
+      <style>
+      	.notVisible
+      	{
+      		display:none;
+      	}
+      </style>
+{% endblock %}
+
+
+
+
+
+
+{% block body %}
+
+<div id="main_layout">
+
+	{% include 'header.html.twig' %}
+	
+	{% block main_content %}
+	
+	Initialisation de la nation d'origine de votre personnage
+	
+
+
+	{{ form(form) }}
+
+	
+	{% endblock %}
+	
+	{% include 'footer.html.twig' %}
+
+</div>
+<script>
+
+function selected ()
+{
+	
+	let index = this.selectedIndex;
+    let armorList = document.getElementById('armors_list');
+    let armors = armorList.getElementsByTagName('li');
+    let armor = armors[index];
+    document.getElementById('armor_name').innerHTML = armor.getAttribute('name');
+    document.getElementById('armor_category').innerHTML = armor.getAttribute('category');
+    document.getElementById('armor_weight').innerHTML = armor.getAttribute('weight');
+    document.getElementById('armor_city_price').innerHTML = armor.getAttribute('cityprice');
+    document.getElementById('armor_village_price').innerHTML = armor.getAttribute('villageprice');
+    document.getElementById('armor_protection').innerHTML = armor.getAttribute('protection');
+    document.getElementById('armor_penalty').innerHTML = armor.getAttribute('penalty');
+    document.getElementById('armor_material').innerHTML = armor.getAttribute('material');
+    document.getElementById('armor_description').innerHTML = armor.getAttribute('description');
+    
+}
+
+//display first armor
+let armorList = document.getElementById('armors_list');
+let armors = armorList.getElementsByTagName('li');
+let armor = armors[0];
+document.getElementById('armor_name').innerHTML = armor.getAttribute('name');
+document.getElementById('armor_category').innerHTML = armor.getAttribute('category');
+document.getElementById('armor_weight').innerHTML = armor.getAttribute('weight');
+document.getElementById('armor_city_price').innerHTML = armor.getAttribute('cityprice');
+document.getElementById('armor_village_price').innerHTML = armor.getAttribute('villageprice');
+document.getElementById('armor_protection').innerHTML = armor.getAttribute('protection');
+document.getElementById('armor_penalty').innerHTML = armor.getAttribute('penalty');
+document.getElementById('armor_material').innerHTML = armor.getAttribute('material');
+document.getElementById('armor_description').innerHTML = armor.getAttribute('description');
+
+let select = document.querySelector('select');
+select.addEventListener('change', selected);
+
+
+</script>
+
+
+{% endblock %}

@@ -115,4 +115,9 @@ class ProphecyFigureSphere
 
         return $this;
     }
+    
+    public function __toString()
+    {
+        return $this->sphere->getName();
+    }
 }
